@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Forms">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files\Shop">
+      <UniqueIdentifier>{a166b9dc-583c-4575-856c-0d0b5f855eda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyClasses">
+      <UniqueIdentifier>{b5a008d7-907f-49bc-ab44-83e3f9a40644}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyClasses\Shop">
+      <UniqueIdentifier>{4d93a9fd-1c7b-4c0f-a71a-af1ac3162847}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyClasses\BackEnd">
+      <UniqueIdentifier>{f64729a4-b53e-4bfa-8abe-744b08b90405}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyClasses\FrontEnd">
+      <UniqueIdentifier>{82e43738-f811-4634-aa0a-1dee7ee97be6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\FrontEnd">
+      <UniqueIdentifier>{1211ae08-2957-4c0f-83d0-4e5fd5032b35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\BackEnd">
+      <UniqueIdentifier>{4b2c41eb-69bb-48d0-9bd9-4a19ab3fd8d2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="FormAdminMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FormClientMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FormProfile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FormShop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FormSettings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FormStartUp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FormLogIn.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FormLogUp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FormResetAccount.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FormEditions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FormCart.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FormPrompt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FormClients.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FormPromptAddEdition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Cart.cpp">
+      <Filter>Resource Files\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="Book.cpp">
+      <Filter>Resource Files\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="Edition.cpp">
+      <Filter>Resource Files\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="Newspaper.cpp">
+      <Filter>Resource Files\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="Magazine.cpp">
+      <Filter>Resource Files\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="RGBColors.cpp">
+      <Filter>Resource Files\FrontEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="DBQuery.cpp">
+      <Filter>Resource Files\BackEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Mailer.cpp">
+      <Filter>Resource Files\BackEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Account.cpp">
+      <Filter>Resource Files\BackEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Admin.cpp">
+      <Filter>Resource Files\BackEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Client.cpp">
+      <Filter>Resource Files\BackEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Person.cpp">
+      <Filter>Resource Files\BackEnd</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FormAdminMenu.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="FormClientMenu.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="FormProfile.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="FormShop.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="FormSettings.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="FormStartUp.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="FormLogIn.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="FormLogUp.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="FormResetAccount.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="FormEditions.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="FormCart.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="FormPrompt.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="FormClients.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="FormPromptAddEdition.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="Book.h">
+      <Filter>MyClasses\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="Cart.h">
+      <Filter>MyClasses\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="Edition.h">
+      <Filter>MyClasses\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="Magazine.h">
+      <Filter>MyClasses\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="Newspaper.h">
+      <Filter>MyClasses\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="DBQuery.h">
+      <Filter>MyClasses\BackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Mailer.h">
+      <Filter>MyClasses\BackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="RGBColors.h">
+      <Filter>MyClasses\FrontEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Account.h">
+      <Filter>MyClasses\BackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Admin.h">
+      <Filter>MyClasses\BackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Client.h">
+      <Filter>MyClasses\BackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Person.h">
+      <Filter>MyClasses\BackEnd</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
