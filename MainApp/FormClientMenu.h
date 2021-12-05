@@ -2,10 +2,9 @@
 
 #include "RGBColors.h"
 #include "FormProfile.h"
-#include "FormCart.h"
 #include "FormShop.h"
 #include "FormSettings.h"
-#include "DBQuery.h"
+#include "Shop.h"
 
 namespace MainApp {
 
@@ -26,10 +25,14 @@ namespace MainApp {
 	/// <summary>
 	/// Summary for FormClientMenu
 	/// </summary>
+
 	public ref class FormClientMenu : public System::Windows::Forms::Form
 	{
 	public:
-		String^ login;
+		FormClientMenu(void)
+		{
+			InitializeComponent();
+		}
 		FormClientMenu(String^ login)
 		{
 			InitializeComponent();
@@ -38,7 +41,8 @@ namespace MainApp {
 			leftBorderBtn->Size = System::Drawing::Size(7, 60);
 			PanelMenu->Controls->Add(leftBorderBtn);
 		}
-
+		String^ login;
+		Shop^ shop;
 	protected:
 		/// <summary>
 		/// Clean up any resources being used.
@@ -51,39 +55,35 @@ namespace MainApp {
 			}
 		}
 	private: System::Windows::Forms::Panel^ PanelMenu;
-	private: System::Windows::Forms::Button^ Profile;
+	private: System::Windows::Forms::Button^ btnProfile;
 	private: System::Windows::Forms::Panel^ PanelLogo;
 	private: System::Windows::Forms::PictureBox^ imgHome;
 	private: System::Windows::Forms::ImageList^ imageList1;
-	private: System::Windows::Forms::Button^ Settings;
-	private: System::Windows::Forms::Button^ Cart;
-	private: System::Windows::Forms::Button^ Shop;
+	private: System::Windows::Forms::Button^ btnSettings;
+	private: System::Windows::Forms::Button^ btnShop;
 	private: System::Windows::Forms::Panel^ PanelTitleBar;
 	private: System::Windows::Forms::Label^ lblFormTitle;
 	private: System::Windows::Forms::PictureBox^ IconCurrentForm;
 	private: System::Windows::Forms::Button^ currentBtn;
-	private: System::Windows::Forms::Button^ Exit;
+	private: System::Windows::Forms::Button^ btnLogOut;
 	private: System::Windows::Forms::Panel^ leftBorderBtn;
 	private: System::Windows::Forms::Panel^ PanelDesktop;
 	private: System::ComponentModel::IContainer^ components;
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
-
-
-
 	private: System::Windows::Forms::Label^ lblCurrentTime;
-
 	private: System::Windows::Forms::Timer^ CurrentTime;
 	private: System::Windows::Forms::Panel^ panelControls;
 	private: System::Windows::Forms::Button^ btnExit;
 	private: System::Windows::Forms::Button^ btnMinimize;
-	private: Form^ currentChildForm;
+	private: System::Windows::Forms::Panel^ PanelCart;
+	private: System::Windows::Forms::Button^ btnCart;
+	public: static System::Windows::Forms::Label^ lblCounterProducts;
+	private: System::Windows::Forms::Form^ currentChildForm;
 	protected:
 	private:
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-
-
 #pragma region Windows Form Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -94,15 +94,17 @@ namespace MainApp {
 			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(FormClientMenu::typeid));
 			this->PanelMenu = (gcnew System::Windows::Forms::Panel());
-			this->Exit = (gcnew System::Windows::Forms::Button());
+			this->btnLogOut = (gcnew System::Windows::Forms::Button());
 			this->imageList1 = (gcnew System::Windows::Forms::ImageList(this->components));
-			this->Settings = (gcnew System::Windows::Forms::Button());
-			this->Cart = (gcnew System::Windows::Forms::Button());
-			this->Shop = (gcnew System::Windows::Forms::Button());
-			this->Profile = (gcnew System::Windows::Forms::Button());
+			this->btnSettings = (gcnew System::Windows::Forms::Button());
+			this->btnShop = (gcnew System::Windows::Forms::Button());
+			this->btnProfile = (gcnew System::Windows::Forms::Button());
 			this->PanelLogo = (gcnew System::Windows::Forms::Panel());
 			this->imgHome = (gcnew System::Windows::Forms::PictureBox());
 			this->PanelTitleBar = (gcnew System::Windows::Forms::Panel());
+			this->PanelCart = (gcnew System::Windows::Forms::Panel());
+			this->btnCart = (gcnew System::Windows::Forms::Button());
+			this->lblCounterProducts = (gcnew System::Windows::Forms::Label());
 			this->lblFormTitle = (gcnew System::Windows::Forms::Label());
 			this->IconCurrentForm = (gcnew System::Windows::Forms::PictureBox());
 			this->PanelDesktop = (gcnew System::Windows::Forms::Panel());
@@ -116,6 +118,7 @@ namespace MainApp {
 			this->PanelLogo->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->imgHome))->BeginInit();
 			this->PanelTitleBar->SuspendLayout();
+			this->PanelCart->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->IconCurrentForm))->BeginInit();
 			this->PanelDesktop->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
@@ -126,40 +129,39 @@ namespace MainApp {
 			// 
 			this->PanelMenu->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(31)), static_cast<System::Int32>(static_cast<System::Byte>(30)),
 				static_cast<System::Int32>(static_cast<System::Byte>(68)));
-			this->PanelMenu->Controls->Add(this->Exit);
-			this->PanelMenu->Controls->Add(this->Settings);
-			this->PanelMenu->Controls->Add(this->Cart);
-			this->PanelMenu->Controls->Add(this->Shop);
-			this->PanelMenu->Controls->Add(this->Profile);
+			this->PanelMenu->Controls->Add(this->btnLogOut);
+			this->PanelMenu->Controls->Add(this->btnSettings);
+			this->PanelMenu->Controls->Add(this->btnShop);
+			this->PanelMenu->Controls->Add(this->btnProfile);
 			this->PanelMenu->Controls->Add(this->PanelLogo);
 			this->PanelMenu->Dock = System::Windows::Forms::DockStyle::Left;
-			this->PanelMenu->Location = System::Drawing::Point(0, 25);
+			this->PanelMenu->Location = System::Drawing::Point(0, 31);
 			this->PanelMenu->Name = L"PanelMenu";
-			this->PanelMenu->Size = System::Drawing::Size(220, 873);
+			this->PanelMenu->Size = System::Drawing::Size(220, 867);
 			this->PanelMenu->TabIndex = 0;
 			// 
-			// Exit
+			// btnLogOut
 			// 
-			this->Exit->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->Exit->Dock = System::Windows::Forms::DockStyle::Bottom;
-			this->Exit->FlatAppearance->BorderSize = 0;
-			this->Exit->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->Exit->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->btnLogOut->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnLogOut->Dock = System::Windows::Forms::DockStyle::Bottom;
+			this->btnLogOut->FlatAppearance->BorderSize = 0;
+			this->btnLogOut->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnLogOut->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->Exit->ForeColor = System::Drawing::Color::Gainsboro;
-			this->Exit->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->Exit->ImageIndex = 3;
-			this->Exit->ImageList = this->imageList1;
-			this->Exit->Location = System::Drawing::Point(0, 813);
-			this->Exit->Name = L"Exit";
-			this->Exit->Padding = System::Windows::Forms::Padding(10, 0, 0, 0);
-			this->Exit->Size = System::Drawing::Size(220, 60);
-			this->Exit->TabIndex = 5;
-			this->Exit->Text = L" Log out";
-			this->Exit->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->Exit->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageBeforeText;
-			this->Exit->UseVisualStyleBackColor = true;
-			this->Exit->Click += gcnew System::EventHandler(this, &FormClientMenu::Exit_Click);
+			this->btnLogOut->ForeColor = System::Drawing::Color::Gainsboro;
+			this->btnLogOut->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->btnLogOut->ImageIndex = 3;
+			this->btnLogOut->ImageList = this->imageList1;
+			this->btnLogOut->Location = System::Drawing::Point(0, 807);
+			this->btnLogOut->Name = L"btnLogOut";
+			this->btnLogOut->Padding = System::Windows::Forms::Padding(10, 0, 0, 0);
+			this->btnLogOut->Size = System::Drawing::Size(220, 60);
+			this->btnLogOut->TabIndex = 5;
+			this->btnLogOut->Text = L" Log out";
+			this->btnLogOut->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->btnLogOut->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageBeforeText;
+			this->btnLogOut->UseVisualStyleBackColor = true;
+			this->btnLogOut->Click += gcnew System::EventHandler(this, &FormClientMenu::btnLogOut_Click);
 			// 
 			// imageList1
 			// 
@@ -172,97 +174,74 @@ namespace MainApp {
 			this->imageList1->Images->SetKeyName(4, L"home.png");
 			this->imageList1->Images->SetKeyName(5, L"profile.png");
 			// 
-			// Settings
+			// btnSettings
 			// 
-			this->Settings->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->Settings->Dock = System::Windows::Forms::DockStyle::Top;
-			this->Settings->FlatAppearance->BorderSize = 0;
-			this->Settings->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->Settings->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->btnSettings->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnSettings->Dock = System::Windows::Forms::DockStyle::Top;
+			this->btnSettings->FlatAppearance->BorderSize = 0;
+			this->btnSettings->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnSettings->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->Settings->ForeColor = System::Drawing::Color::Gainsboro;
-			this->Settings->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->Settings->ImageIndex = 1;
-			this->Settings->ImageList = this->imageList1;
-			this->Settings->Location = System::Drawing::Point(0, 320);
-			this->Settings->Name = L"Settings";
-			this->Settings->Padding = System::Windows::Forms::Padding(10, 0, 0, 0);
-			this->Settings->Size = System::Drawing::Size(220, 60);
-			this->Settings->TabIndex = 4;
-			this->Settings->Text = L" Settings";
-			this->Settings->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->Settings->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageBeforeText;
-			this->Settings->UseVisualStyleBackColor = true;
-			this->Settings->Click += gcnew System::EventHandler(this, &FormClientMenu::Settings_Click);
+			this->btnSettings->ForeColor = System::Drawing::Color::Gainsboro;
+			this->btnSettings->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->btnSettings->ImageIndex = 1;
+			this->btnSettings->ImageList = this->imageList1;
+			this->btnSettings->Location = System::Drawing::Point(0, 260);
+			this->btnSettings->Name = L"btnSettings";
+			this->btnSettings->Padding = System::Windows::Forms::Padding(10, 0, 0, 0);
+			this->btnSettings->Size = System::Drawing::Size(220, 60);
+			this->btnSettings->TabIndex = 4;
+			this->btnSettings->Text = L" Settings";
+			this->btnSettings->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->btnSettings->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageBeforeText;
+			this->btnSettings->UseVisualStyleBackColor = true;
+			this->btnSettings->Click += gcnew System::EventHandler(this, &FormClientMenu::btnSettings_Click);
 			// 
-			// Cart
+			// btnShop
 			// 
-			this->Cart->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->Cart->Dock = System::Windows::Forms::DockStyle::Top;
-			this->Cart->FlatAppearance->BorderSize = 0;
-			this->Cart->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->Cart->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->btnShop->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnShop->Dock = System::Windows::Forms::DockStyle::Top;
+			this->btnShop->FlatAppearance->BorderSize = 0;
+			this->btnShop->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnShop->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->Cart->ForeColor = System::Drawing::Color::Gainsboro;
-			this->Cart->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->Cart->ImageIndex = 0;
-			this->Cart->ImageList = this->imageList1;
-			this->Cart->Location = System::Drawing::Point(0, 260);
-			this->Cart->Name = L"Cart";
-			this->Cart->Padding = System::Windows::Forms::Padding(10, 0, 0, 0);
-			this->Cart->Size = System::Drawing::Size(220, 60);
-			this->Cart->TabIndex = 3;
-			this->Cart->Text = L" Cart";
-			this->Cart->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->Cart->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageBeforeText;
-			this->Cart->UseVisualStyleBackColor = true;
-			this->Cart->Click += gcnew System::EventHandler(this, &FormClientMenu::Cart_Click);
+			this->btnShop->ForeColor = System::Drawing::Color::Gainsboro;
+			this->btnShop->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->btnShop->ImageIndex = 2;
+			this->btnShop->ImageList = this->imageList1;
+			this->btnShop->Location = System::Drawing::Point(0, 200);
+			this->btnShop->Name = L"btnShop";
+			this->btnShop->Padding = System::Windows::Forms::Padding(10, 0, 0, 0);
+			this->btnShop->Size = System::Drawing::Size(220, 60);
+			this->btnShop->TabIndex = 2;
+			this->btnShop->Text = L" Shop";
+			this->btnShop->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->btnShop->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageBeforeText;
+			this->btnShop->UseVisualStyleBackColor = true;
+			this->btnShop->Click += gcnew System::EventHandler(this, &FormClientMenu::btnShop_Click);
 			// 
-			// Shop
+			// btnProfile
 			// 
-			this->Shop->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->Shop->Dock = System::Windows::Forms::DockStyle::Top;
-			this->Shop->FlatAppearance->BorderSize = 0;
-			this->Shop->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->Shop->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->btnProfile->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnProfile->Dock = System::Windows::Forms::DockStyle::Top;
+			this->btnProfile->FlatAppearance->BorderSize = 0;
+			this->btnProfile->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnProfile->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->Shop->ForeColor = System::Drawing::Color::Gainsboro;
-			this->Shop->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->Shop->ImageIndex = 2;
-			this->Shop->ImageList = this->imageList1;
-			this->Shop->Location = System::Drawing::Point(0, 200);
-			this->Shop->Name = L"Shop";
-			this->Shop->Padding = System::Windows::Forms::Padding(10, 0, 0, 0);
-			this->Shop->Size = System::Drawing::Size(220, 60);
-			this->Shop->TabIndex = 2;
-			this->Shop->Text = L" Shop";
-			this->Shop->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->Shop->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageBeforeText;
-			this->Shop->UseVisualStyleBackColor = true;
-			this->Shop->Click += gcnew System::EventHandler(this, &FormClientMenu::Shop_Click);
-			// 
-			// Profile
-			// 
-			this->Profile->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->Profile->Dock = System::Windows::Forms::DockStyle::Top;
-			this->Profile->FlatAppearance->BorderSize = 0;
-			this->Profile->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->Profile->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->Profile->ForeColor = System::Drawing::Color::Gainsboro;
-			this->Profile->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->Profile->ImageIndex = 5;
-			this->Profile->ImageList = this->imageList1;
-			this->Profile->Location = System::Drawing::Point(0, 140);
-			this->Profile->Name = L"Profile";
-			this->Profile->Padding = System::Windows::Forms::Padding(10, 0, 0, 0);
-			this->Profile->Size = System::Drawing::Size(220, 60);
-			this->Profile->TabIndex = 1;
-			this->Profile->Text = L" Profile";
-			this->Profile->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->Profile->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageBeforeText;
-			this->Profile->UseVisualStyleBackColor = true;
-			this->Profile->Click += gcnew System::EventHandler(this, &FormClientMenu::Profile_Click);
+			this->btnProfile->ForeColor = System::Drawing::Color::Gainsboro;
+			this->btnProfile->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->btnProfile->ImageIndex = 5;
+			this->btnProfile->ImageList = this->imageList1;
+			this->btnProfile->Location = System::Drawing::Point(0, 140);
+			this->btnProfile->Name = L"btnProfile";
+			this->btnProfile->Padding = System::Windows::Forms::Padding(10, 0, 0, 0);
+			this->btnProfile->Size = System::Drawing::Size(220, 60);
+			this->btnProfile->TabIndex = 1;
+			this->btnProfile->Text = L" Profile";
+			this->btnProfile->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->btnProfile->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageBeforeText;
+			this->btnProfile->UseVisualStyleBackColor = true;
+			this->btnProfile->Click += gcnew System::EventHandler(this, &FormClientMenu::btnProfile_Click);
 			// 
 			// PanelLogo
 			// 
@@ -289,16 +268,61 @@ namespace MainApp {
 			// 
 			this->PanelTitleBar->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(29)), static_cast<System::Int32>(static_cast<System::Byte>(27)),
 				static_cast<System::Int32>(static_cast<System::Byte>(62)));
-			this->PanelTitleBar->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->PanelTitleBar->Controls->Add(this->PanelCart);
 			this->PanelTitleBar->Controls->Add(this->lblFormTitle);
 			this->PanelTitleBar->Controls->Add(this->IconCurrentForm);
 			this->PanelTitleBar->Cursor = System::Windows::Forms::Cursors::Arrow;
 			this->PanelTitleBar->Dock = System::Windows::Forms::DockStyle::Top;
-			this->PanelTitleBar->Location = System::Drawing::Point(220, 25);
+			this->PanelTitleBar->Location = System::Drawing::Point(220, 31);
 			this->PanelTitleBar->Name = L"PanelTitleBar";
 			this->PanelTitleBar->Size = System::Drawing::Size(1378, 55);
 			this->PanelTitleBar->TabIndex = 1;
 			this->PanelTitleBar->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &FormClientMenu::PanelTitleBar_MouseDown);
+			// 
+			// PanelCart
+			// 
+			this->PanelCart->Controls->Add(this->btnCart);
+			this->PanelCart->Controls->Add(this->lblCounterProducts);
+			this->PanelCart->Dock = System::Windows::Forms::DockStyle::Right;
+			this->PanelCart->Location = System::Drawing::Point(1235, 0);
+			this->PanelCart->Name = L"PanelCart";
+			this->PanelCart->Size = System::Drawing::Size(143, 55);
+			this->PanelCart->TabIndex = 6;
+			// 
+			// btnCart
+			// 
+			this->btnCart->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(29)), static_cast<System::Int32>(static_cast<System::Byte>(27)),
+				static_cast<System::Int32>(static_cast<System::Byte>(62)));
+			this->btnCart->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnCart->FlatAppearance->BorderSize = 0;
+			this->btnCart->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnCart->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->btnCart->ForeColor = System::Drawing::Color::Gainsboro;
+			this->btnCart->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnCart.Image")));
+			this->btnCart->ImageAlign = System::Drawing::ContentAlignment::MiddleRight;
+			this->btnCart->Location = System::Drawing::Point(14, 3);
+			this->btnCart->Name = L"btnCart";
+			this->btnCart->Padding = System::Windows::Forms::Padding(10, 0, 0, 0);
+			this->btnCart->Size = System::Drawing::Size(37, 45);
+			this->btnCart->TabIndex = 6;
+			this->btnCart->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->btnCart->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageBeforeText;
+			this->btnCart->UseVisualStyleBackColor = false;
+			this->btnCart->Click += gcnew System::EventHandler(this, &FormClientMenu::btnCart_Click);
+			// 
+			// lblCounterProducts
+			// 
+			this->lblCounterProducts->AutoSize = true;
+			this->lblCounterProducts->BackColor = System::Drawing::Color::Transparent;
+			this->lblCounterProducts->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->lblCounterProducts->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->lblCounterProducts->ForeColor = System::Drawing::Color::Gainsboro;
+			this->lblCounterProducts->Location = System::Drawing::Point(45, -3);
+			this->lblCounterProducts->Name = L"lblCounterProducts";
+			this->lblCounterProducts->Size = System::Drawing::Size(0, 28);
+			this->lblCounterProducts->TabIndex = 7;
 			// 
 			// lblFormTitle
 			// 
@@ -325,14 +349,13 @@ namespace MainApp {
 			// 
 			this->PanelDesktop->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(34)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(74)));
-			this->PanelDesktop->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->PanelDesktop->Controls->Add(this->lblCurrentTime);
 			this->PanelDesktop->Controls->Add(this->pictureBox1);
 			this->PanelDesktop->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->PanelDesktop->ForeColor = System::Drawing::Color::Transparent;
-			this->PanelDesktop->Location = System::Drawing::Point(220, 80);
+			this->PanelDesktop->Location = System::Drawing::Point(220, 86);
 			this->PanelDesktop->Name = L"PanelDesktop";
-			this->PanelDesktop->Size = System::Drawing::Size(1378, 818);
+			this->PanelDesktop->Size = System::Drawing::Size(1378, 812);
 			this->PanelDesktop->TabIndex = 2;
 			// 
 			// lblCurrentTime
@@ -343,7 +366,7 @@ namespace MainApp {
 			this->lblCurrentTime->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 72, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->lblCurrentTime->ImageAlign = System::Drawing::ContentAlignment::BottomCenter;
-			this->lblCurrentTime->Location = System::Drawing::Point(456, 395);
+			this->lblCurrentTime->Location = System::Drawing::Point(457, 393);
 			this->lblCurrentTime->Name = L"lblCurrentTime";
 			this->lblCurrentTime->Size = System::Drawing::Size(502, 127);
 			this->lblCurrentTime->TabIndex = 3;
@@ -355,7 +378,7 @@ namespace MainApp {
 			this->pictureBox1->Anchor = System::Windows::Forms::AnchorStyles::None;
 			this->pictureBox1->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
-			this->pictureBox1->Location = System::Drawing::Point(466, 200);
+			this->pictureBox1->Location = System::Drawing::Point(467, 198);
 			this->pictureBox1->Name = L"pictureBox1";
 			this->pictureBox1->Size = System::Drawing::Size(465, 195);
 			this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
@@ -371,13 +394,12 @@ namespace MainApp {
 			// 
 			this->panelControls->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(26)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
 				static_cast<System::Int32>(static_cast<System::Byte>(62)));
-			this->panelControls->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->panelControls->Controls->Add(this->btnMinimize);
 			this->panelControls->Controls->Add(this->btnExit);
 			this->panelControls->Dock = System::Windows::Forms::DockStyle::Top;
 			this->panelControls->Location = System::Drawing::Point(0, 0);
 			this->panelControls->Name = L"panelControls";
-			this->panelControls->Size = System::Drawing::Size(1598, 25);
+			this->panelControls->Size = System::Drawing::Size(1598, 31);
 			this->panelControls->TabIndex = 4;
 			this->panelControls->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &FormClientMenu::panelControls_MouseDown);
 			// 
@@ -389,7 +411,7 @@ namespace MainApp {
 			this->btnMinimize->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnMinimize->ForeColor = System::Drawing::Color::Gainsboro;
 			this->btnMinimize->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnMinimize.Image")));
-			this->btnMinimize->Location = System::Drawing::Point(1534, 4);
+			this->btnMinimize->Location = System::Drawing::Point(1536, 6);
 			this->btnMinimize->Name = L"btnMinimize";
 			this->btnMinimize->Size = System::Drawing::Size(16, 16);
 			this->btnMinimize->TabIndex = 7;
@@ -404,7 +426,7 @@ namespace MainApp {
 			this->btnExit->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnExit->ForeColor = System::Drawing::Color::Gainsboro;
 			this->btnExit->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnExit.Image")));
-			this->btnExit->Location = System::Drawing::Point(1562, -2);
+			this->btnExit->Location = System::Drawing::Point(1565, 0);
 			this->btnExit->Name = L"btnExit";
 			this->btnExit->Size = System::Drawing::Size(32, 28);
 			this->btnExit->TabIndex = 6;
@@ -434,6 +456,8 @@ namespace MainApp {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->imgHome))->EndInit();
 			this->PanelTitleBar->ResumeLayout(false);
 			this->PanelTitleBar->PerformLayout();
+			this->PanelCart->ResumeLayout(false);
+			this->PanelCart->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->IconCurrentForm))->EndInit();
 			this->PanelDesktop->ResumeLayout(false);
 			this->PanelDesktop->PerformLayout();
@@ -449,11 +473,12 @@ namespace MainApp {
 		{
 			DisableButton();
 			this->currentBtn = static_cast<Button^>(senderBtn);
-			this->currentBtn->BackColor = Color::FromArgb(37, 36, 81);
-			this->currentBtn->ForeColor = customColor;
 			this->currentBtn->TextAlign = ContentAlignment::MiddleCenter;
 			this->currentBtn->ImageAlign = ContentAlignment::MiddleRight;
 			this->currentBtn->TextImageRelation = TextImageRelation::TextBeforeImage;
+			this->currentBtn->Enabled = false;
+			this->currentBtn->BackColor = Color::FromArgb(37, 36, 81);
+			this->currentBtn->ForeColor = customColor;
 			this->leftBorderBtn->BackColor = customColor;
 			this->leftBorderBtn->Location = System::Drawing::Point(0, currentBtn->Location.Y);
 			this->leftBorderBtn->Visible = true;
@@ -465,11 +490,12 @@ namespace MainApp {
 	{
 		if (currentBtn != nullptr)
 		{
-			this->currentBtn->BackColor = Color::FromArgb(31, 30, 68);
-			this->currentBtn->ForeColor = Color::Gainsboro;
 			this->currentBtn->TextAlign = ContentAlignment::MiddleLeft;
 			this->currentBtn->ImageAlign = ContentAlignment::MiddleLeft;
 			this->currentBtn->TextImageRelation = TextImageRelation::ImageBeforeText;
+			this->currentBtn->Enabled = true;
+			this->currentBtn->BackColor = Color::FromArgb(31, 30, 68);
+			this->currentBtn->ForeColor = Color::Gainsboro;
 		}
 	}
 
@@ -490,24 +516,24 @@ namespace MainApp {
 		lblFormTitle->Text = childForm->Text;
 	}
 
-	private: System::Void Profile_Click(System::Object^ sender, System::EventArgs^ e)
+	private: System::Void btnProfile_Click(System::Object^ sender, System::EventArgs^ e)
 	{
 		ActivateButton(sender, RGBColors::color1);
 		OpenChildForm(gcnew FormProfile(login));
 	}
-	private: System::Void Shop_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void btnShop_Click(System::Object^ sender, System::EventArgs^ e) {
 		ActivateButton(sender, RGBColors::color2);
 		OpenChildForm(gcnew FormShop);
 	}
-	private: System::Void Cart_Click(System::Object^ sender, System::EventArgs^ e) {
-		ActivateButton(sender, RGBColors::color3);
-		OpenChildForm(gcnew FormCart);
+
+	private: System::Void btnCart_Click(System::Object^ sender, System::EventArgs^ e) {
+		Shop::OpenCart();
 	}
-	private: System::Void Settings_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void btnSettings_Click(System::Object^ sender, System::EventArgs^ e) {
 		ActivateButton(sender, RGBColors::color4);
 		OpenChildForm(gcnew FormSettings);
 	}
-	private: System::Void Exit_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void btnLogOut_Click(System::Object^ sender, System::EventArgs^ e) {
 		auto dialogResult = MessageBox::Show(this, "Are you sure you want to log out?", "Log out", MessageBoxButtons::YesNo);
 		if (dialogResult == System::Windows::Forms::DialogResult::Yes)
 		{
@@ -542,15 +568,39 @@ namespace MainApp {
 		WindowState = FormWindowState::Minimized;
 	}
 	private: System::Void FormClientMenu_Load(System::Object^ sender, System::EventArgs^ e) {
+		this->shop = gcnew Shop(this, this->lblCounterProducts);
 		CurrentTime->Start();
-		//Client^ client = DBQuery::LoadClientData(login);
+		lblCurrentTime->Text = DateTime::Now.ToString("T");
+		lblCounterProducts->Text = "0";
+
+		/*Book^ book = gcnew Book(
+			1,
+			"The Witcher 3",
+			9.99F,
+			5,
+			"C:\\Users\\infab\\Desktop\\witcher.png"
+		);
+
+		Newspaper^ newspaper = gcnew Newspaper(
+			2,
+			"Newspaper",
+			5.F,
+			20,
+			""
+		);
+
+		shop->addProduct(book, 1);
+		shop->addProduct(book, 1);
+		shop->addProduct(book, 1);
+		shop->addProduct(book, 1);
+		shop->addProduct(newspaper, 5);
+		lblCounterProducts->Text = shop->CountProducts.ToString();*/
 	}
+
 	private: System::Void FormClientMenu_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
 	}
-	private: System::Void panel1_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
-	}
 	private: System::Void CurrentTime_Tick(System::Object^ sender, System::EventArgs^ e) {
-		lblCurrentTime->Text = DateTime::Now.ToString("hh:mm:ss tt");
+		lblCurrentTime->Text = DateTime::Now.ToString("T");
 	}
 	private: System::Void panelControls_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
 		ReleaseCapture();

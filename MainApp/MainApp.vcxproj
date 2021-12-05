@@ -137,8 +137,12 @@
     <ClCompile Include="Magazine.cpp" />
     <ClCompile Include="Mailer.cpp" />
     <ClCompile Include="Newspaper.cpp" />
+    <ClCompile Include="Order.cpp" />
     <ClCompile Include="Person.cpp" />
+    <ClCompile Include="Publisher.cpp" />
     <ClCompile Include="RGBColors.cpp" />
+    <ClCompile Include="Shop.cpp" />
+    <ClCompile Include="Stock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Account.h" />
@@ -193,8 +197,12 @@
     <ClInclude Include="Magazine.h" />
     <ClInclude Include="Mailer.h" />
     <ClInclude Include="Newspaper.h" />
+    <ClInclude Include="Order.h" />
     <ClInclude Include="Person.h" />
+    <ClInclude Include="Publisher.h" />
     <ClInclude Include="RGBColors.h" />
+    <ClInclude Include="Shop.h" />
+    <ClInclude Include="Stock.h" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -206,6 +214,9 @@
   <ItemGroup>
     <EmbeddedResource Include="FormAdminMenu.resx">
       <DependentUpon>FormAdminMenu.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCart.resx">
+      <DependentUpon>FormCart.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormClientMenu.resx">
       <DependentUpon>FormClientMenu.h</DependentUpon>

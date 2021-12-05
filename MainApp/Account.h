@@ -4,7 +4,7 @@
 
 using namespace System;
 
-public ref class Account abstract : Person
+public ref class Account abstract : public Person
 {
 protected:
 	Int32 id;

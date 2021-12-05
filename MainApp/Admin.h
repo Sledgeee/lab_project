@@ -5,7 +5,7 @@
 
 using namespace System;
 
-public ref class Admin : Account
+public ref class Admin : public Account
 {
 public:
 	Admin();

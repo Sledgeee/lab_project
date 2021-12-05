@@ -4,6 +4,7 @@
 #include "DBQuery.h"
 #include "Mailer.h"
 #include "FormPrompt.h"
+#include "FormCart.h"
 
 namespace MainApp {
 

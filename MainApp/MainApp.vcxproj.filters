@@ -114,6 +114,18 @@
     <ClCompile Include="Person.cpp">
       <Filter>Resource Files\BackEnd</Filter>
     </ClCompile>
+    <ClCompile Include="Order.cpp">
+      <Filter>Resource Files\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="Stock.cpp">
+      <Filter>Resource Files\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="Publisher.cpp">
+      <Filter>Resource Files\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="Shop.cpp">
+      <Filter>Resource Files\Shop</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FormAdminMenu.h">
@@ -193,6 +205,18 @@
     </ClInclude>
     <ClInclude Include="Person.h">
       <Filter>MyClasses\BackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Order.h">
+      <Filter>MyClasses\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="Stock.h">
+      <Filter>MyClasses\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="Publisher.h">
+      <Filter>MyClasses\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="Shop.h">
+      <Filter>MyClasses\Shop</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

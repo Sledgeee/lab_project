@@ -139,9 +139,9 @@ namespace MainApp {
 			this->PanelMenu->Controls->Add(this->Clients);
 			this->PanelMenu->Controls->Add(this->PanelLogo);
 			this->PanelMenu->Dock = System::Windows::Forms::DockStyle::Left;
-			this->PanelMenu->Location = System::Drawing::Point(0, 25);
+			this->PanelMenu->Location = System::Drawing::Point(0, 31);
 			this->PanelMenu->Name = L"PanelMenu";
-			this->PanelMenu->Size = System::Drawing::Size(220, 873);
+			this->PanelMenu->Size = System::Drawing::Size(220, 867);
 			this->PanelMenu->TabIndex = 0;
 			// 
 			// Settings
@@ -177,7 +177,7 @@ namespace MainApp {
 			this->Logout->ForeColor = System::Drawing::Color::Gainsboro;
 			this->Logout->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Logout.Image")));
 			this->Logout->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->Logout->Location = System::Drawing::Point(0, 813);
+			this->Logout->Location = System::Drawing::Point(0, 807);
 			this->Logout->Name = L"Logout";
 			this->Logout->Padding = System::Windows::Forms::Padding(10, 0, 0, 0);
 			this->Logout->Size = System::Drawing::Size(220, 60);
@@ -261,7 +261,7 @@ namespace MainApp {
 			// 
 			// PanelTitleBar
 			// 
-			this->PanelTitleBar->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(26)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
+			this->PanelTitleBar->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(29)), static_cast<System::Int32>(static_cast<System::Byte>(27)),
 				static_cast<System::Int32>(static_cast<System::Byte>(62)));
 			this->PanelTitleBar->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->PanelTitleBar->Controls->Add(this->btnExit);
@@ -270,7 +270,7 @@ namespace MainApp {
 			this->PanelTitleBar->Controls->Add(this->IconCurrentForm);
 			this->PanelTitleBar->Cursor = System::Windows::Forms::Cursors::Arrow;
 			this->PanelTitleBar->Dock = System::Windows::Forms::DockStyle::Top;
-			this->PanelTitleBar->Location = System::Drawing::Point(220, 25);
+			this->PanelTitleBar->Location = System::Drawing::Point(220, 31);
 			this->PanelTitleBar->Name = L"PanelTitleBar";
 			this->PanelTitleBar->Size = System::Drawing::Size(1378, 55);
 			this->PanelTitleBar->TabIndex = 1;
@@ -337,9 +337,9 @@ namespace MainApp {
 			this->PanelDesktop->Controls->Add(this->pictureBox1);
 			this->PanelDesktop->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->PanelDesktop->ForeColor = System::Drawing::Color::Transparent;
-			this->PanelDesktop->Location = System::Drawing::Point(220, 80);
+			this->PanelDesktop->Location = System::Drawing::Point(220, 86);
 			this->PanelDesktop->Name = L"PanelDesktop";
-			this->PanelDesktop->Size = System::Drawing::Size(1378, 818);
+			this->PanelDesktop->Size = System::Drawing::Size(1378, 812);
 			this->PanelDesktop->TabIndex = 2;
 			// 
 			// lblCurrentTime
@@ -350,7 +350,7 @@ namespace MainApp {
 			this->lblCurrentTime->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 72, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->lblCurrentTime->ImageAlign = System::Drawing::ContentAlignment::BottomCenter;
-			this->lblCurrentTime->Location = System::Drawing::Point(456, 395);
+			this->lblCurrentTime->Location = System::Drawing::Point(456, 392);
 			this->lblCurrentTime->Name = L"lblCurrentTime";
 			this->lblCurrentTime->Size = System::Drawing::Size(502, 127);
 			this->lblCurrentTime->TabIndex = 3;
@@ -362,7 +362,7 @@ namespace MainApp {
 			this->pictureBox1->Anchor = System::Windows::Forms::AnchorStyles::None;
 			this->pictureBox1->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
-			this->pictureBox1->Location = System::Drawing::Point(466, 200);
+			this->pictureBox1->Location = System::Drawing::Point(466, 197);
 			this->pictureBox1->Name = L"pictureBox1";
 			this->pictureBox1->Size = System::Drawing::Size(465, 195);
 			this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
@@ -376,15 +376,15 @@ namespace MainApp {
 			// 
 			// PanelControls
 			// 
-			this->PanelControls->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(34)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
-				static_cast<System::Int32>(static_cast<System::Byte>(74)));
+			this->PanelControls->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(26)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
+				static_cast<System::Int32>(static_cast<System::Byte>(62)));
 			this->PanelControls->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->PanelControls->Controls->Add(this->button1);
 			this->PanelControls->Controls->Add(this->button2);
 			this->PanelControls->Dock = System::Windows::Forms::DockStyle::Top;
 			this->PanelControls->Location = System::Drawing::Point(0, 0);
 			this->PanelControls->Name = L"PanelControls";
-			this->PanelControls->Size = System::Drawing::Size(1598, 25);
+			this->PanelControls->Size = System::Drawing::Size(1598, 31);
 			this->PanelControls->TabIndex = 1;
 			this->PanelControls->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &FormAdminMenu::PanelControls_MouseDown);
 			// 
@@ -396,7 +396,7 @@ namespace MainApp {
 			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->button1->ForeColor = System::Drawing::Color::Gainsboro;
 			this->button1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button1.Image")));
-			this->button1->Location = System::Drawing::Point(1534, 4);
+			this->button1->Location = System::Drawing::Point(1534, 6);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(16, 16);
 			this->button1->TabIndex = 9;
@@ -411,7 +411,7 @@ namespace MainApp {
 			this->button2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->button2->ForeColor = System::Drawing::Color::Gainsboro;
 			this->button2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button2.Image")));
-			this->button2->Location = System::Drawing::Point(1562, -2);
+			this->button2->Location = System::Drawing::Point(1563, 0);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(32, 28);
 			this->button2->TabIndex = 8;
