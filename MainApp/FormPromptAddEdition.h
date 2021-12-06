@@ -293,9 +293,9 @@ namespace MainApp {
 			this->lblNumberOfPages->ForeColor = System::Drawing::Color::Gainsboro;
 			this->lblNumberOfPages->Location = System::Drawing::Point(12, 367);
 			this->lblNumberOfPages->Name = L"lblNumberOfPages";
-			this->lblNumberOfPages->Size = System::Drawing::Size(154, 32);
+			this->lblNumberOfPages->Size = System::Drawing::Size(196, 32);
 			this->lblNumberOfPages->TabIndex = 10;
-			this->lblNumberOfPages->Text = L"Paperback:";
+			this->lblNumberOfPages->Text = L"Print length:";
 			// 
 			// lblPrice
 			// 
@@ -394,11 +394,9 @@ namespace MainApp {
 				static_cast<System::Byte>(204)));
 			this->nudAvailable->Location = System::Drawing::Point(330, 490);
 			this->nudAvailable->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
-			this->nudAvailable->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			this->nudAvailable->Name = L"nudAvailable";
 			this->nudAvailable->Size = System::Drawing::Size(260, 32);
 			this->nudAvailable->TabIndex = 20;
-			this->nudAvailable->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			// 
 			// EditionImage
 			// 

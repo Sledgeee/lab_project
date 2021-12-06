@@ -11,8 +11,8 @@ ref class Edition;
 public ref class Publisher
 {
 	String^ name;
-	List<Edition^>^ editions;
 public:
+	List<Edition^>^ editions;
 	Publisher();
 	Publisher(String^ name);
 	~Publisher();

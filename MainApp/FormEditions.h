@@ -44,12 +44,21 @@ namespace MainApp {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ EditionId;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ EditionName;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ EditionType;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Genre;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ EditionGenre;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ EditionDescription;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ EditionPaperback;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ EditionPrice;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ EditionDiscount;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Available;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ EditionAvailable;
+
+
+
+
+
+
+
+
+
 	protected:
 	protected:
 	protected:
@@ -73,17 +82,17 @@ namespace MainApp {
 			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle4 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->btnAddEdition = (gcnew System::Windows::Forms::Button());
 			this->tableEditions = (gcnew System::Windows::Forms::DataGridView());
+			this->PanelButtons = (gcnew System::Windows::Forms::Panel());
+			this->lblDbIsEmpty = (gcnew System::Windows::Forms::Label());
 			this->EditionId = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->EditionName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->EditionType = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Genre = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->EditionGenre = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->EditionDescription = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->EditionPaperback = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->EditionPrice = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->EditionDiscount = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Available = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->PanelButtons = (gcnew System::Windows::Forms::Panel());
-			this->lblDbIsEmpty = (gcnew System::Windows::Forms::Label());
+			this->EditionAvailable = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->tableEditions))->BeginInit();
 			this->PanelButtons->SuspendLayout();
 			this->SuspendLayout();
@@ -129,8 +138,8 @@ namespace MainApp {
 			this->tableEditions->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->tableEditions->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(9) {
 				this->EditionId,
-					this->EditionName, this->EditionType, this->Genre, this->EditionDescription, this->EditionPaperback, this->EditionPrice, this->EditionDiscount,
-					this->Available
+					this->EditionName, this->EditionType, this->EditionGenre, this->EditionDescription, this->EditionPaperback, this->EditionPrice,
+					this->EditionDiscount, this->EditionAvailable
 			});
 			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
 			dataGridViewCellStyle2->BackColor = System::Drawing::SystemColors::Window;
@@ -168,6 +177,29 @@ namespace MainApp {
 			this->tableEditions->CellEndEdit += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &FormEditions::tableEditions_CellEndEdit);
 			this->tableEditions->UserDeletingRow += gcnew System::Windows::Forms::DataGridViewRowCancelEventHandler(this, &FormEditions::tableEditions_UserDeletingRow);
 			// 
+			// PanelButtons
+			// 
+			this->PanelButtons->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->PanelButtons->Controls->Add(this->btnAddEdition);
+			this->PanelButtons->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->PanelButtons->Location = System::Drawing::Point(0, 725);
+			this->PanelButtons->Name = L"PanelButtons";
+			this->PanelButtons->Size = System::Drawing::Size(1347, 99);
+			this->PanelButtons->TabIndex = 2;
+			// 
+			// lblDbIsEmpty
+			// 
+			this->lblDbIsEmpty->AutoSize = true;
+			this->lblDbIsEmpty->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 48, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->lblDbIsEmpty->ForeColor = System::Drawing::Color::Gainsboro;
+			this->lblDbIsEmpty->Location = System::Drawing::Point(12, 63);
+			this->lblDbIsEmpty->Name = L"lblDbIsEmpty";
+			this->lblDbIsEmpty->Size = System::Drawing::Size(683, 85);
+			this->lblDbIsEmpty->TabIndex = 1;
+			this->lblDbIsEmpty->Text = L"DATABASE IS EMPTY";
+			this->lblDbIsEmpty->Visible = false;
+			// 
 			// EditionId
 			// 
 			this->EditionId->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::None;
@@ -192,12 +224,12 @@ namespace MainApp {
 			this->EditionType->Name = L"EditionType";
 			this->EditionType->Width = 150;
 			// 
-			// Genre
+			// EditionGenre
 			// 
-			this->Genre->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::None;
-			this->Genre->HeaderText = L"Genre";
-			this->Genre->Name = L"Genre";
-			this->Genre->Width = 150;
+			this->EditionGenre->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::None;
+			this->EditionGenre->HeaderText = L"Genre";
+			this->EditionGenre->Name = L"EditionGenre";
+			this->EditionGenre->Width = 150;
 			// 
 			// EditionDescription
 			// 
@@ -228,34 +260,11 @@ namespace MainApp {
 			this->EditionDiscount->HeaderText = L"Discount";
 			this->EditionDiscount->Name = L"EditionDiscount";
 			// 
-			// Available
+			// EditionAvailable
 			// 
-			this->Available->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::None;
-			this->Available->HeaderText = L"Available";
-			this->Available->Name = L"Available";
-			// 
-			// PanelButtons
-			// 
-			this->PanelButtons->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->PanelButtons->Controls->Add(this->btnAddEdition);
-			this->PanelButtons->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->PanelButtons->Location = System::Drawing::Point(0, 725);
-			this->PanelButtons->Name = L"PanelButtons";
-			this->PanelButtons->Size = System::Drawing::Size(1347, 99);
-			this->PanelButtons->TabIndex = 2;
-			// 
-			// lblDbIsEmpty
-			// 
-			this->lblDbIsEmpty->AutoSize = true;
-			this->lblDbIsEmpty->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 48, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->lblDbIsEmpty->ForeColor = System::Drawing::Color::Gainsboro;
-			this->lblDbIsEmpty->Location = System::Drawing::Point(12, 63);
-			this->lblDbIsEmpty->Name = L"lblDbIsEmpty";
-			this->lblDbIsEmpty->Size = System::Drawing::Size(683, 85);
-			this->lblDbIsEmpty->TabIndex = 1;
-			this->lblDbIsEmpty->Text = L"DATABASE IS EMPTY";
-			this->lblDbIsEmpty->Visible = false;
+			this->EditionAvailable->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::None;
+			this->EditionAvailable->HeaderText = L"Available";
+			this->EditionAvailable->Name = L"EditionAvailable";
 			// 
 			// FormEditions
 			// 
@@ -308,6 +317,7 @@ namespace MainApp {
 			}
 		}
 		else lblDbIsEmpty->Visible = true;
+		dbc->Close();
 	}
 	private: System::Void FormEditions_Load(System::Object^ sender, System::EventArgs^ e) {
 		UpdateTable();
@@ -332,23 +342,29 @@ namespace MainApp {
 	}
 	private: System::Void tableEditions_CellEndEdit(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
 		auto value = tableEditions->Rows[e->RowIndex]->Cells[e->ColumnIndex]->Value;
-		if (e->ColumnIndex <= 4 && String::IsNullOrWhiteSpace(value->ToString()))
+		if (e->ColumnIndex <= 4 && value == nullptr)
 		{
-			tableEditions->Refresh();
+			MessageBox::Show(this, "You enter unresolved symbol or leave empty field, table will be reload",
+				"Critical Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			UpdateTable();
 			return;
 		}
 		else if (e->ColumnIndex == 5 || e->ColumnIndex > 6)
 		{
-			if (Convert::ToInt32(value) < 0)
+			if (value == nullptr || Convert::ToInt32(value) < 0)
 			{
-				tableEditions->Refresh();
+				MessageBox::Show(this, "You enter unresolved symbol or leave empty field, table will be reload",
+					"Critical Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				UpdateTable();
 				return;
 			}
 		}
 		else {
-			if ((float)Convert::ToDouble(value) < 0.f)
+			if (value == nullptr || (float)Convert::ToDouble(value) < 0.f)
 			{
-				tableEditions->Refresh();
+				MessageBox::Show(this, "You enter unresolved symbol or leave empty field, table will be reload",
+					"Critical Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				UpdateTable();
 				return;
 			}
 		}

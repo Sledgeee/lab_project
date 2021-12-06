@@ -9,7 +9,8 @@ using namespace System::Collections::Generic;
 public ref class Cart
 {
 public:
-	static Dictionary<Edition^, Int32>^ Products;
+	
+	static Dictionary<Edition^, ValueTuple<Int32, Int32> >^ Products;
 	static Int32 CountProducts;
 	static Int32 CountKeys;
 	static float TotalSum;
@@ -17,9 +18,9 @@ public:
 	Cart();
 	~Cart();
 
-	Void addProduct(Edition^ edition, Int32 number);
+	Void addProduct(Edition^ edition, Int32 number, Int32 index);
 	Void calculateTotalPrice();
-	float calculateSpecifyItemPrice(KeyValuePair<Edition^, Int32>^ item);
+	float calculateSpecifyItemPrice(KeyValuePair<Edition^, ValueTuple<Int32, Int32> >^ item);
 	Void Refresh();
 };
 

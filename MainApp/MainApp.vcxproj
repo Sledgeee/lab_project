@@ -142,7 +142,6 @@
     <ClCompile Include="Publisher.cpp" />
     <ClCompile Include="RGBColors.cpp" />
     <ClCompile Include="Shop.cpp" />
-    <ClCompile Include="Stock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Account.h" />
@@ -202,7 +201,6 @@
     <ClInclude Include="Publisher.h" />
     <ClInclude Include="RGBColors.h" />
     <ClInclude Include="Shop.h" />
-    <ClInclude Include="Stock.h" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -117,9 +117,6 @@
     <ClCompile Include="Order.cpp">
       <Filter>Resource Files\Shop</Filter>
     </ClCompile>
-    <ClCompile Include="Stock.cpp">
-      <Filter>Resource Files\Shop</Filter>
-    </ClCompile>
     <ClCompile Include="Publisher.cpp">
       <Filter>Resource Files\Shop</Filter>
     </ClCompile>
@@ -207,9 +204,6 @@
       <Filter>MyClasses\BackEnd</Filter>
     </ClInclude>
     <ClInclude Include="Order.h">
-      <Filter>MyClasses\Shop</Filter>
-    </ClInclude>
-    <ClInclude Include="Stock.h">
       <Filter>MyClasses\Shop</Filter>
     </ClInclude>
     <ClInclude Include="Publisher.h">

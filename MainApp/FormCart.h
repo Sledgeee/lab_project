@@ -22,16 +22,18 @@ namespace MainApp {
 	public ref class FormCart : public System::Windows::Forms::Form
 	{
 	public:
-		FormCart(Cart^ cart)
+		FormCart(Cart^ cart, List<Button^>^ buttons)
 		{
 			InitializeComponent();
 			this->cart = cart;
+			this->buttonsFromShop = buttons;
 		}
 		Cart^ cart;
 		List<Button^>^ spawnedButtons;
 		List<Label^>^ spawnedLabels;
 		List<TextBox^>^ spawnedTextBoxes;
 		List<Panel^>^ spawnedPanels;
+		List<Button^>^ buttonsFromShop;
 	protected:
 		/// <summary>
 		/// Clean up any resources being used.
@@ -335,15 +337,21 @@ namespace MainApp {
 
 	private: System::Void plus_Click(System::Object^ sender, System::EventArgs^ e)
 	{
-		Button^ button = (Button^)sender;
-		int index = Int32::Parse(button->Name[button->Name->Length - 1].ToString()) - 1;
+		Button^ btn = (Button^)sender;
+		String^ index_str = "";
+		for (int i = 2; i < btn->Name->Length; i++)
+			index_str += btn->Name[i];
+		int index = Int32::Parse(index_str) - 1;
 		spawnedTextBoxes[index]->Text = (Convert::ToInt32(spawnedTextBoxes[index]->Text) + 1).ToString();
 	}
 
 	private: System::Void minus_Click(System::Object^ sender, System::EventArgs^ e)
 	{
-		Button^ button = (Button^)sender;
-		int index = Int32::Parse(button->Name[button->Name->Length - 1].ToString()) - 1;
+		Button^ btn = (Button^)sender;
+		String^ index_str = "";
+		for (int i = 2; i < btn->Name->Length; i++)
+			index_str += btn->Name[i];
+		int index = Int32::Parse(index_str) - 1;
 		if (Convert::ToInt32(spawnedTextBoxes[index]->Text) == 1)
 			return;
 		spawnedTextBoxes[index]->Text = (Convert::ToInt32(spawnedTextBoxes[index]->Text) - 1).ToString();
@@ -356,12 +364,22 @@ namespace MainApp {
 			counter->Text = "1";
 			return;
 		}
-		int index = Int32::Parse(counter->Name[counter->Name->Length - 1].ToString()) - 1;
+		String^ index_str = "";
+		for (int i = 2; i < counter->Name->Length; i++)
+			index_str += counter->Name[i];
+		int index = Int32::Parse(index_str) - 1;
 		int i = 0;
 		for each (auto prod in cart->Products)
 		{
 			if (i == index) {
-				cart->Products[prod.Key] = Int32::Parse(counter->Text);
+				cart->Products[prod.Key] = ValueTuple<Int32, Int32>(Int32::Parse(counter->Text), index);
+				spawnedLabels[index]->Text = cart->calculateSpecifyItemPrice(
+					KeyValuePair<Edition^, ValueTuple<Int32, Int32> >(
+						prod.Key, 
+						ValueTuple<Int32, Int32>(
+							cart->Products[prod.Key].Item1, cart->Products[prod.Key].Item2
+							)
+				)).ToString() + "$";
 				break;
 			}
 			i++;
@@ -420,7 +438,7 @@ namespace MainApp {
 			edition_counter->MaxLength = 4;
 			edition_counter->Name = L"ec" + i;
 			edition_counter->Size = System::Drawing::Size(71, 35);
-			edition_counter->Text = product.Value.ToString();
+			edition_counter->Text = product.Value.Item1.ToString();
 			edition_counter->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			edition_counter->TextChanged += gcnew EventHandler(this, &FormCart::edition_counter_TextChanged);
 
@@ -538,9 +556,11 @@ namespace MainApp {
 
 	}
 	private: System::Void btnEllipsis_Click(System::Object^ sender, System::EventArgs^ e) {
-		Button^ button = (Button^)sender;
-		String^ name = button->Name;
-		int index = Int32::Parse(name[name->Length - 1].ToString()) - 1;
+		Button^ btn = (Button^)sender;
+		String^ index_str = "";
+		for (int i = 2; i < btn->Name->Length; i++)
+			index_str += btn->Name[i];
+		int index = Int32::Parse(index_str) - 1;
 		spawnedButtons[index]->Visible = true;
 		spawnedButtons[index]->BringToFront();
 	}
@@ -550,26 +570,24 @@ namespace MainApp {
 		button->ImageKey = L"trash_red.png";
 	}
 	private: System::Void btnRemove_Click(System::Object^ sender, System::EventArgs^ e) {
-		Button^ button = (Button^)sender;
-		String^ name = button->Name;
-		int index = Int32::Parse(name[name->Length - 1].ToString()) - 1;
+		Button^ btn = (Button^)sender;
+		String^ index_str = "";
+		for (int i = 2; i < btn->Name->Length; i++)
+			index_str += btn->Name[i];
+		int index = Int32::Parse(index_str) - 1;
 		int i = 0;
 		for each (auto prod in cart->Products)
 		{
 			if (i == index)
 			{
-				cart->Products->Remove(prod.Key);
+				buttonsFromShop[prod.Value.Item2]->ImageKey = L"shop_cart_empty.png";
+				cart->Products[prod.Key] = ValueTuple<Int32, Int32>(0, 0);
 				break;
 			}
 			i++;
 		}
 		cart->Refresh();
-		spawnedPanels[index]->Controls->Clear();
 		PanelDesk->Controls->Remove(spawnedPanels[index]);
-		spawnedPanels->Remove(spawnedPanels[index]);
-		spawnedLabels->Remove(spawnedLabels[index]);
-		spawnedButtons->Remove(spawnedButtons[index]);
-		spawnedTextBoxes->Remove(spawnedTextBoxes[index]);
 		if (cart->CountProducts == 0)
 		{
 			PanelDesk->Visible = false;
@@ -585,8 +603,10 @@ namespace MainApp {
 	}
 	private: System::Void panel_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
 		Panel^ panel = (Panel^)sender;
-		String^ name = panel->Name;
-		int index = Int32::Parse(name[name->Length - 1].ToString()) - 1;
+		String^ index_str = "";
+		for (int i = 1; i < panel->Name->Length; i++)
+			index_str += panel->Name[i];
+		int index = Int32::Parse(index_str) - 1;
 		if (spawnedButtons[index]->Visible)
 			spawnedButtons[index]->Visible = false;
 	}
