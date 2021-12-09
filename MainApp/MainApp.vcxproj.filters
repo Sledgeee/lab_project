@@ -13,14 +13,8 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files\Shop">
-      <UniqueIdentifier>{a166b9dc-583c-4575-856c-0d0b5f855eda}</UniqueIdentifier>
-    </Filter>
     <Filter Include="MyClasses">
       <UniqueIdentifier>{b5a008d7-907f-49bc-ab44-83e3f9a40644}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyClasses\Shop">
-      <UniqueIdentifier>{4d93a9fd-1c7b-4c0f-a71a-af1ac3162847}</UniqueIdentifier>
     </Filter>
     <Filter Include="MyClasses\BackEnd">
       <UniqueIdentifier>{f64729a4-b53e-4bfa-8abe-744b08b90405}</UniqueIdentifier>
@@ -66,21 +60,6 @@
     <ClCompile Include="FormPromptAddEdition.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Cart.cpp">
-      <Filter>Resource Files\Shop</Filter>
-    </ClCompile>
-    <ClCompile Include="Book.cpp">
-      <Filter>Resource Files\Shop</Filter>
-    </ClCompile>
-    <ClCompile Include="Edition.cpp">
-      <Filter>Resource Files\Shop</Filter>
-    </ClCompile>
-    <ClCompile Include="Newspaper.cpp">
-      <Filter>Resource Files\Shop</Filter>
-    </ClCompile>
-    <ClCompile Include="Magazine.cpp">
-      <Filter>Resource Files\Shop</Filter>
-    </ClCompile>
     <ClCompile Include="RGBColors.cpp">
       <Filter>Resource Files\FrontEnd</Filter>
     </ClCompile>
@@ -102,15 +81,6 @@
     <ClCompile Include="Person.cpp">
       <Filter>Resource Files\BackEnd</Filter>
     </ClCompile>
-    <ClCompile Include="Order.cpp">
-      <Filter>Resource Files\Shop</Filter>
-    </ClCompile>
-    <ClCompile Include="Publisher.cpp">
-      <Filter>Resource Files\Shop</Filter>
-    </ClCompile>
-    <ClCompile Include="Shop.cpp">
-      <Filter>Resource Files\Shop</Filter>
-    </ClCompile>
     <ClCompile Include="Form2FA.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -123,8 +93,41 @@
     <ClCompile Include="FormMyOrders.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BackEndActions.cpp">
+      <Filter>Resource Files\BackEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Book.cpp">
+      <Filter>Resource Files\BackEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Cart.cpp">
+      <Filter>Resource Files\BackEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Edition.cpp">
+      <Filter>Resource Files\BackEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Magazine.cpp">
+      <Filter>Resource Files\BackEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Order.cpp">
+      <Filter>Resource Files\BackEnd</Filter>
+    </ClCompile>
     <ClCompile Include="Order_history.cpp">
-      <Filter>Resource Files\Shop</Filter>
+      <Filter>Resource Files\BackEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Publisher.cpp">
+      <Filter>Resource Files\BackEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Shop.cpp">
+      <Filter>Resource Files\BackEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Newspaper.cpp">
+      <Filter>Resource Files\BackEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="FrontEndActionsFCM.cpp">
+      <Filter>Resource Files\FrontEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="FCMControlsRealizations.cpp">
+      <Filter>Resource Files\BackEnd</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -158,21 +161,6 @@
     <ClInclude Include="FormPromptAddEdition.h">
       <Filter>Forms</Filter>
     </ClInclude>
-    <ClInclude Include="Book.h">
-      <Filter>MyClasses\Shop</Filter>
-    </ClInclude>
-    <ClInclude Include="Cart.h">
-      <Filter>MyClasses\Shop</Filter>
-    </ClInclude>
-    <ClInclude Include="Edition.h">
-      <Filter>MyClasses\Shop</Filter>
-    </ClInclude>
-    <ClInclude Include="Magazine.h">
-      <Filter>MyClasses\Shop</Filter>
-    </ClInclude>
-    <ClInclude Include="Newspaper.h">
-      <Filter>MyClasses\Shop</Filter>
-    </ClInclude>
     <ClInclude Include="DBQuery.h">
       <Filter>MyClasses\BackEnd</Filter>
     </ClInclude>
@@ -194,15 +182,6 @@
     <ClInclude Include="Person.h">
       <Filter>MyClasses\BackEnd</Filter>
     </ClInclude>
-    <ClInclude Include="Order.h">
-      <Filter>MyClasses\Shop</Filter>
-    </ClInclude>
-    <ClInclude Include="Publisher.h">
-      <Filter>MyClasses\Shop</Filter>
-    </ClInclude>
-    <ClInclude Include="Shop.h">
-      <Filter>MyClasses\Shop</Filter>
-    </ClInclude>
     <ClInclude Include="Form2FA.h">
       <Filter>Forms</Filter>
     </ClInclude>
@@ -212,8 +191,32 @@
     <ClInclude Include="FormMyOrders.h">
       <Filter>Forms</Filter>
     </ClInclude>
+    <ClInclude Include="Book.h">
+      <Filter>MyClasses\BackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Cart.h">
+      <Filter>MyClasses\BackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Edition.h">
+      <Filter>MyClasses\BackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Magazine.h">
+      <Filter>MyClasses\BackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Order.h">
+      <Filter>MyClasses\BackEnd</Filter>
+    </ClInclude>
     <ClInclude Include="Order_history.h">
-      <Filter>MyClasses\Shop</Filter>
+      <Filter>MyClasses\BackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Publisher.h">
+      <Filter>MyClasses\BackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Shop.h">
+      <Filter>MyClasses\BackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Newspaper.h">
+      <Filter>MyClasses\BackEnd</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

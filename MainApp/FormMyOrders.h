@@ -42,26 +42,7 @@ namespace MainApp {
 		}
 	private: System::Windows::Forms::FlowLayoutPanel^ flowOrders;
 	protected:
-
 	protected:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	private:
 		/// <summary>
 		/// Required designer variable.

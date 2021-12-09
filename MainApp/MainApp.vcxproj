@@ -116,8 +116,11 @@
     <ClCompile Include="Account.cpp" />
     <ClCompile Include="Admin.cpp" />
     <ClCompile Include="Book.cpp" />
+    <ClCompile Include="FCMControlsRealizations.cpp" />
+    <ClCompile Include="FrontEndActionsFCM.cpp" />
     <ClCompile Include="Cart.cpp" />
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="BackEndActions.cpp" />
     <ClCompile Include="DBQuery.cpp" />
     <ClCompile Include="Edition.cpp" />
     <ClCompile Include="Form2FA.cpp" />
