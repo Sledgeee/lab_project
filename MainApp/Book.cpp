@@ -2,14 +2,11 @@
 
 Book::Book() {}
 
-Book::Book(Int32 id, String^ name, String^ type, String^ author, String^ genre, Int32 paperback,
+Book::Book(Int32 id, String^ name, String^ type, String^ author, String^ genre, Int32 printlength,
 	Publisher^ publisher, String^ language, String^ description, float price,
 	Int32 discount, String^ linkToImage)
 	:author(author), genre(genre), 
-	Edition(id, name, type, paperback, publisher, language, description, price, discount, linkToImage) {}
-
-Book::Book(Int32 id, String^ name, float price, Int32 discount, String^ linkToImage)
-	: Edition(id, name, "Book", 0, nullptr, "", "", price, discount, linkToImage) {}
+	Edition(id, name, type, printlength, publisher, language, description, price, discount, linkToImage) {}
 
 Book::~Book() {}
 

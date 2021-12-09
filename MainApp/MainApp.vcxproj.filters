@@ -42,15 +42,6 @@
     <ClCompile Include="FormClientMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FormProfile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FormShop.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FormSettings.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="FormStartUp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -64,9 +55,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FormEditions.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FormCart.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FormPrompt.cpp">
@@ -123,21 +111,27 @@
     <ClCompile Include="Shop.cpp">
       <Filter>Resource Files\Shop</Filter>
     </ClCompile>
+    <ClCompile Include="Form2FA.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InitializeComponentsFCM.cpp">
+      <Filter>Resource Files\FrontEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="FormPassChangedNotification.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FormMyOrders.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Order_history.cpp">
+      <Filter>Resource Files\Shop</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FormAdminMenu.h">
       <Filter>Forms</Filter>
     </ClInclude>
     <ClInclude Include="FormClientMenu.h">
-      <Filter>Forms</Filter>
-    </ClInclude>
-    <ClInclude Include="FormProfile.h">
-      <Filter>Forms</Filter>
-    </ClInclude>
-    <ClInclude Include="FormShop.h">
-      <Filter>Forms</Filter>
-    </ClInclude>
-    <ClInclude Include="FormSettings.h">
       <Filter>Forms</Filter>
     </ClInclude>
     <ClInclude Include="FormStartUp.h">
@@ -153,9 +147,6 @@
       <Filter>Forms</Filter>
     </ClInclude>
     <ClInclude Include="FormEditions.h">
-      <Filter>Forms</Filter>
-    </ClInclude>
-    <ClInclude Include="FormCart.h">
       <Filter>Forms</Filter>
     </ClInclude>
     <ClInclude Include="FormPrompt.h">
@@ -210,6 +201,18 @@
       <Filter>MyClasses\Shop</Filter>
     </ClInclude>
     <ClInclude Include="Shop.h">
+      <Filter>MyClasses\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="Form2FA.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="FormPassChangedNotification.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="FormMyOrders.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="Order_history.h">
       <Filter>MyClasses\Shop</Filter>
     </ClInclude>
   </ItemGroup>

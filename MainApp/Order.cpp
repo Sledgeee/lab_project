@@ -1,29 +1,56 @@
 #include "Order.h"
 
-Order::Order() {}
-
-Order::Order(Int32 id, Client^ client, Cart^ cart, float totalSum,
-	Dictionary<Edition^, Int32>^ editions, DateTime^ date, bool payStatus)
+Order::Order()
 {
-	this->id = id;
+	this->editions = gcnew Dictionary<Edition^, Int32>();
+}
+
+Order::Order(Client^ client, Cart^ cart, bool paystatus) : Order()
+{
 	this->client = client;
 	this->cart = cart;
-	this->totalSum = totalSum;
-	this->editions = editions;
-	this->date = date;
-	this->payStatus = payStatus;
+	this->payStatus = paystatus;
 }
 
 Order::~Order() {}
 
+
+Void Order::CreateOrder() {
+	String^ EditionsID = "";
+	String^ EditionsCount = "";
+	int i = 0;
+	for each (auto ID in cart->CartProducts) {
+		if (i == 0) {
+			EditionsID += (ID.Key->getId().ToString());
+			EditionsCount += (ID.Value.ToString());
+			i = 1;
+			continue;
+		}
+		EditionsID += (" " + ID.Key->getId().ToString());
+		EditionsCount += (" " + ID.Value.ToString());
+	}
+	SqlConnection^ con = gcnew SqlConnection(DBQuery::connect_str);
+	con->Open();
+	String^ sql = String::Format("INSERT INTO Orders " +
+		"(CustomerID, CustomerName, CustomerEmail, EditionsID, EditionsCount, TotalSum, DateCreateOrder, PayStatus, ProcessStatus) " +
+		"Values (@CID, @CN, @CE, @EID, @EC, @TS, @DCO, @PS, @PRS)");
+	SqlCommand^ cmd = gcnew SqlCommand(sql, con);
+	cmd->Parameters->AddWithValue("@CID", client->getId());
+	cmd->Parameters->AddWithValue("@CN", client->getName());
+	cmd->Parameters->AddWithValue("@CE", client->getEmail());
+	cmd->Parameters->AddWithValue("@EID", EditionsID);
+	cmd->Parameters->AddWithValue("@EC", EditionsCount);
+	cmd->Parameters->AddWithValue("@TS", cart->TotalSum);
+	cmd->Parameters->AddWithValue("@DCO", DateTime::Now);
+	cmd->Parameters->AddWithValue("@PS", false);
+	cmd->Parameters->AddWithValue("@PRS", Status::WAITING_FOR_PAYMENT);
+	cmd->ExecuteNonQuery();
+	con->Close();
+}
+
 Int32 Order::getId()
 {
 	return this->id;
-}
-
-Client^ Order::getClient()
-{
-	return this->client;
 }
 
 Cart^ Order::getCart()
@@ -31,14 +58,9 @@ Cart^ Order::getCart()
 	return this->cart;
 }
 
-float Order::getTotalSum()
+Client^ Order::getClient()
 {
-	return this->totalSum;
-}
-
-Dictionary<Edition^, Int32>^ Order::getEditions()
-{
-	return this->editions;
+	return this->client;
 }
 
 DateTime^ Order::getDate()
@@ -56,24 +78,14 @@ Void Order::setId(Int32 id)
 	this->id = id;
 }
 
-Void Order::setClient(Client^ client)
-{
-	this->client = client;
-}
-
 Void Order::setCart(Cart^ cart)
 {
 	this->cart = cart;
 }
 
-Void Order::setTotalSum(float totalSum)
+Void Order::setClient(Client^ client)
 {
-	this->totalSum = totalSum;
-}
-
-Void Order::setEditions(Dictionary<Edition^, Int32>^ editions)
-{
-	this->editions = editions;
+	this->client = client;
 }
 
 Void Order::setDate(DateTime^ date)

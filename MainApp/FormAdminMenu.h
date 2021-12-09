@@ -1,11 +1,8 @@
 #pragma once
 
 #include "RGBColors.h"
-#include "FormCart.h"
-#include "FormShop.h"
 #include "FormEditions.h"
 #include "FormClients.h"
-#include "FormSettings.h"
 #include "DBQuery.h"
 
 namespace MainApp {
@@ -61,8 +58,8 @@ namespace MainApp {
 	private: System::Windows::Forms::Button^ Editions;
 	private: System::Windows::Forms::Button^ Clients;
 	private: System::Windows::Forms::Panel^ PanelTitleBar;
-	private: System::Windows::Forms::Label^ lblFormTitle;
-	private: System::Windows::Forms::PictureBox^ IconCurrentForm;
+
+
 	private: System::Windows::Forms::Button^ currentBtn;
 	private: System::Windows::Forms::Button^ Logout;
 	private: System::Windows::Forms::Panel^ leftBorderBtn;
@@ -77,7 +74,7 @@ namespace MainApp {
 	private: System::Windows::Forms::Panel^ PanelControls;
 	private: System::Windows::Forms::Button^ button1;
 	private: System::Windows::Forms::Button^ button2;
-	private: System::Windows::Forms::Button^ Settings;
+
 
 
 	private: System::Windows::Forms::ImageList^ imageList1;
@@ -100,7 +97,6 @@ namespace MainApp {
 			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(FormAdminMenu::typeid));
 			this->PanelMenu = (gcnew System::Windows::Forms::Panel());
-			this->Settings = (gcnew System::Windows::Forms::Button());
 			this->Logout = (gcnew System::Windows::Forms::Button());
 			this->Editions = (gcnew System::Windows::Forms::Button());
 			this->Clients = (gcnew System::Windows::Forms::Button());
@@ -110,8 +106,6 @@ namespace MainApp {
 			this->PanelTitleBar = (gcnew System::Windows::Forms::Panel());
 			this->btnExit = (gcnew System::Windows::Forms::Button());
 			this->btnMinimize = (gcnew System::Windows::Forms::Button());
-			this->lblFormTitle = (gcnew System::Windows::Forms::Label());
-			this->IconCurrentForm = (gcnew System::Windows::Forms::PictureBox());
 			this->PanelDesktop = (gcnew System::Windows::Forms::Panel());
 			this->lblCurrentTime = (gcnew System::Windows::Forms::Label());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
@@ -123,7 +117,6 @@ namespace MainApp {
 			this->PanelLogo->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->imgHome))->BeginInit();
 			this->PanelTitleBar->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->IconCurrentForm))->BeginInit();
 			this->PanelDesktop->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->PanelControls->SuspendLayout();
@@ -133,7 +126,6 @@ namespace MainApp {
 			// 
 			this->PanelMenu->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(31)), static_cast<System::Int32>(static_cast<System::Byte>(30)),
 				static_cast<System::Int32>(static_cast<System::Byte>(68)));
-			this->PanelMenu->Controls->Add(this->Settings);
 			this->PanelMenu->Controls->Add(this->Logout);
 			this->PanelMenu->Controls->Add(this->Editions);
 			this->PanelMenu->Controls->Add(this->Clients);
@@ -143,28 +135,6 @@ namespace MainApp {
 			this->PanelMenu->Name = L"PanelMenu";
 			this->PanelMenu->Size = System::Drawing::Size(220, 867);
 			this->PanelMenu->TabIndex = 0;
-			// 
-			// Settings
-			// 
-			this->Settings->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->Settings->Dock = System::Windows::Forms::DockStyle::Top;
-			this->Settings->FlatAppearance->BorderSize = 0;
-			this->Settings->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->Settings->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->Settings->ForeColor = System::Drawing::Color::Gainsboro;
-			this->Settings->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Settings.Image")));
-			this->Settings->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->Settings->Location = System::Drawing::Point(0, 260);
-			this->Settings->Name = L"Settings";
-			this->Settings->Padding = System::Windows::Forms::Padding(10, 0, 0, 0);
-			this->Settings->Size = System::Drawing::Size(220, 60);
-			this->Settings->TabIndex = 6;
-			this->Settings->Text = L" Settings";
-			this->Settings->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->Settings->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageBeforeText;
-			this->Settings->UseVisualStyleBackColor = true;
-			this->Settings->Click += gcnew System::EventHandler(this, &FormAdminMenu::Settings_Click);
 			// 
 			// Logout
 			// 
@@ -251,7 +221,6 @@ namespace MainApp {
 			this->imgHome->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 			this->imgHome->TabIndex = 0;
 			this->imgHome->TabStop = false;
-			this->imgHome->Click += gcnew System::EventHandler(this, &FormAdminMenu::imgHome_Click);
 			// 
 			// imageList1
 			// 
@@ -266,8 +235,6 @@ namespace MainApp {
 			this->PanelTitleBar->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->PanelTitleBar->Controls->Add(this->btnExit);
 			this->PanelTitleBar->Controls->Add(this->btnMinimize);
-			this->PanelTitleBar->Controls->Add(this->lblFormTitle);
-			this->PanelTitleBar->Controls->Add(this->IconCurrentForm);
 			this->PanelTitleBar->Cursor = System::Windows::Forms::Cursors::Arrow;
 			this->PanelTitleBar->Dock = System::Windows::Forms::DockStyle::Top;
 			this->PanelTitleBar->Location = System::Drawing::Point(220, 31);
@@ -305,28 +272,6 @@ namespace MainApp {
 			this->btnMinimize->TabIndex = 5;
 			this->btnMinimize->UseVisualStyleBackColor = true;
 			this->btnMinimize->Click += gcnew System::EventHandler(this, &FormAdminMenu::btnMinimize_Click);
-			// 
-			// lblFormTitle
-			// 
-			this->lblFormTitle->AutoSize = true;
-			this->lblFormTitle->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->lblFormTitle->ForeColor = System::Drawing::Color::Gainsboro;
-			this->lblFormTitle->Location = System::Drawing::Point(56, 11);
-			this->lblFormTitle->Name = L"lblFormTitle";
-			this->lblFormTitle->Size = System::Drawing::Size(60, 28);
-			this->lblFormTitle->TabIndex = 1;
-			this->lblFormTitle->Text = L"Home";
-			// 
-			// IconCurrentForm
-			// 
-			this->IconCurrentForm->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"IconCurrentForm.Image")));
-			this->IconCurrentForm->Location = System::Drawing::Point(18, 11);
-			this->IconCurrentForm->Name = L"IconCurrentForm";
-			this->IconCurrentForm->Size = System::Drawing::Size(32, 32);
-			this->IconCurrentForm->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
-			this->IconCurrentForm->TabIndex = 0;
-			this->IconCurrentForm->TabStop = false;
 			// 
 			// PanelDesktop
 			// 
@@ -440,8 +385,6 @@ namespace MainApp {
 			this->PanelLogo->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->imgHome))->EndInit();
 			this->PanelTitleBar->ResumeLayout(false);
-			this->PanelTitleBar->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->IconCurrentForm))->EndInit();
 			this->PanelDesktop->ResumeLayout(false);
 			this->PanelDesktop->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
@@ -466,8 +409,6 @@ namespace MainApp {
 			this->leftBorderBtn->Location = System::Drawing::Point(0, currentBtn->Location.Y);
 			this->leftBorderBtn->Visible = true;
 			this->leftBorderBtn->BringToFront();
-
-			this->IconCurrentForm->Image = currentBtn->Image;
 		}
 	}
 	private: System::Void DisableButton()
@@ -496,7 +437,6 @@ namespace MainApp {
 		PanelDesktop->Tag = childForm;
 		childForm->BringToFront();
 		childForm->Show();
-		lblFormTitle->Text = childForm->Text;
 	}
 
 	private: System::Void Clients_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -507,10 +447,7 @@ namespace MainApp {
 		ActivateButton(sender, RGBColors::color2);
 		OpenChildForm(gcnew FormEditions);
 	}
-	private: System::Void Settings_Click(System::Object^ sender, System::EventArgs^ e) {
-		ActivateButton(sender, RGBColors::color3);
-		OpenChildForm(gcnew FormSettings);
-	}
+
 	private: System::Void Logout_Click(System::Object^ sender, System::EventArgs^ e) {
 		auto dialogResult = MessageBox::Show(this, "Are you sure you want to log out?", "Log out", MessageBoxButtons::YesNo);
 		if (dialogResult == System::Windows::Forms::DialogResult::Yes)
@@ -518,21 +455,6 @@ namespace MainApp {
 			this->DialogResult = System::Windows::Forms::DialogResult::OK;
 			this->Close();
 		}
-	}
-	private: System::Void imgHome_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (currentChildForm != nullptr)
-		{
-			currentChildForm->Close();
-		}
-		Reset();
-	}
-
-	private: System::Void Reset()
-	{
-		DisableButton();
-		leftBorderBtn->Visible = false;
-		IconCurrentForm->Image = this->imageList1->Images[0];
-		lblFormTitle->Text = "Home";
 	}
 
 	private: System::Void PanelTitleBar_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {

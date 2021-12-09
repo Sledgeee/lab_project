@@ -6,53 +6,41 @@ Cart::Cart()
 	this->CountProducts = 0;
 	this->CountKeys = 0;
 	this->TotalSum = 0;
-	this->Products = gcnew Dictionary<Edition^, ValueTuple<Int32, Int32> >();
+	this->CartProducts = gcnew Dictionary<Edition^, Int32>();
 }
 
 Cart::~Cart() {}
 
 
-Void Cart::addProduct(Edition^ edition, Int32 number, Int32 index)
+Void Cart::addProduct(Edition^ edition, Int32 number)
 {
-	if (!this->Products->ContainsKey(edition))
+	if (!this->CartProducts->ContainsKey(edition))
 	{
-		ValueTuple<Int32, Int32> tuple(number, index);
-		this->Products->Add(edition, tuple);
+		this->CartProducts->Add(edition, number);
 		this->CountProducts += number;
 		this->CountKeys++;
 	}
 	else {
-		int num = this->Products[edition].Item1 + number;
-		ValueTuple<Int32, Int32> tuple(num, index);
-		this->Products[edition] = tuple;
+		this->CartProducts[edition] += number;
 		this->CountProducts += number;
 	}
-	TotalSum += calculateSpecifyItemPrice(
-		gcnew KeyValuePair<Edition^, ValueTuple<Int32, Int32> >(
-			edition, ValueTuple<Int32, Int32>(
-				this->Products[edition].Item1, this->Products[edition].Item2
-				)
-			)
-	);
+	TotalSum += calculateSpecifyItemPrice(edition, number);
 }
 
 Void Cart::calculateTotalPrice()
 {
 	TotalSum = 0;
-	for each (auto item in this->Products)
+	for each (auto item in this->CartProducts)
 	{
-		item.Key->getDiscount() > 0 ?
-			this->TotalSum += item.Key->getPrice() * item.Value.Item1 - item.Key->getPrice() / 100 * item.Key->getDiscount() * item.Value.Item1 :
-			this->TotalSum += item.Key->getPrice() * item.Value.Item1;
+		this->TotalSum += calculateSpecifyItemPrice(item.Key, item.Value);
 	}
-	TotalSum = (float)Math::Round(TotalSum, 2);
 }
 
-float Cart::calculateSpecifyItemPrice(KeyValuePair<Edition^, ValueTuple<Int32, Int32> >^ item)
+float Cart::calculateSpecifyItemPrice(Edition^ edition, Int32 number)
 {
-	return item->Key->getDiscount() > 0 ?
-		(float)Math::Round(item->Key->getPrice() * item->Value.Item1 - item->Key->getPrice() / 100 * item->Key->getDiscount() * item->Value.Item1, 2) :
-		(float)Math::Round(item->Key->getPrice() * item->Value.Item1, 2);
+	return edition->getDiscount() > 0 ?
+		(float)Math::Round(edition->getPrice() * number - edition->getPrice() / 100 * edition->getDiscount() * number, 2) :
+		(float)Math::Round(edition->getPrice() * number, 2);
 }
 
 Void Cart::Refresh()
@@ -60,12 +48,10 @@ Void Cart::Refresh()
 	this->CountProducts = 0;
 	this->CountKeys = 0;
 	this->TotalSum = 0;
-	for each (auto value in this->Products)
+	for each (auto value in this->CartProducts)
 	{
 		this->CountKeys++;
-		this->CountProducts += value.Value.Item1;
-		this->TotalSum += value.Key->getPrice() * value.Value.Item1 - 
-			value.Key->getPrice() / 100 * value.Key->getDiscount() * value.Value.Item1;
+		this->CountProducts += value.Value;
+		this->TotalSum += calculateSpecifyItemPrice(value.Key, value.Value);
 	}
-	TotalSum = (float)Math::Round(TotalSum, 2);
 }

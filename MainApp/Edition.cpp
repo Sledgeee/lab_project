@@ -2,10 +2,13 @@
 
 Edition::Edition() {}
 
-Edition::Edition(Int32 id, String^ name, String^ type, Int32 paperback, Publisher^ publisher, String^ language,
+Edition::Edition(Int32 id, String^ name, String^ type, Int32 printlength, Publisher^ publisher, String^ language,
 	String^ description, float price, Int32 discount, String^ linkToImage)
-	:id(id), name(name), type(type), paperback(paperback), publisher(publisher), language(language),
+	:id(id), name(name), type(type), printlength(printlength), publisher(publisher), language(language),
 	description(description), price(price), discount(discount), linkToImage(linkToImage) {}
+
+Edition::Edition(Int32 id, String^ name, String^ type, String^ linkToImage)
+	: id(id), name(name), type(type), linkToImage(linkToImage) {}
 
 Edition::~Edition() {}
 
@@ -24,9 +27,9 @@ String^ Edition::getType()
 	return this->type;
 }
 
-Int32 Edition::getPaperback()
+Int32 Edition::getPrintlength()
 {
-	return this->paperback;
+	return this->printlength;
 }
 
 Publisher^ Edition::getPublisher()
@@ -74,9 +77,9 @@ Void Edition::setType(String^ type)
 	this->type = type;
 }
 
-Void Edition::setPaperback(Int32 paperback)
+Void Edition::setPrintlength(Int32 Printlength)
 {
-	this->paperback = paperback;
+	this->printlength = printlength;
 }
 
 Void Edition::setPublisher(Publisher^ publisher)

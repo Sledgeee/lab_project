@@ -40,7 +40,9 @@ namespace MainApp {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Button^ btnSignInAsClient;
+	private: System::Windows::Forms::Button^ btnSignIn;
+	protected:
+
 	protected:
 
 	private: System::Windows::Forms::Panel^ panel1;
@@ -58,13 +60,13 @@ namespace MainApp {
 
 	private: System::Windows::Forms::Button^ return_back;
 	private: System::Windows::Forms::Label^ label1;
-	private: System::Windows::Forms::Button^ btnSignInAsAdmin;
 
-	private: System::Windows::Forms::Panel^ PanelActivateAdmin;
-	private: System::Windows::Forms::Button^ btnSendActKey;
-	private: System::Windows::Forms::TextBox^ txtActivationKey;
 
-	private: System::Windows::Forms::Label^ lblTitleAdminActivate;
+
+
+
+
+
 
 
 
@@ -86,7 +88,7 @@ namespace MainApp {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(FormLogIn::typeid));
-			this->btnSignInAsClient = (gcnew System::Windows::Forms::Button());
+			this->btnSignIn = (gcnew System::Windows::Forms::Button());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->btnExit = (gcnew System::Windows::Forms::Button());
 			this->btnMinimize = (gcnew System::Windows::Forms::Button());
@@ -97,33 +99,28 @@ namespace MainApp {
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->return_back = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->btnSignInAsAdmin = (gcnew System::Windows::Forms::Button());
-			this->PanelActivateAdmin = (gcnew System::Windows::Forms::Panel());
-			this->btnSendActKey = (gcnew System::Windows::Forms::Button());
-			this->txtActivationKey = (gcnew System::Windows::Forms::TextBox());
-			this->lblTitleAdminActivate = (gcnew System::Windows::Forms::Label());
 			this->panel1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
-			this->PanelActivateAdmin->SuspendLayout();
 			this->SuspendLayout();
 			// 
-			// btnSignInAsClient
+			// btnSignIn
 			// 
-			this->btnSignInAsClient->FlatAppearance->BorderSize = 2;
-			this->btnSignInAsClient->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnSignInAsClient->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->btnSignIn->FlatAppearance->BorderSize = 2;
+			this->btnSignIn->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnSignIn->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->btnSignInAsClient->ForeColor = System::Drawing::Color::Gainsboro;
-			this->btnSignInAsClient->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnSignInAsClient.Image")));
-			this->btnSignInAsClient->Location = System::Drawing::Point(33, 304);
-			this->btnSignInAsClient->Name = L"btnSignInAsClient";
-			this->btnSignInAsClient->Size = System::Drawing::Size(180, 63);
-			this->btnSignInAsClient->TabIndex = 0;
-			this->btnSignInAsClient->Text = L"Sign in as client";
-			this->btnSignInAsClient->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->btnSignInAsClient->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageBeforeText;
-			this->btnSignInAsClient->UseVisualStyleBackColor = true;
-			this->btnSignInAsClient->Click += gcnew System::EventHandler(this, &FormLogIn::btnSignInAsClient_Click);
+			this->btnSignIn->ForeColor = System::Drawing::Color::Gainsboro;
+			this->btnSignIn->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnSignIn.Image")));
+			this->btnSignIn->Location = System::Drawing::Point(125, 299);
+			this->btnSignIn->Name = L"btnSignIn";
+			this->btnSignIn->Padding = System::Windows::Forms::Padding(10, 0, 0, 0);
+			this->btnSignIn->Size = System::Drawing::Size(180, 63);
+			this->btnSignIn->TabIndex = 0;
+			this->btnSignIn->Text = L" Sign in";
+			this->btnSignIn->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->btnSignIn->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageBeforeText;
+			this->btnSignIn->UseVisualStyleBackColor = true;
+			this->btnSignIn->Click += gcnew System::EventHandler(this, &FormLogIn::btnSignIn_Click);
 			// 
 			// panel1
 			// 
@@ -252,84 +249,12 @@ namespace MainApp {
 			this->label1->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 14.25F, System::Drawing::FontStyle::Underline, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->label1->ForeColor = System::Drawing::Color::MediumVioletRed;
-			this->label1->Location = System::Drawing::Point(127, 377);
+			this->label1->Location = System::Drawing::Point(121, 375);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(188, 25);
 			this->label1->TabIndex = 20;
 			this->label1->Text = L"Forgot password\?";
 			this->label1->Click += gcnew System::EventHandler(this, &FormLogIn::label1_Click);
-			// 
-			// btnSignInAsAdmin
-			// 
-			this->btnSignInAsAdmin->FlatAppearance->BorderSize = 2;
-			this->btnSignInAsAdmin->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnSignInAsAdmin->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->btnSignInAsAdmin->ForeColor = System::Drawing::Color::Gainsboro;
-			this->btnSignInAsAdmin->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnSignInAsAdmin.Image")));
-			this->btnSignInAsAdmin->Location = System::Drawing::Point(229, 304);
-			this->btnSignInAsAdmin->Name = L"btnSignInAsAdmin";
-			this->btnSignInAsAdmin->Size = System::Drawing::Size(180, 63);
-			this->btnSignInAsAdmin->TabIndex = 21;
-			this->btnSignInAsAdmin->Text = L"Sign in as admin";
-			this->btnSignInAsAdmin->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->btnSignInAsAdmin->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageBeforeText;
-			this->btnSignInAsAdmin->UseVisualStyleBackColor = true;
-			this->btnSignInAsAdmin->Click += gcnew System::EventHandler(this, &FormLogIn::btnSignInAsAdmin_Click);
-			// 
-			// PanelActivateAdmin
-			// 
-			this->PanelActivateAdmin->Controls->Add(this->btnSendActKey);
-			this->PanelActivateAdmin->Controls->Add(this->txtActivationKey);
-			this->PanelActivateAdmin->Controls->Add(this->lblTitleAdminActivate);
-			this->PanelActivateAdmin->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->PanelActivateAdmin->Location = System::Drawing::Point(0, 77);
-			this->PanelActivateAdmin->Name = L"PanelActivateAdmin";
-			this->PanelActivateAdmin->Size = System::Drawing::Size(434, 334);
-			this->PanelActivateAdmin->TabIndex = 22;
-			this->PanelActivateAdmin->Visible = false;
-			// 
-			// btnSendActKey
-			// 
-			this->btnSendActKey->FlatAppearance->BorderSize = 2;
-			this->btnSendActKey->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnSendActKey->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->btnSendActKey->ForeColor = System::Drawing::Color::Gainsboro;
-			this->btnSendActKey->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnSendActKey.Image")));
-			this->btnSendActKey->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->btnSendActKey->Location = System::Drawing::Point(127, 206);
-			this->btnSendActKey->Name = L"btnSendActKey";
-			this->btnSendActKey->Padding = System::Windows::Forms::Padding(5, 0, 0, 0);
-			this->btnSendActKey->Size = System::Drawing::Size(187, 56);
-			this->btnSendActKey->TabIndex = 2;
-			this->btnSendActKey->Text = L"Verify key";
-			this->btnSendActKey->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->btnSendActKey->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageBeforeText;
-			this->btnSendActKey->UseVisualStyleBackColor = true;
-			this->btnSendActKey->Click += gcnew System::EventHandler(this, &FormLogIn::btnSendActKey_Click);
-			// 
-			// txtActivationKey
-			// 
-			this->txtActivationKey->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->txtActivationKey->Location = System::Drawing::Point(65, 146);
-			this->txtActivationKey->Name = L"txtActivationKey";
-			this->txtActivationKey->Size = System::Drawing::Size(304, 32);
-			this->txtActivationKey->TabIndex = 1;
-			this->txtActivationKey->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
-			// 
-			// lblTitleAdminActivate
-			// 
-			this->lblTitleAdminActivate->AutoSize = true;
-			this->lblTitleAdminActivate->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->lblTitleAdminActivate->ForeColor = System::Drawing::Color::Gainsboro;
-			this->lblTitleAdminActivate->Location = System::Drawing::Point(3, 91);
-			this->lblTitleAdminActivate->Name = L"lblTitleAdminActivate";
-			this->lblTitleAdminActivate->Size = System::Drawing::Size(432, 28);
-			this->lblTitleAdminActivate->TabIndex = 0;
-			this->lblTitleAdminActivate->Text = L"Enter key from mail in your E-mail:";
 			// 
 			// FormLogIn
 			// 
@@ -339,8 +264,6 @@ namespace MainApp {
 				static_cast<System::Int32>(static_cast<System::Byte>(74)));
 			this->ClientSize = System::Drawing::Size(434, 411);
 			this->ControlBox = false;
-			this->Controls->Add(this->PanelActivateAdmin);
-			this->Controls->Add(this->btnSignInAsAdmin);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->return_back);
 			this->Controls->Add(this->pictureBox1);
@@ -349,7 +272,7 @@ namespace MainApp {
 			this->Controls->Add(this->lblPasswd);
 			this->Controls->Add(this->lblEmail);
 			this->Controls->Add(this->panel1);
-			this->Controls->Add(this->btnSignInAsClient);
+			this->Controls->Add(this->btnSignIn);
 			this->DoubleBuffered = true;
 			this->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
@@ -362,8 +285,6 @@ namespace MainApp {
 			this->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &FormLogIn::FormLogIn_MouseDown);
 			this->panel1->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
-			this->PanelActivateAdmin->ResumeLayout(false);
-			this->PanelActivateAdmin->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -385,64 +306,41 @@ namespace MainApp {
 		}
 	}
 
-		   // right value: 0 - client, 1 - admin
-	private: System::Boolean compareInputData(int right)
+	private: Account^ getData()
 	{
-		bool isNotInvalidData = false;
+		bool isInvalidData = false;
 		if (String::IsNullOrWhiteSpace(login_field->Text))
 		{
 			setError(1);
-			isNotInvalidData = true;
+			isInvalidData = true;
 		}
 		if (String::IsNullOrWhiteSpace(passwd_field->Text))
 		{
 			setError(2);
-			isNotInvalidData = true;
+			isInvalidData = true;
 		}
-		if (isNotInvalidData) return false;
+		if (isInvalidData) return nullptr;
 
-		if (right == 0)
-			if (DBQuery::isRightDataClient(login_field->Text, passwd_field->Text))
-				return true;
-			else {
-				setError(1);
-				setError(2);
-				return false;
-			}
-		if (right == 1)
-		{
-			// code 0 - registered and activated admin root
-			// code 1 - registered but not activated admin root
-			// code 2 - account not found
-			int result_code = DBQuery::isRightDataAdmin(login_field->Text, passwd_field->Text);
-			if (result_code == 0)
-				return true;
-			else if (result_code == 1)
-			{
-				PanelActivateAdmin->Visible = true;
-				return false;
-			}
-			else {
-				setError(1);
-				setError(2);
-				return false;
-			}
+		Account^ result = DBQuery::isRightData(login_field->Text, passwd_field->Text);
+		if (result == nullptr) {
+			setError(1);
+			setError(2);
+			return nullptr;
 		}
-		return false;
+		return result;
 	}
-	private: System::Void LoadForm(int mode)
-	{
+	private: System::Void btnSignIn_Click(System::Object^ sender, System::EventArgs^ e) {
+		Account^ acc = getData();
+		if (acc == nullptr) return;
 		this->Hide();
 		System::Windows::Forms::DialogResult workResult;
-		switch (mode)
-		{
-		case 0:
-			workResult = (gcnew FormClientMenu(login_field->Text))->ShowDialog();
-			break;
-		case 1:
-			workResult = (gcnew FormAdminMenu(login_field->Text))->ShowDialog();
-			break;
+		if (acc->getRoot() == "Client") {
+			Client^ client = gcnew Client(acc);
+			workResult = (gcnew FormClientMenu(client))->ShowDialog();
 		}
+		else
+			workResult = (gcnew FormAdminMenu(login_field->Text))->ShowDialog();
+
 		login_field->Text = String::Empty;
 		passwd_field->Text = String::Empty;
 		if (workResult == System::Windows::Forms::DialogResult::OK)
@@ -455,27 +353,7 @@ namespace MainApp {
 			Application::Exit();
 		}
 	}
-	private: System::Void btnSignInAsClient_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (!compareInputData(0)) return;
-		this->LoadForm(0);
-	}
-	private: System::Void btnSignInAsAdmin_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (!compareInputData(1)) return;
-		this->LoadForm(1);
-	}
-	private: System::Void btnSendActKey_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (DBQuery::VerifyKey(txtActivationKey->Text, login_field->Text))
-		{
-			DBQuery::UpdateRootStatus(login_field->Text, 1);
-			this->LoadForm(1);
-		}
-		else {
-			auto dr = MessageBox::Show(this, "Incorrect verifying key", "Error",
-				MessageBoxButtons::RetryCancel, MessageBoxIcon::Error);
-			if (dr == System::Windows::Forms::DialogResult::Cancel)
-				PanelActivateAdmin->Visible = false;
-		}
-	}
+
 	private: System::Void FormLogIn_Load(System::Object^ sender, System::EventArgs^ e) {
 	}
 	private: System::Void FormLogIn_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
@@ -508,14 +386,8 @@ namespace MainApp {
 	private: System::Void FormLogIn_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
 	}
 	private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^ e) {
-		if (PanelActivateAdmin->Visible)
-		{
-			this->PanelActivateAdmin->Visible = false;
-		}
-		else {
-			this->DialogResult = System::Windows::Forms::DialogResult::Retry;
-			this->Close();
-		}
+		this->DialogResult = System::Windows::Forms::DialogResult::Retry;
+		this->Close();
 	}
 	private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
 		(gcnew FormResetAccount)->ShowDialog();

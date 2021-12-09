@@ -2,9 +2,9 @@
 
 Account::Account() {}
 
-Account::Account(Int32 id, String^ login, String^ passwd, String^ email, String^ name, Int32 age,
-	String^ sex, String^ country, String^ city, float money)
-	:id(id), login(login), passwd(passwd), email(email), Person(name, age, sex, country, city, money) {}
+Account::Account(Int32 id, String^ login, String^ password, String^ email, String^ name, String^ country, String^ city, float money, String^ root, bool two_fa)
+	:id(id), login(login), password(password), email(email), root(root), TWO_FA(two_fa), 
+	Person(name, country, city, money) {}
 
 Account::~Account() {}
 
@@ -23,9 +23,19 @@ String^ Account::getLogin()
 	return this->login;
 }
 
-String^ Account::getPasswd()
+String^ Account::getPassword()
 {
-	return this->passwd;
+	return this->password;
+}
+
+String^ Account::getRoot()
+{
+	return this->root;
+}
+
+bool Account::get2FA()
+{
+	return this->TWO_FA;
 }
 
 Void Account::setId(Int32 id)
@@ -43,7 +53,17 @@ Void Account::setLogin(String^ login)
 	this->login = login;
 }
 
-Void Account::setPasswd(String^ passwd)
+Void Account::setPassword(String^ password)
 {
-	this->passwd = passwd;
+	this->password = password;
+}
+
+Void Account::setRoot(String^ root)
+{
+	this->root = root;
+}
+
+Void Account::set2FA(bool turn2FA)
+{
+	this->TWO_FA = turn2FA;
 }

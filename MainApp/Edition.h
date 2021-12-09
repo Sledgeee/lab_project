@@ -6,12 +6,12 @@ using namespace System;
 
 ref class Publisher;
 
-public ref class Edition abstract
+public ref class Edition
 {
 	Int32	id;
 	String^ name;
 	String^ type;
-	Int32	paperback;
+	Int32	printlength;
 	Publisher^ publisher;
 	String^ language;
 	String^ description;
@@ -20,14 +20,15 @@ public ref class Edition abstract
 	String^ linkToImage;
 public:
 	Edition();
-	Edition(Int32 id, String^ name, String^ type, Int32 paperback, Publisher^ publisher, String^ language, 
+	Edition(Int32 id, String^ name, String^ type, Int32 printlength, Publisher^ publisher, String^ language,
 		String^ description, float price, Int32 discount, String^ linkToImage);
+	Edition(Int32 id, String^ name, String^ type, String^ linkToImage);
 	~Edition();
 
 	Int32   getId();
 	String^ getName();
 	String^ getType();
-	Int32	getPaperback();
+	Int32	getPrintlength();
 	Publisher^ getPublisher();
 	String^ getLanguage();
 	String^ getDescription();
@@ -37,7 +38,7 @@ public:
 	Void	setId(Int32 id);
 	Void	setName(String^ name);
 	Void	setType(String^ type);
-	Void	setPaperback(Int32 paperback);
+	Void	setPrintlength(Int32 printlength);
 	Void	setPublisher(Publisher^ publisher);
 	Void	setLanguage(String^ language);
 	Void	setDescription(String^ description);

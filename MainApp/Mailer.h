@@ -10,7 +10,7 @@ using namespace System::Text;
 using namespace System::Threading;
 using namespace Tasks;
 
-public ref class Mailer
+public ref class Mailer abstract
 {
 	static initonly String^ log_file = "logs.txt";
 	static initonly String^ pathToLogo = "C:\\Users\\infab\\Desktop\\icons\\mail_logo.jpg";

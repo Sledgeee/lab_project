@@ -2,8 +2,8 @@
 
 Person::Person() {}
 
-Person::Person(String^ name, Int32 age, String^ sex, String^ country, String^ city, float money)
-	:name(name), age(age), sex(sex), country(country), city(city), money(money) {}
+Person::Person(String^ name, String^ country, String^ city, float money)
+	:name(name), country(country), city(city), money(money) {}
 
 Person::~Person() {}
 
@@ -12,29 +12,9 @@ String^ Person::getName()
 	return this->name;
 }
 
-Int32 Person::getAge()
-{
-	return this->age;
-}
-
-String^ Person::getSex()
-{
-	return this->sex;
-}
-
 Void Person::setName(String^ name) 
 { 
 	this->name = name; 
-}
-
-Void Person::setAge(Int32 age) 
-{
-	this->age = age; 
-}
-
-Void Person::setSex(String^ sex) 
-{
-	this->sex = sex; 
 }
 
 String^ Person::getCountry()

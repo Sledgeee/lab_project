@@ -120,24 +120,25 @@
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="DBQuery.cpp" />
     <ClCompile Include="Edition.cpp" />
+    <ClCompile Include="Form2FA.cpp" />
     <ClCompile Include="FormAdminMenu.cpp" />
-    <ClCompile Include="FormCart.cpp" />
     <ClCompile Include="FormClientMenu.cpp" />
     <ClCompile Include="FormClients.cpp" />
     <ClCompile Include="FormEditions.cpp" />
     <ClCompile Include="FormLogIn.cpp" />
     <ClCompile Include="FormLogUp.cpp" />
-    <ClCompile Include="FormProfile.cpp" />
+    <ClCompile Include="FormMyOrders.cpp" />
+    <ClCompile Include="FormPassChangedNotification.cpp" />
     <ClCompile Include="FormPrompt.cpp" />
     <ClCompile Include="FormPromptAddEdition.cpp" />
     <ClCompile Include="FormResetAccount.cpp" />
-    <ClCompile Include="FormSettings.cpp" />
-    <ClCompile Include="FormShop.cpp" />
     <ClCompile Include="FormStartUp.cpp" />
     <ClCompile Include="Magazine.cpp" />
     <ClCompile Include="Mailer.cpp" />
     <ClCompile Include="Newspaper.cpp" />
     <ClCompile Include="Order.cpp" />
+    <ClCompile Include="InitializeComponentsFCM.cpp" />
+    <ClCompile Include="Order_history.cpp" />
     <ClCompile Include="Person.cpp" />
     <ClCompile Include="Publisher.cpp" />
     <ClCompile Include="RGBColors.cpp" />
@@ -151,10 +152,10 @@
     <ClInclude Include="Client.h" />
     <ClInclude Include="DBQuery.h" />
     <ClInclude Include="Edition.h" />
-    <ClInclude Include="FormAdminMenu.h">
+    <ClInclude Include="Form2FA.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="FormCart.h">
+    <ClInclude Include="FormAdminMenu.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="FormClientMenu.h">
@@ -172,7 +173,10 @@
     <ClInclude Include="FormLogUp.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="FormProfile.h">
+    <ClInclude Include="FormMyOrders.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="FormPassChangedNotification.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="FormPrompt.h">
@@ -184,12 +188,6 @@
     <ClInclude Include="FormResetAccount.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="FormSettings.h">
-      <FileType>CppForm</FileType>
-    </ClInclude>
-    <ClInclude Include="FormShop.h">
-      <FileType>CppForm</FileType>
-    </ClInclude>
     <ClInclude Include="FormStartUp.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -197,6 +195,7 @@
     <ClInclude Include="Mailer.h" />
     <ClInclude Include="Newspaper.h" />
     <ClInclude Include="Order.h" />
+    <ClInclude Include="Order_history.h" />
     <ClInclude Include="Person.h" />
     <ClInclude Include="Publisher.h" />
     <ClInclude Include="RGBColors.h" />
@@ -210,11 +209,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Form2FA.resx">
+      <DependentUpon>Form2FA.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormAdminMenu.resx">
       <DependentUpon>FormAdminMenu.h</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormCart.resx">
-      <DependentUpon>FormCart.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormClientMenu.resx">
       <DependentUpon>FormClientMenu.h</DependentUpon>
@@ -231,8 +230,11 @@
     <EmbeddedResource Include="FormLogUp.resx">
       <DependentUpon>FormLogUp.h</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormProfile.resx">
-      <DependentUpon>FormProfile.h</DependentUpon>
+    <EmbeddedResource Include="FormMyOrders.resx">
+      <DependentUpon>FormMyOrders.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPassChangedNotification.resx">
+      <DependentUpon>FormPassChangedNotification.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrompt.resx">
       <DependentUpon>FormPrompt.h</DependentUpon>
@@ -242,9 +244,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormResetAccount.resx">
       <DependentUpon>FormResetAccount.h</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormShop.resx">
-      <DependentUpon>FormShop.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormStartUp.resx">
       <DependentUpon>FormStartUp.h</DependentUpon>

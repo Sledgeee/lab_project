@@ -1,10 +1,19 @@
 #pragma once
 
 #include "RGBColors.h"
-#include "FormProfile.h"
-#include "FormShop.h"
-#include "FormSettings.h"
+#include "Client.h"
+#include "Cart.h"
 #include "Shop.h"
+#include "Book.h"
+#include "Order.h"
+#include "Mailer.h"
+#include "Newspaper.h"
+#include "Magazine.h"
+#include "DBQuery.h"
+#include "FormPrompt.h"
+#include "Form2FA.h"
+#include "FormPassChangedNotification.h"
+#include "FormMyOrders.h"
 
 namespace MainApp {
 
@@ -14,7 +23,10 @@ namespace MainApp {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::Drawing::Drawing2D;
 	using namespace System::Runtime::InteropServices;
+	using namespace System::Threading::Tasks;
+	using namespace System::Threading;
 
 	[DllImport("user32.dll")]
 	extern System::Void ReleaseCapture();
@@ -29,20 +41,150 @@ namespace MainApp {
 	public ref class FormClientMenu : public System::Windows::Forms::Form
 	{
 	public:
-		FormClientMenu(void)
+		FormClientMenu(Client^ client)
 		{
 			InitializeComponent();
-		}
-		FormClientMenu(String^ login)
-		{
-			InitializeComponent();
-			this->login = login;
+			this->client = client;
+			this->shop = gcnew Shop();
+			this->cart = gcnew Cart();
 			leftBorderBtn = gcnew Panel();
+			searchedPanelsShop = gcnew List<Panel^>();
+			spawnedPanelsShopProducts = gcnew List<Panel^>();
 			leftBorderBtn->Size = System::Drawing::Size(7, 60);
 			PanelMenu->Controls->Add(leftBorderBtn);
 		}
-		String^ login;
 		Shop^ shop;
+		Cart^ cart;
+		Client^ client;
+		List<Panel^>^ searchedPanelsShop;
+		List<Panel^>^ spawnedPanelsShopProducts;
+		Thread^ load_editions, ^ load_personal_data;
+		Thread^ animation_search_bar;
+#pragma region Controls
+	private: System::Windows::Forms::Panel^ childPanel;
+	private: System::Windows::Forms::ImageList^ imageList2;
+	private: System::Windows::Forms::FlowLayoutPanel^ flowShop;
+	private: System::Windows::Forms::Panel^ PanelCart;
+	private: System::Windows::Forms::Panel^ PanelCartDesk;
+	private: System::Windows::Forms::Panel^ PanelButtons;
+	private: System::Windows::Forms::Panel^ PanelCheckout;
+	private: System::Windows::Forms::Label^ lblTotalPrice;
+	private: System::Windows::Forms::Button^ btnCheckout;
+	private: System::Windows::Forms::Button^ btnContinueShopping;
+	private: System::Windows::Forms::ImageList^ imageList3;
+	private: System::Windows::Forms::ImageList^ imageList4;
+	private: System::Windows::Forms::ImageList^ imageList5;
+	private: System::Windows::Forms::Label^ lblNeverFixIt;
+	private: System::Windows::Forms::Label^ lblCartIsEmpty;
+	private: System::Windows::Forms::PictureBox^ pictureBigCart;
+	private: System::Windows::Forms::FlowLayoutPanel^ flowCart;
+	private: System::Windows::Forms::TextBox^ txtSearch;
+	private: System::Windows::Forms::FlowLayoutPanel^ flowSearchingResults;
+	private: System::Windows::Forms::Button^ btnShowSearchRow;
+	private: System::Windows::Forms::PictureBox^ pictureFurfur;
+	private: System::Windows::Forms::Button^ btnClearText;
+	private: System::Windows::Forms::Panel^ PanelSearchControls;
+	private: System::Windows::Forms::Button^ btnHideSearchRow;
+	private: System::Windows::Forms::Panel^ panelGeneralSettings;
+	private: System::Windows::Forms::Button^ btnDiscardGeneralSettings;
+	private: System::Windows::Forms::Button^ btnSaveGeneralSettings;
+	private: System::Windows::Forms::Panel^ panelCity;
+	private: System::Windows::Forms::Label^ lblCityPlaceholder;
+	private: System::Windows::Forms::Panel^ panelCountry;
+	private: System::Windows::Forms::Label^ lblCountryPlaceholder;
+	private: System::Windows::Forms::Label^ label14;
+
+
+
+	private: System::Windows::Forms::Panel^ panelLastName;
+	private: System::Windows::Forms::Label^ lblLastNamePlaceholder;
+	private: System::Windows::Forms::TextBox^ txtLastName;
+	private: System::Windows::Forms::Panel^ panelFirstName;
+	private: System::Windows::Forms::Label^ lblFirstNamePlaceholder;
+	private: System::Windows::Forms::TextBox^ txtFirstName;
+	private: System::Windows::Forms::Label^ lblPDdescription;
+	private: System::Windows::Forms::Label^ lblPersonalDetails;
+	private: System::Windows::Forms::Button^ btnCancelEditEmail;
+	private: System::Windows::Forms::Button^ btnEditEmail;
+	private: System::Windows::Forms::Panel^ panelEmailEdit;
+	private: System::Windows::Forms::Label^ lblEmailAddressPlaceholder;
+	private: System::Windows::Forms::Button^ btnSaveEditEmail;
+	private: System::Windows::Forms::Button^ btnCancelEditLogin;
+	private: System::Windows::Forms::Button^ btnEditLogin;
+	private: System::Windows::Forms::Panel^ panelLoginEdit;
+	private: System::Windows::Forms::Label^ lblLoginPlaceholder;
+	private: System::Windows::Forms::Label^ lblCurrentUserID;
+	private: System::Windows::Forms::Label^ lblID;
+	private: System::Windows::Forms::Label^ lblAccountInfo;
+	private: System::Windows::Forms::Label^ lblGSdescription;
+	private: System::Windows::Forms::Label^ lblGeneralSettings;
+	private: System::Windows::Forms::Button^ btnSaveEditLogin;
+	private: System::Windows::Forms::Panel^ panelPasswordSecurity;
+	private: System::Windows::Forms::Label^ lblEmail2FAdescription;
+	private: System::Windows::Forms::Label^ lblAvailableAuthMethods;
+	private: System::Windows::Forms::Label^ lbl2FAdescription;
+	private: System::Windows::Forms::Label^ lbl2FAAuthentication;
+	private: System::Windows::Forms::Label^ lblEmail2FA;
+	private: System::Windows::Forms::CheckBox^ toggleEmail2FA;
+	private: System::Windows::Forms::Label^ lblEmail2FAStatus;
+	private: System::Windows::Forms::Label^ lblSeparator1;
+	private: System::Windows::Forms::Button^ btnDiscardPasswordSecurityChanges;
+	private: System::Windows::Forms::Panel^ panelRetypePassword;
+	private: System::Windows::Forms::Label^ lblRetypePasswordPlaceholder;
+
+	private: System::Windows::Forms::Button^ btnSavePasswordSecurityChanges;
+	private: System::Windows::Forms::Panel^ panelNewPassword;
+	private: System::Windows::Forms::Label^ lblNewPasswordPlaceholder;
+
+	private: System::Windows::Forms::Panel^ panelCurrentPassword;
+	private: System::Windows::Forms::Label^ lblCurrentPasswordPlaceholder;
+	private: System::Windows::Forms::Label^ lblPasswordSecurity;
+
+
+	private: System::Windows::Forms::Label^ lblSeparator2;
+
+	private: System::Windows::Forms::Label^ lblDeleteAccount;
+	private: System::Windows::Forms::Label^ lblDeleteAccountDescription;
+	private: System::Windows::Forms::Button^ btnDeleteAccount;
+	private: System::Windows::Forms::Panel^ PanelProfile;
+	private: System::Windows::Forms::Panel^ PanelMenu;
+	private: System::Windows::Forms::Button^ btnProfile;
+	private: System::Windows::Forms::ImageList^ imageList1;
+	private: System::Windows::Forms::Button^ btnShop;
+	private: System::Windows::Forms::Panel^ PanelTitleBar;
+	private: System::Windows::Forms::Button^ currentBtn;
+	private: System::Windows::Forms::Button^ btnLogOut;
+	private: System::Windows::Forms::Panel^ leftBorderBtn;
+	private: System::Windows::Forms::Panel^ PanelDesktop;
+	private: System::ComponentModel::IContainer^ components;
+	private: System::Windows::Forms::Panel^ panelControls;
+	private: System::Windows::Forms::Button^ btnExit;
+	private: System::Windows::Forms::Button^ btnMinimize;
+	private: System::Windows::Forms::Panel^ minipanelCart;
+	private: System::Windows::Forms::Button^ btnCart;
+	private: System::Windows::Forms::TextBox^ txtCurrentUserEmail;
+	private: System::Windows::Forms::TextBox^ txtCurrentUserLogin;
+	private: System::Windows::Forms::TextBox^ txtCountry;
+	private: System::Windows::Forms::TextBox^ txtCity;
+	private: System::Windows::Forms::Label^ label2;
+	private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::Label^ lblErrCity;
+	private: System::Windows::Forms::Label^ lblErrCountry;
+	private: System::Windows::Forms::Label^ lblErrLN;
+	private: System::Windows::Forms::Label^ lblErrFN;
+	private: System::Windows::Forms::Panel^ PanelLogo;
+	private: System::Windows::Forms::PictureBox^ imgHome;
+private: System::Windows::Forms::MaskedTextBox^ txtCurrentPassword;
+private: System::Windows::Forms::MaskedTextBox^ txtNewPassword;
+private: System::Windows::Forms::MaskedTextBox^ txtRetypePassword;
+private: System::Windows::Forms::Label^ lblOrderCreated;
+private: System::Windows::Forms::PictureBox^ pictureBigCheck;
+private: System::Windows::Forms::Button^ btnMyOrders;
+
+
+	private: System::Windows::Forms::Label^ lblCounterProducts;
+#pragma endregion
+
 	protected:
 		/// <summary>
 		/// Clean up any resources being used.
@@ -54,33 +196,6 @@ namespace MainApp {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Panel^ PanelMenu;
-	private: System::Windows::Forms::Button^ btnProfile;
-	private: System::Windows::Forms::Panel^ PanelLogo;
-	private: System::Windows::Forms::PictureBox^ imgHome;
-	private: System::Windows::Forms::ImageList^ imageList1;
-	private: System::Windows::Forms::Button^ btnSettings;
-	private: System::Windows::Forms::Button^ btnShop;
-	private: System::Windows::Forms::Panel^ PanelTitleBar;
-	private: System::Windows::Forms::Label^ lblFormTitle;
-	private: System::Windows::Forms::PictureBox^ IconCurrentForm;
-	private: System::Windows::Forms::Button^ currentBtn;
-	private: System::Windows::Forms::Button^ btnLogOut;
-	private: System::Windows::Forms::Panel^ leftBorderBtn;
-	private: System::Windows::Forms::Panel^ PanelDesktop;
-	private: System::ComponentModel::IContainer^ components;
-	private: System::Windows::Forms::PictureBox^ pictureBox1;
-	private: System::Windows::Forms::Label^ lblCurrentTime;
-	private: System::Windows::Forms::Timer^ CurrentTime;
-	private: System::Windows::Forms::Panel^ panelControls;
-	private: System::Windows::Forms::Button^ btnExit;
-	private: System::Windows::Forms::Button^ btnMinimize;
-	private: System::Windows::Forms::Panel^ PanelCart;
-	private: System::Windows::Forms::Button^ btnCart;
-	public: static System::Windows::Forms::Label^ lblCounterProducts;
-	private: System::Windows::Forms::Form^ currentChildForm;
-	protected:
-	private:
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -89,384 +204,163 @@ namespace MainApp {
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
-		void InitializeComponent(void)
-		{
-			this->components = (gcnew System::ComponentModel::Container());
-			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(FormClientMenu::typeid));
-			this->PanelMenu = (gcnew System::Windows::Forms::Panel());
-			this->btnLogOut = (gcnew System::Windows::Forms::Button());
-			this->imageList1 = (gcnew System::Windows::Forms::ImageList(this->components));
-			this->btnSettings = (gcnew System::Windows::Forms::Button());
-			this->btnShop = (gcnew System::Windows::Forms::Button());
-			this->btnProfile = (gcnew System::Windows::Forms::Button());
-			this->PanelLogo = (gcnew System::Windows::Forms::Panel());
-			this->imgHome = (gcnew System::Windows::Forms::PictureBox());
-			this->PanelTitleBar = (gcnew System::Windows::Forms::Panel());
-			this->PanelCart = (gcnew System::Windows::Forms::Panel());
-			this->btnCart = (gcnew System::Windows::Forms::Button());
-			this->lblCounterProducts = (gcnew System::Windows::Forms::Label());
-			this->lblFormTitle = (gcnew System::Windows::Forms::Label());
-			this->IconCurrentForm = (gcnew System::Windows::Forms::PictureBox());
-			this->PanelDesktop = (gcnew System::Windows::Forms::Panel());
-			this->lblCurrentTime = (gcnew System::Windows::Forms::Label());
-			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
-			this->CurrentTime = (gcnew System::Windows::Forms::Timer(this->components));
-			this->panelControls = (gcnew System::Windows::Forms::Panel());
-			this->btnMinimize = (gcnew System::Windows::Forms::Button());
-			this->btnExit = (gcnew System::Windows::Forms::Button());
-			this->PanelMenu->SuspendLayout();
-			this->PanelLogo->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->imgHome))->BeginInit();
-			this->PanelTitleBar->SuspendLayout();
-			this->PanelCart->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->IconCurrentForm))->BeginInit();
-			this->PanelDesktop->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
-			this->panelControls->SuspendLayout();
-			this->SuspendLayout();
-			// 
-			// PanelMenu
-			// 
-			this->PanelMenu->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(31)), static_cast<System::Int32>(static_cast<System::Byte>(30)),
-				static_cast<System::Int32>(static_cast<System::Byte>(68)));
-			this->PanelMenu->Controls->Add(this->btnLogOut);
-			this->PanelMenu->Controls->Add(this->btnSettings);
-			this->PanelMenu->Controls->Add(this->btnShop);
-			this->PanelMenu->Controls->Add(this->btnProfile);
-			this->PanelMenu->Controls->Add(this->PanelLogo);
-			this->PanelMenu->Dock = System::Windows::Forms::DockStyle::Left;
-			this->PanelMenu->Location = System::Drawing::Point(0, 31);
-			this->PanelMenu->Name = L"PanelMenu";
-			this->PanelMenu->Size = System::Drawing::Size(220, 867);
-			this->PanelMenu->TabIndex = 0;
-			// 
-			// btnLogOut
-			// 
-			this->btnLogOut->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->btnLogOut->Dock = System::Windows::Forms::DockStyle::Bottom;
-			this->btnLogOut->FlatAppearance->BorderSize = 0;
-			this->btnLogOut->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnLogOut->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->btnLogOut->ForeColor = System::Drawing::Color::Gainsboro;
-			this->btnLogOut->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->btnLogOut->ImageIndex = 3;
-			this->btnLogOut->ImageList = this->imageList1;
-			this->btnLogOut->Location = System::Drawing::Point(0, 807);
-			this->btnLogOut->Name = L"btnLogOut";
-			this->btnLogOut->Padding = System::Windows::Forms::Padding(10, 0, 0, 0);
-			this->btnLogOut->Size = System::Drawing::Size(220, 60);
-			this->btnLogOut->TabIndex = 5;
-			this->btnLogOut->Text = L" Log out";
-			this->btnLogOut->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->btnLogOut->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageBeforeText;
-			this->btnLogOut->UseVisualStyleBackColor = true;
-			this->btnLogOut->Click += gcnew System::EventHandler(this, &FormClientMenu::btnLogOut_Click);
-			// 
-			// imageList1
-			// 
-			this->imageList1->ImageStream = (cli::safe_cast<System::Windows::Forms::ImageListStreamer^>(resources->GetObject(L"imageList1.ImageStream")));
-			this->imageList1->TransparentColor = System::Drawing::Color::Transparent;
-			this->imageList1->Images->SetKeyName(0, L"cart.png");
-			this->imageList1->Images->SetKeyName(1, L"config.png");
-			this->imageList1->Images->SetKeyName(2, L"shop.png");
-			this->imageList1->Images->SetKeyName(3, L"exit.png");
-			this->imageList1->Images->SetKeyName(4, L"home.png");
-			this->imageList1->Images->SetKeyName(5, L"profile.png");
-			// 
-			// btnSettings
-			// 
-			this->btnSettings->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->btnSettings->Dock = System::Windows::Forms::DockStyle::Top;
-			this->btnSettings->FlatAppearance->BorderSize = 0;
-			this->btnSettings->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnSettings->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->btnSettings->ForeColor = System::Drawing::Color::Gainsboro;
-			this->btnSettings->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->btnSettings->ImageIndex = 1;
-			this->btnSettings->ImageList = this->imageList1;
-			this->btnSettings->Location = System::Drawing::Point(0, 260);
-			this->btnSettings->Name = L"btnSettings";
-			this->btnSettings->Padding = System::Windows::Forms::Padding(10, 0, 0, 0);
-			this->btnSettings->Size = System::Drawing::Size(220, 60);
-			this->btnSettings->TabIndex = 4;
-			this->btnSettings->Text = L" Settings";
-			this->btnSettings->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->btnSettings->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageBeforeText;
-			this->btnSettings->UseVisualStyleBackColor = true;
-			this->btnSettings->Click += gcnew System::EventHandler(this, &FormClientMenu::btnSettings_Click);
-			// 
-			// btnShop
-			// 
-			this->btnShop->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->btnShop->Dock = System::Windows::Forms::DockStyle::Top;
-			this->btnShop->FlatAppearance->BorderSize = 0;
-			this->btnShop->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnShop->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->btnShop->ForeColor = System::Drawing::Color::Gainsboro;
-			this->btnShop->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->btnShop->ImageIndex = 2;
-			this->btnShop->ImageList = this->imageList1;
-			this->btnShop->Location = System::Drawing::Point(0, 200);
-			this->btnShop->Name = L"btnShop";
-			this->btnShop->Padding = System::Windows::Forms::Padding(10, 0, 0, 0);
-			this->btnShop->Size = System::Drawing::Size(220, 60);
-			this->btnShop->TabIndex = 2;
-			this->btnShop->Text = L" Shop";
-			this->btnShop->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->btnShop->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageBeforeText;
-			this->btnShop->UseVisualStyleBackColor = true;
-			this->btnShop->Click += gcnew System::EventHandler(this, &FormClientMenu::btnShop_Click);
-			// 
-			// btnProfile
-			// 
-			this->btnProfile->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->btnProfile->Dock = System::Windows::Forms::DockStyle::Top;
-			this->btnProfile->FlatAppearance->BorderSize = 0;
-			this->btnProfile->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnProfile->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->btnProfile->ForeColor = System::Drawing::Color::Gainsboro;
-			this->btnProfile->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->btnProfile->ImageIndex = 5;
-			this->btnProfile->ImageList = this->imageList1;
-			this->btnProfile->Location = System::Drawing::Point(0, 140);
-			this->btnProfile->Name = L"btnProfile";
-			this->btnProfile->Padding = System::Windows::Forms::Padding(10, 0, 0, 0);
-			this->btnProfile->Size = System::Drawing::Size(220, 60);
-			this->btnProfile->TabIndex = 1;
-			this->btnProfile->Text = L" Profile";
-			this->btnProfile->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->btnProfile->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageBeforeText;
-			this->btnProfile->UseVisualStyleBackColor = true;
-			this->btnProfile->Click += gcnew System::EventHandler(this, &FormClientMenu::btnProfile_Click);
-			// 
-			// PanelLogo
-			// 
-			this->PanelLogo->Controls->Add(this->imgHome);
-			this->PanelLogo->Dock = System::Windows::Forms::DockStyle::Top;
-			this->PanelLogo->Location = System::Drawing::Point(0, 0);
-			this->PanelLogo->Name = L"PanelLogo";
-			this->PanelLogo->Size = System::Drawing::Size(220, 140);
-			this->PanelLogo->TabIndex = 0;
-			// 
-			// imgHome
-			// 
-			this->imgHome->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->imgHome->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"imgHome.Image")));
-			this->imgHome->Location = System::Drawing::Point(14, 12);
-			this->imgHome->Name = L"imgHome";
-			this->imgHome->Size = System::Drawing::Size(191, 115);
-			this->imgHome->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
-			this->imgHome->TabIndex = 0;
-			this->imgHome->TabStop = false;
-			this->imgHome->Click += gcnew System::EventHandler(this, &FormClientMenu::imgHome_Click);
-			// 
-			// PanelTitleBar
-			// 
-			this->PanelTitleBar->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(29)), static_cast<System::Int32>(static_cast<System::Byte>(27)),
-				static_cast<System::Int32>(static_cast<System::Byte>(62)));
-			this->PanelTitleBar->Controls->Add(this->PanelCart);
-			this->PanelTitleBar->Controls->Add(this->lblFormTitle);
-			this->PanelTitleBar->Controls->Add(this->IconCurrentForm);
-			this->PanelTitleBar->Cursor = System::Windows::Forms::Cursors::Arrow;
-			this->PanelTitleBar->Dock = System::Windows::Forms::DockStyle::Top;
-			this->PanelTitleBar->Location = System::Drawing::Point(220, 31);
-			this->PanelTitleBar->Name = L"PanelTitleBar";
-			this->PanelTitleBar->Size = System::Drawing::Size(1378, 55);
-			this->PanelTitleBar->TabIndex = 1;
-			this->PanelTitleBar->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &FormClientMenu::PanelTitleBar_MouseDown);
-			// 
-			// PanelCart
-			// 
-			this->PanelCart->Controls->Add(this->btnCart);
-			this->PanelCart->Controls->Add(this->lblCounterProducts);
-			this->PanelCart->Dock = System::Windows::Forms::DockStyle::Right;
-			this->PanelCart->Location = System::Drawing::Point(1235, 0);
-			this->PanelCart->Name = L"PanelCart";
-			this->PanelCart->Size = System::Drawing::Size(143, 55);
-			this->PanelCart->TabIndex = 6;
-			// 
-			// btnCart
-			// 
-			this->btnCart->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(29)), static_cast<System::Int32>(static_cast<System::Byte>(27)),
-				static_cast<System::Int32>(static_cast<System::Byte>(62)));
-			this->btnCart->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->btnCart->FlatAppearance->BorderSize = 0;
-			this->btnCart->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnCart->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->btnCart->ForeColor = System::Drawing::Color::Gainsboro;
-			this->btnCart->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnCart.Image")));
-			this->btnCart->ImageAlign = System::Drawing::ContentAlignment::MiddleRight;
-			this->btnCart->Location = System::Drawing::Point(14, 3);
-			this->btnCart->Name = L"btnCart";
-			this->btnCart->Padding = System::Windows::Forms::Padding(10, 0, 0, 0);
-			this->btnCart->Size = System::Drawing::Size(37, 45);
-			this->btnCart->TabIndex = 6;
-			this->btnCart->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->btnCart->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageBeforeText;
-			this->btnCart->UseVisualStyleBackColor = false;
-			this->btnCart->Click += gcnew System::EventHandler(this, &FormClientMenu::btnCart_Click);
-			// 
-			// lblCounterProducts
-			// 
-			this->lblCounterProducts->AutoSize = true;
-			this->lblCounterProducts->BackColor = System::Drawing::Color::Transparent;
-			this->lblCounterProducts->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->lblCounterProducts->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->lblCounterProducts->ForeColor = System::Drawing::Color::Gainsboro;
-			this->lblCounterProducts->Location = System::Drawing::Point(45, -3);
-			this->lblCounterProducts->Name = L"lblCounterProducts";
-			this->lblCounterProducts->Size = System::Drawing::Size(0, 28);
-			this->lblCounterProducts->TabIndex = 7;
-			// 
-			// lblFormTitle
-			// 
-			this->lblFormTitle->AutoSize = true;
-			this->lblFormTitle->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->lblFormTitle->ForeColor = System::Drawing::Color::Gainsboro;
-			this->lblFormTitle->Location = System::Drawing::Point(56, 11);
-			this->lblFormTitle->Name = L"lblFormTitle";
-			this->lblFormTitle->Size = System::Drawing::Size(60, 28);
-			this->lblFormTitle->TabIndex = 1;
-			this->lblFormTitle->Text = L"Home";
-			// 
-			// IconCurrentForm
-			// 
-			this->IconCurrentForm->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"IconCurrentForm.Image")));
-			this->IconCurrentForm->Location = System::Drawing::Point(18, 11);
-			this->IconCurrentForm->Name = L"IconCurrentForm";
-			this->IconCurrentForm->Size = System::Drawing::Size(32, 32);
-			this->IconCurrentForm->TabIndex = 0;
-			this->IconCurrentForm->TabStop = false;
-			// 
-			// PanelDesktop
-			// 
-			this->PanelDesktop->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(34)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
-				static_cast<System::Int32>(static_cast<System::Byte>(74)));
-			this->PanelDesktop->Controls->Add(this->lblCurrentTime);
-			this->PanelDesktop->Controls->Add(this->pictureBox1);
-			this->PanelDesktop->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->PanelDesktop->ForeColor = System::Drawing::Color::Transparent;
-			this->PanelDesktop->Location = System::Drawing::Point(220, 86);
-			this->PanelDesktop->Name = L"PanelDesktop";
-			this->PanelDesktop->Size = System::Drawing::Size(1378, 812);
-			this->PanelDesktop->TabIndex = 2;
-			// 
-			// lblCurrentTime
-			// 
-			this->lblCurrentTime->Anchor = System::Windows::Forms::AnchorStyles::None;
-			this->lblCurrentTime->AutoSize = true;
-			this->lblCurrentTime->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->lblCurrentTime->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 72, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->lblCurrentTime->ImageAlign = System::Drawing::ContentAlignment::BottomCenter;
-			this->lblCurrentTime->Location = System::Drawing::Point(457, 393);
-			this->lblCurrentTime->Name = L"lblCurrentTime";
-			this->lblCurrentTime->Size = System::Drawing::Size(502, 127);
-			this->lblCurrentTime->TabIndex = 3;
-			this->lblCurrentTime->Text = L"00:00:00";
-			this->lblCurrentTime->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
-			// 
-			// pictureBox1
-			// 
-			this->pictureBox1->Anchor = System::Windows::Forms::AnchorStyles::None;
-			this->pictureBox1->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
-			this->pictureBox1->Location = System::Drawing::Point(467, 198);
-			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(465, 195);
-			this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
-			this->pictureBox1->TabIndex = 1;
-			this->pictureBox1->TabStop = false;
-			// 
-			// CurrentTime
-			// 
-			this->CurrentTime->Interval = 1000;
-			this->CurrentTime->Tick += gcnew System::EventHandler(this, &FormClientMenu::CurrentTime_Tick);
-			// 
-			// panelControls
-			// 
-			this->panelControls->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(26)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
-				static_cast<System::Int32>(static_cast<System::Byte>(62)));
-			this->panelControls->Controls->Add(this->btnMinimize);
-			this->panelControls->Controls->Add(this->btnExit);
-			this->panelControls->Dock = System::Windows::Forms::DockStyle::Top;
-			this->panelControls->Location = System::Drawing::Point(0, 0);
-			this->panelControls->Name = L"panelControls";
-			this->panelControls->Size = System::Drawing::Size(1598, 31);
-			this->panelControls->TabIndex = 4;
-			this->panelControls->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &FormClientMenu::panelControls_MouseDown);
-			// 
-			// btnMinimize
-			// 
-			this->btnMinimize->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->btnMinimize->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->btnMinimize->FlatAppearance->BorderSize = 0;
-			this->btnMinimize->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnMinimize->ForeColor = System::Drawing::Color::Gainsboro;
-			this->btnMinimize->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnMinimize.Image")));
-			this->btnMinimize->Location = System::Drawing::Point(1536, 6);
-			this->btnMinimize->Name = L"btnMinimize";
-			this->btnMinimize->Size = System::Drawing::Size(16, 16);
-			this->btnMinimize->TabIndex = 7;
-			this->btnMinimize->UseVisualStyleBackColor = true;
-			this->btnMinimize->Click += gcnew System::EventHandler(this, &FormClientMenu::btnMinimize_Click);
-			// 
-			// btnExit
-			// 
-			this->btnExit->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->btnExit->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->btnExit->FlatAppearance->BorderSize = 0;
-			this->btnExit->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnExit->ForeColor = System::Drawing::Color::Gainsboro;
-			this->btnExit->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnExit.Image")));
-			this->btnExit->Location = System::Drawing::Point(1565, 0);
-			this->btnExit->Name = L"btnExit";
-			this->btnExit->Size = System::Drawing::Size(32, 28);
-			this->btnExit->TabIndex = 6;
-			this->btnExit->UseVisualStyleBackColor = true;
-			this->btnExit->Click += gcnew System::EventHandler(this, &FormClientMenu::btnExit_Click);
-			// 
-			// FormClientMenu
-			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
-			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->BackColor = System::Drawing::SystemColors::Control;
-			this->ClientSize = System::Drawing::Size(1598, 898);
-			this->ControlBox = false;
-			this->Controls->Add(this->PanelDesktop);
-			this->Controls->Add(this->PanelTitleBar);
-			this->Controls->Add(this->PanelMenu);
-			this->Controls->Add(this->panelControls);
-			this->DoubleBuffered = true;
-			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
-			this->MinimumSize = System::Drawing::Size(1000, 550);
-			this->Name = L"FormClientMenu";
-			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
-			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &FormClientMenu::FormClientMenu_FormClosing);
-			this->Load += gcnew System::EventHandler(this, &FormClientMenu::FormClientMenu_Load);
-			this->PanelMenu->ResumeLayout(false);
-			this->PanelLogo->ResumeLayout(false);
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->imgHome))->EndInit();
-			this->PanelTitleBar->ResumeLayout(false);
-			this->PanelTitleBar->PerformLayout();
-			this->PanelCart->ResumeLayout(false);
-			this->PanelCart->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->IconCurrentForm))->EndInit();
-			this->PanelDesktop->ResumeLayout(false);
-			this->PanelDesktop->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
-			this->panelControls->ResumeLayout(false);
-			this->ResumeLayout(false);
-
-		}
+		void InitializeComponent(void);
+		
 #pragma endregion
+
+		Void load_editions_Start()
+		{
+			Invoke(gcnew Action(this, &FormClientMenu::LoadEditions));
+		}
+
+		Void LoadEditions()
+		{
+			SqlConnection^ con = gcnew SqlConnection(DBQuery::connect_str);
+			con->Open();
+			SqlCommand^ cmd = gcnew SqlCommand("Select * From Editions", con);
+			SqlDataReader^ reader = cmd->ExecuteReader();
+			if (reader->HasRows)
+			{
+				while (reader->Read())
+				{
+					if (reader["Type"]->ToString() == "Book")
+					{
+						shop->ShopProducts->Add(gcnew Book(
+							Convert::ToInt32(reader["Id"]),
+							reader["Name"]->ToString(),
+							reader["Type"]->ToString(),
+							reader["Author"]->ToString(),
+							reader["Genre"]->ToString(),
+							Convert::ToInt32(reader["PrintLength"]),
+							gcnew Publisher(reader["Publisher"]->ToString()),
+							reader["Language"]->ToString(),
+							reader["Description"]->ToString(),
+							(float)Convert::ToDouble(reader["Price"]),
+							Convert::ToInt32(reader["Discount"]),
+							reader["LinkToImg"]->ToString()
+						),
+							Convert::ToInt32(reader["Available"])
+						);
+					}
+					else if (reader["Type"]->ToString() == "Newspaper")
+					{
+						shop->ShopProducts->Add(gcnew Newspaper(
+							Convert::ToInt32(reader["Id"]),
+							reader["Name"]->ToString(),
+							reader["Type"]->ToString(),
+							reader["Genre"]->ToString(),
+							Convert::ToInt32(reader["PrintLength"]),
+							gcnew Publisher(reader["Publisher"]->ToString()),
+							reader["Language"]->ToString(),
+							reader["Description"]->ToString(),
+							(float)Convert::ToDouble(reader["Price"]),
+							Convert::ToInt32(reader["Discount"]),
+							reader["LinkToImg"]->ToString()
+						),
+							Convert::ToInt32(reader["Available"])
+						);
+					}
+					else {
+						shop->ShopProducts->Add(gcnew Magazine(
+							Convert::ToInt32(reader["Id"]),
+							reader["Name"]->ToString(),
+							reader["Type"]->ToString(),
+							Convert::ToInt32(reader["PrintLength"]),
+							gcnew Publisher(reader["Publisher"]->ToString()),
+							reader["Language"]->ToString(),
+							reader["Description"]->ToString(),
+							(float)Convert::ToDouble(reader["Price"]),
+							Convert::ToInt32(reader["Discount"]),
+							reader["LinkToImg"]->ToString()
+						),
+							Convert::ToInt32(reader["Available"])
+						);
+					}
+				}
+			}
+			for each (auto prod in shop->ShopProducts) {
+				SpawnEditionPanel(prod.Key->getId(), prod.Key, prod.Value);
+			}
+			load_editions->Abort();
+		}
+
+		Void load_personal_data_Start()
+		{
+			Invoke(gcnew Action(this, &FormClientMenu::LoadPersonalData));
+		}
+
+		Void LoadPersonalData()
+		{
+			lblCurrentUserID->Text = client->getId().ToString();
+			txtCurrentUserLogin->Text = client->getLogin()->ToString();
+			txtCurrentUserEmail->Text = client->getEmail()->ToString();
+			auto user_name = (client->getName())->Split(' ');
+			txtFirstName->Text = user_name[0];
+			txtLastName->Text = user_name[1];
+			txtCountry->Text = client->getCountry();
+			txtCity->Text = client->getCity();
+			bool TWO_FACTOR = client->get2FA();
+			if (TWO_FACTOR) {
+				toggleEmail2FA->Checked = true;
+				lblEmail2FAStatus->Text = "On";
+			}
+			load_personal_data->Abort();
+		}
+	private: System::Void FormClientMenu_Load(System::Object^ sender, System::EventArgs^ e) {
+		this->btnShop->PerformClick();
+		load_editions = gcnew Thread(gcnew ThreadStart(this, &FormClientMenu::load_editions_Start));
+		load_personal_data = gcnew Thread(gcnew ThreadStart(this, &FormClientMenu::load_personal_data_Start));
+		load_editions->Start();
+		load_personal_data->Start();
+		lblCounterProducts->Text = "0";
+	}
+
+	private: Void OpenCart()
+	{
+		if (PanelProfile->Visible) {
+			PanelProfile->Visible = false;
+			childPanel = PanelProfile;
+		}
+		else {
+			flowShop->Visible = false;
+			childPanel = flowShop;
+		}
+		PanelSearchControls->Visible = false;
+		PanelCart->Visible = true;
+		PanelCart->BringToFront();
+	}
+
+	private: System::Void SpawnEditionPanel(int id, Edition^ edition, int number);
+	
+
+	private: System::Void PanelCart_VisibleChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (!PanelCart->Visible) return;
+		if (cart->CountProducts == 0 || cart->CartProducts == nullptr)
+		{
+			pictureBigCheck->Visible = false;
+			lblOrderCreated->Visible = false;
+			pictureBigCart->Visible = true;
+			lblCartIsEmpty->Visible = true;
+			lblNeverFixIt->Visible = true;
+			flowCart->Visible = false;
+			PanelButtons->Visible = false;
+			return;
+		}
+
+		flowCart->Visible = true;
+		PanelButtons->Visible = true;
+
+		SpawnCartProducts();
+		lblTotalPrice->Text = cart->TotalSum + L"$";
+		if (lblTotalPrice->Location.X + lblTotalPrice->Size.Width >= btnCheckout->Location.X - 3)
+		{
+			PanelCheckout->Location = Drawing::Point(PanelCheckout->Location.X - 25, PanelCheckout->Location.Y);
+			PanelCheckout->Size = Drawing::Size(PanelCheckout->Size.Width + 25, PanelCheckout->Size.Height);
+			PanelCheckout->Refresh();
+		}
+
+	}
+
 	private: System::Void ActivateButton(Object^ senderBtn, Color customColor)
 	{
 		if (senderBtn != nullptr)
@@ -483,9 +377,9 @@ namespace MainApp {
 			this->leftBorderBtn->Location = System::Drawing::Point(0, currentBtn->Location.Y);
 			this->leftBorderBtn->Visible = true;
 			this->leftBorderBtn->BringToFront();
-			this->IconCurrentForm->Image = currentBtn->Image;
 		}
 	}
+
 	private: System::Void DisableButton()
 	{
 		if (currentBtn != nullptr)
@@ -496,15 +390,39 @@ namespace MainApp {
 			this->currentBtn->Enabled = true;
 			this->currentBtn->BackColor = Color::FromArgb(31, 30, 68);
 			this->currentBtn->ForeColor = Color::Gainsboro;
+			this->leftBorderBtn->Visible = false;
 		}
 	}
 
-	private: System::Void OpenChildForm(Form^ childForm)
+	private: System::Void btnProfile_Click(System::Object^ sender, System::EventArgs^ e)
 	{
 		if (currentChildForm != nullptr)
 		{
 			currentChildForm->Close();
 		}
+		ActivateButton(sender, RGBColors::color1);
+		PanelCart->Visible = false;
+		flowShop->Visible = false;
+		PanelSearchControls->Visible = false;
+		minipanelCart->Visible = false;
+		PanelProfile->Visible = true;
+	}
+	
+	private: System::Void btnShop_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (currentChildForm != nullptr)
+		{
+			currentChildForm->Close();
+		}
+		ActivateButton(sender, RGBColors::color2);
+		PanelCart->Visible = false;
+		PanelProfile->Visible = false;
+		flowShop->Visible = true;
+		PanelSearchControls->Visible = true;
+		minipanelCart->Visible = true;
+	}
+		   Form^ currentChildForm;
+	private: System::Void OpenChildForm(Form^ childForm)
+	{
 		currentChildForm = childForm;
 		childForm->TopLevel = false;
 		childForm->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
@@ -513,26 +431,28 @@ namespace MainApp {
 		PanelDesktop->Tag = childForm;
 		childForm->BringToFront();
 		childForm->Show();
-		lblFormTitle->Text = childForm->Text;
 	}
 
-	private: System::Void btnProfile_Click(System::Object^ sender, System::EventArgs^ e)
-	{
-		ActivateButton(sender, RGBColors::color1);
-		OpenChildForm(gcnew FormProfile(login));
-	}
-	private: System::Void btnShop_Click(System::Object^ sender, System::EventArgs^ e) {
-		ActivateButton(sender, RGBColors::color2);
-		OpenChildForm(gcnew FormShop);
+	private: System::Void btnMyOrders_Click(System::Object^ sender, System::EventArgs^ e) {
+		ActivateButton(sender, RGBColors::color3);
+		PanelCart->Visible = false;
+		PanelProfile->Visible = false;
+		flowShop->Visible = false;
+		PanelSearchControls->Visible = false;
+		minipanelCart->Visible = false;
+		OpenChildForm(gcnew FormMyOrders(client));
 	}
 
 	private: System::Void btnCart_Click(System::Object^ sender, System::EventArgs^ e) {
-		Shop::OpenCart();
+		if (currentChildForm != nullptr)
+		{
+			currentChildForm->Close();
+		}
+		DisableButton();
+		OpenCart();
 	}
-	private: System::Void btnSettings_Click(System::Object^ sender, System::EventArgs^ e) {
-		ActivateButton(sender, RGBColors::color4);
-		OpenChildForm(gcnew FormSettings);
-	}
+
+
 	private: System::Void btnLogOut_Click(System::Object^ sender, System::EventArgs^ e) {
 		auto dialogResult = MessageBox::Show(this, "Are you sure you want to log out?", "Log out", MessageBoxButtons::YesNo);
 		if (dialogResult == System::Windows::Forms::DialogResult::Yes)
@@ -541,71 +461,534 @@ namespace MainApp {
 			this->Close();
 		}
 	}
-	private: System::Void imgHome_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (currentChildForm != nullptr)
-		{
-			currentChildForm->Close();
-		}
-		Reset();
-	}
-
-	private: System::Void Reset()
-	{
-		DisableButton();
-		leftBorderBtn->Visible = false;
-		IconCurrentForm->Image = this->imageList1->Images[4];
-		lblFormTitle->Text = "Home";
-	}
 
 	private: System::Void PanelTitleBar_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
 		ReleaseCapture();
 		SendMessage(this->Handle, 0x112, 0xf012, 0);
 	}
-	private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e) {
-		Application::Exit();
-	}
-	private: System::Void btnMinimize_Click(System::Object^ sender, System::EventArgs^ e) {
-		WindowState = FormWindowState::Minimized;
-	}
-	private: System::Void FormClientMenu_Load(System::Object^ sender, System::EventArgs^ e) {
-		this->shop = gcnew Shop(this, this->lblCounterProducts);
-		CurrentTime->Start();
-		lblCurrentTime->Text = DateTime::Now.ToString("T");
-		lblCounterProducts->Text = "0";
 
-		/*Book^ book = gcnew Book(
-			1,
-			"The Witcher 3",
-			9.99F,
-			5,
-			"C:\\Users\\infab\\Desktop\\witcher.png"
-		);
-
-		Newspaper^ newspaper = gcnew Newspaper(
-			2,
-			"Newspaper",
-			5.F,
-			20,
-			""
-		);
-
-		shop->addProduct(book, 1);
-		shop->addProduct(book, 1);
-		shop->addProduct(book, 1);
-		shop->addProduct(book, 1);
-		shop->addProduct(newspaper, 5);
-		lblCounterProducts->Text = shop->CountProducts.ToString();*/
-	}
-
-	private: System::Void FormClientMenu_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
-	}
-	private: System::Void CurrentTime_Tick(System::Object^ sender, System::EventArgs^ e) {
-		lblCurrentTime->Text = DateTime::Now.ToString("T");
-	}
 	private: System::Void panelControls_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
 		ReleaseCapture();
 		SendMessage(this->Handle, 0x112, 0xf012, 0);
 	}
 
-	};
+	private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e) {
+		Application::Exit();
+	}
+	
+	private: System::Void btnMinimize_Click(System::Object^ sender, System::EventArgs^ e) {
+		WindowState = FormWindowState::Minimized;
+	}
+	
+	private: System::Void add_to_cart_Click(System::Object^ sender, System::EventArgs^ e) {
+		flowShop->Focus();
+		if (cart->CountKeys == 15) {
+			MessageBox::Show(this, "Maximum count of different editions in a cart is 15", "Error",
+				MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+		Button^ btn = (Button^)sender;
+		if (btn->ImageKey == L"shop_cart_empty.png")
+		{
+			btn->ImageKey = L"shop_cart_has.png";
+			for each (auto prod in shop->ShopProducts)
+			{
+				String^ id = prod.Key->getId().ToString();
+				if (String::Compare(id, 0, btn->Name, 3, btn->Name->Length - 3) == 0)
+				{
+					cart->addProduct(prod.Key, 1);
+					break;
+				}
+			}
+			lblCounterProducts->Text = (Int32::Parse(lblCounterProducts->Text) + 1).ToString();
+		}
+		else {
+			OpenCart();
+		}
+	}
+				
+	private: System::Void SpawnCartProducts();
+	
+	private: System::Void PanelCheckout_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+		ControlPaint::DrawBorder(e->Graphics, this->PanelCheckout->ClientRectangle, Color::FromArgb(0, 160, 70), ButtonBorderStyle::Solid);
+	}
+
+	private: System::Void plus_Click(System::Object^ sender, System::EventArgs^ e)
+	{
+		Button^ btn = (Button^)sender;
+		String^ id = btn->Name->Substring(2);
+		flowCart->Controls["p" + id]->Controls["ec" + id]->Text = 
+			(Int32::Parse(flowCart->Controls["p" + id]->Controls["ec" + id]->Text) + 1).ToString();
+		lblCounterProducts->Text = (Int32::Parse(lblCounterProducts->Text) + 1).ToString();
+	}
+
+	private: System::Void minus_Click(System::Object^ sender, System::EventArgs^ e)
+	{
+		Button^ btn = (Button^)sender;
+		String^ id = btn->Name->Substring(2);
+		if (Int32::Parse(flowCart->Controls["p" + id]->Controls["ec" + id]->Text) == 1)
+			return;
+		flowCart->Controls["p" + id]->Controls["ec" + id]->Text = 
+			(Int32::Parse(flowCart->Controls["p" + id]->Controls["ec" + id]->Text) - 1).ToString();
+		lblCounterProducts->Text = (Int32::Parse(lblCounterProducts->Text) - 1).ToString();
+	}
+
+	private: System::Void edition_counter_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+		TextBox^ counter = (TextBox^)sender;
+		if (String::IsNullOrWhiteSpace(counter->Text))
+		{
+			counter->Text = "1";
+			return;
+		}
+		
+		String^ id = counter->Name->Substring(2);
+		for each (auto prod in cart->CartProducts)
+		{
+			if (prod.Key->getId().ToString() == id) {
+				cart->CartProducts[prod.Key] = Int32::Parse(counter->Text);
+				flowCart->Controls["p" + id]->Controls["pr" + id]->Text =
+					cart->calculateSpecifyItemPrice(prod.Key, Int32::Parse(counter->Text)).ToString() + "$";
+				break;
+			}
+		}
+		cart->calculateTotalPrice();
+
+		int count = 0;
+		for each (auto prod in cart->CartProducts)
+		{
+			count += prod.Value;
+		}
+		lblCounterProducts->Text = count.ToString();
+
+		lblTotalPrice->Text = Math::Round(cart->TotalSum, 2).ToString() + "$";
+		if (lblTotalPrice->Location.X + lblTotalPrice->Size.Width >= btnCheckout->Location.X - 3)
+		{
+			PanelCheckout->Location = Drawing::Point(PanelCheckout->Location.X - 25, PanelCheckout->Location.Y);
+			PanelCheckout->Size = Drawing::Size(PanelCheckout->Size.Width + 25, PanelCheckout->Size.Height);
+			PanelCheckout->Refresh();
+		}
+	}
+	
+	private: System::Void btnContinueShopping_Click(System::Object^ sender, System::EventArgs^ e) {
+		cart->Refresh();
+		if (childPanel == flowShop)
+			flowShop->Visible = true;
+		else
+			PanelProfile->Visible = true;
+		PanelCart->Visible = false;
+
+	}
+	
+	private: System::Void btnCheckout_Click(System::Object^ sender, System::EventArgs^ e) {
+		Order^ order = gcnew Order(client, cart, false);
+		order->CreateOrder();
+		for each (auto prod in cart->CartProducts)
+		{
+			auto _btn = (Button^)flowShop->Controls["shopPanel" + prod.Key->getId()]->Controls["atc" + prod.Key->getId()];
+			_btn->ImageKey = L"shop_cart_empty.png";
+			lblCounterProducts->Text = (Int32::Parse(lblCounterProducts->Text) - cart->CartProducts[prod.Key]).ToString();
+			flowCart->Controls->RemoveByKey("p" + prod.Key->getId());
+		}
+		cart->CartProducts->Clear();
+		cart->Refresh();
+		lblCartIsEmpty->Visible = false;
+		pictureBigCart->Visible = false;
+		lblNeverFixIt->Visible = false;
+		flowCart->Visible = false;
+		PanelButtons->Visible = false;
+		lblOrderCreated->Visible = true;
+		pictureBigCheck->Visible = true;
+	}
+
+	private: System::Void btnEllipsis_Click(System::Object^ sender, System::EventArgs^ e) {
+		Button^ btn = (Button^)sender;
+		String^ id = btn->Name->Substring(2);
+		auto panel = (Panel^)flowCart->Controls["p" + id];
+		panel->BorderStyle = Windows::Forms::BorderStyle::FixedSingle;
+		panel->Controls["br" + id]->Visible = true;
+		panel->Controls["br" + id]->BringToFront();
+	}
+	
+	private: System::Void btnRemove_Click(System::Object^ sender, System::EventArgs^ e) {
+		Button^ btn = (Button^)sender;
+		String^ id = btn->Name->Substring(2);
+
+		for each (auto prod in cart->CartProducts)
+		{
+			if (prod.Key->getId().ToString() == id)
+			{
+				auto _btn = (Button^)flowShop->Controls["shopPanel" + id]->Controls["atc" + id];
+				_btn->ImageKey = L"shop_cart_empty.png";
+				lblCounterProducts->Text = (Int32::Parse(lblCounterProducts->Text) - cart->CartProducts[prod.Key]).ToString();
+				cart->CartProducts->Remove(prod.Key);
+				break;
+			}
+		}
+		cart->Refresh();
+		flowCart->Controls->RemoveByKey("p" + id);
+		if (cart->CountProducts == 0)
+		{
+			flowCart->Visible = false;
+			PanelButtons->Visible = false;
+			return;
+		}
+		lblTotalPrice->Text = Math::Round(cart->TotalSum, 2).ToString() + "$";
+	}
+	
+	private: System::Void panel_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
+		Panel^ panel = (Panel^)sender;
+		String^ id = panel->Name->Substring(1);
+		if (panel->Controls["br" + id]->Visible) {
+			panel->Controls["br" + id]->Visible = false;
+			panel->BorderStyle = Windows::Forms::BorderStyle::None;
+		}
+	}
+
+	private: System::Void txtSearch_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (String::IsNullOrWhiteSpace(txtSearch->Text)) {
+			flowSearchingResults->Visible = false;
+			flowShop->Controls->Clear();
+			for each (auto item in spawnedPanelsShopProducts)
+				flowShop->Controls->Add(item);
+			flowShop->Visible = true;
+			return;
+		}
+		flowShop->Visible = false;
+		flowSearchingResults->Controls->Clear();
+		flowSearchingResults->Visible = true;
+		int i = 0;
+		for each (auto prod in shop->ShopProducts)
+		{
+			if (String::Compare(txtSearch->Text, 0, prod.Key->getName(), 0, txtSearch->Text->Length) == 0)
+			{
+				flowSearchingResults->Controls->Add(spawnedPanelsShopProducts[i]);
+			}
+			i++;
+		}
+	}
+
+	private: System::Void ShowSearchRow()
+	{
+		Invoke(gcnew Action<int>(this, &FormClientMenu::SetLength), 1);
+		Invoke(gcnew Action<bool>(this, &FormClientMenu::SetVisibleOfClearButton), true);
+		animation_search_bar->Abort();
+	}
+
+	private: System::Void HideSearchRow()
+	{
+		Invoke(gcnew Action<bool>(this, &FormClientMenu::SetVisibleOfClearButton), false);
+		Invoke(gcnew Action<int>(this, &FormClientMenu::SetLength), 558);
+		animation_search_bar->Abort();
+	}
+
+	private: System::Void SetVisibleOfClearButton(bool visible)
+	{
+		btnClearText->Visible = visible;
+		btnHideSearchRow->Visible = visible;
+	}
+
+	private: System::Void SetLength(int first)
+	{
+		if (first == 1)
+			for (first; first <= 558; first++)
+				txtSearch->Size = Drawing::Size(first, 30);
+		else
+			for (first; first >= 0; first--)
+				txtSearch->Size = Drawing::Size(first, 30);
+	}
+
+	private: System::Void btnShowSearchRow_Click(System::Object^ sender, System::EventArgs^ e) {
+		btnShowSearchRow->Visible = false;
+		pictureFurfur->Visible = true;
+		animation_search_bar = gcnew Thread(gcnew ThreadStart(this, &FormClientMenu::ShowSearchRow));
+		animation_search_bar->Start();
+	}
+
+	private: System::Void btnClearText_Click(System::Object^ sender, System::EventArgs^ e) {
+		txtSearch->Text = String::Empty;
+	}
+
+	private: System::Void btnHideSearchRow_Click(System::Object^ sender, System::EventArgs^ e) {
+		btnShowSearchRow->Visible = true;
+		pictureFurfur->Visible = false;
+		animation_search_bar = gcnew Thread(gcnew ThreadStart(this, &FormClientMenu::HideSearchRow));
+		animation_search_bar->Start();
+	}
+	private:
+	   Color onBackColor = Color::MediumSlateBlue;
+	   Color onToggleColor = Color::WhiteSmoke;
+	   Color offBackColor = Color::Gray;
+	   Color offToggleColor = Color::Gainsboro;
+	   bool solidStyle = true;
+	   GraphicsPath^ GetFigurePath()
+	   {
+		   int arcSize = toggleEmail2FA->Height - 1;
+		   Rectangle leftArc(0, 0, arcSize, arcSize);
+		   Rectangle rightArc(toggleEmail2FA->Width - arcSize - 2, 0, arcSize, arcSize);
+		   GraphicsPath^ path = gcnew GraphicsPath();
+		   path->StartFigure();
+		   path->AddArc(leftArc, 90.F, 180.F);
+		   path->AddArc(rightArc, 270.F, 180.F);
+		   path->CloseFigure();
+		   return path;
+	   }
+
+	private: System::Void toggleEmail2FA_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+		int toggleSize = toggleEmail2FA->Height - 5;
+		e->Graphics->SmoothingMode = SmoothingMode::AntiAlias;
+		e->Graphics->Clear(toggleEmail2FA->Parent->BackColor);
+		if (toggleEmail2FA->Checked)
+		{
+			if (solidStyle)
+				e->Graphics->FillPath(gcnew SolidBrush(onBackColor), GetFigurePath());
+			else e->Graphics->DrawPath(gcnew Pen(onBackColor, 2), GetFigurePath());
+			e->Graphics->FillEllipse(gcnew SolidBrush(onToggleColor),
+				Rectangle(toggleEmail2FA->Width - toggleEmail2FA->Height + 1, 2, toggleSize, toggleSize));
+		}
+		else
+		{
+			if (solidStyle)
+				e->Graphics->FillPath(gcnew SolidBrush(offBackColor), GetFigurePath());
+			else e->Graphics->DrawPath(gcnew Pen(offBackColor, 2), GetFigurePath());
+			e->Graphics->FillEllipse(gcnew SolidBrush(offToggleColor),
+				Rectangle(2, 2, toggleSize, toggleSize));
+		}
+	}
+
+	private: System::Void panelEdition_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+		ControlPaint::DrawBorder(e->Graphics, ((Panel^)sender)->ClientRectangle, Color::Gainsboro, ButtonBorderStyle::Solid);
+	}
+
+	private: System::Void btnProfile_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+		Button^ btn = (Button^)sender;
+		btn->Text = String::Empty;
+		TextFormatFlags flags = TextFormatFlags::HorizontalCenter | TextFormatFlags::VerticalCenter;
+		TextRenderer::DrawText(e->Graphics, (String^)" Profile ", btn->Font, e->ClipRectangle, btn->ForeColor, flags);
+	}
+	
+	private: System::Void btnShop_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+		Button^ btn = (Button^)sender;
+		btn->Text = String::Empty;
+		TextFormatFlags flags = TextFormatFlags::HorizontalCenter | TextFormatFlags::VerticalCenter;
+		TextRenderer::DrawText(e->Graphics, (String^)" Shop ", btn->Font, e->ClipRectangle, btn->ForeColor, flags);
+	}
+
+	private: System::Void btnMyOrders_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+		Button^ btn = (Button^)sender;
+		btn->Text = String::Empty;
+		TextFormatFlags flags = TextFormatFlags::HorizontalCenter | TextFormatFlags::VerticalCenter;
+		TextRenderer::DrawText(e->Graphics, (String^)" My orders ", btn->Font, e->ClipRectangle, btn->ForeColor, flags);
+	}
+
+	private: System::Void txtProfile_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+		if (!Char::IsLetter(e->KeyChar) && !Char::IsControl(e->KeyChar))
+			e->Handled = true;
+	}
+
+	private: System::Void txtCounter_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+		if (!Char::IsDigit(e->KeyChar) && !Char::IsControl(e->KeyChar))
+			e->Handled = true;
+	}
+
+	private: System::Void btnEditLogin_Click(System::Object^ sender, System::EventArgs^ e) {
+		txtCurrentUserLogin->Enabled = true;
+		btnEditLogin->Visible = false;
+		btnSaveEditLogin->Visible = true;
+		btnCancelEditLogin->Visible = true;
+		txtCurrentUserLogin->Focus();
+	}
+
+	private: System::Void btnSaveEditLogin_Click(System::Object^ sender, System::EventArgs^ e) {
+		SqlConnection^ dbc = gcnew SqlConnection(DBQuery::connect_str);
+		dbc->Open();
+		SqlCommand^ cmd = gcnew SqlCommand(
+			"Update Accounts Set Login=@Login Where Id=@Id", dbc);
+		cmd->Parameters->AddWithValue("@Id", client->getId());
+		cmd->Parameters->AddWithValue("@Login", txtCurrentUserLogin->Text);
+		cmd->ExecuteNonQuery();
+		dbc->Close();
+		client->setLogin(txtCurrentUserLogin->Text);
+		btnCancelEditLogin->PerformClick();
+	}
+
+	private: System::Void btnCancelEditLogin_Click(System::Object^ sender, System::EventArgs^ e) {
+		txtCurrentUserLogin->Text = client->getLogin();
+		txtCurrentUserLogin->Enabled = false;
+		btnEditLogin->Visible = true;
+		btnSaveEditLogin->Visible = false;
+		btnCancelEditLogin->Visible = false;
+		lblLoginPlaceholder->Focus();
+	}
+
+	private: System::Void btnEditEmail_Click(System::Object^ sender, System::EventArgs^ e) {
+		txtCurrentUserEmail->Enabled = true;
+		btnEditEmail->Visible = false;
+		btnSaveEditEmail->Visible = true;
+		btnCancelEditEmail->Visible = true;
+		txtCurrentUserEmail->Focus();
+	}
+		   Thread^ update_email;
+		   Void update_email_Start()
+		   {
+			   String^ charset = "qQwWeErRtTyYuUiIoOpPaAsSdDfFgGhHjJkKlLzZxXcCvVbBnN1234567890";
+			   Random^ rand = gcnew Random();
+			   String^ key = "";
+			   for (int i = 0; i < 15; i++)
+			   {
+				   key += (Char)charset[rand->Next(0, charset->Length - 1)];
+			   }
+			   Invoke(gcnew Action<String^>(this, &FormClientMenu::SendMail), key);
+			   Invoke(gcnew Action<String^>(this, &FormClientMenu::SetEmail), key);
+		   }
+		   Void SendMail(String^ key)
+		   {
+			   Mailer::SendMail(
+				   gcnew MailAddress(txtCurrentUserEmail->Text),
+				   "Change E-mail veryfing key",
+				   "<h2 style=""margin:0"">Key: " + key + "</h2><br></br>" +
+				   "<h2 style=""margin:0"">If you don't do it just ignore this mail.</h2><br></br>" +
+				   "© Oleg Voloshyn, 2021. All rights reserved."
+			   );
+		   }
+		   Void SetEmail(String^ key)
+		   {
+			   if ((gcnew FormPrompt(key))->ShowDialog() == Windows::Forms::DialogResult::Abort)
+			   {
+				   update_email->Abort();
+				   return;
+			   }
+			   SqlConnection^ dbc = gcnew SqlConnection(DBQuery::connect_str);
+			   dbc->Open();
+			   SqlCommand^ cmd = gcnew SqlCommand(
+				   "Update Accounts Set Email=@Email Where Id=@Id", dbc);
+			   cmd->Parameters->AddWithValue("@Id", client->getId());
+			   cmd->Parameters->AddWithValue("@Email", txtCurrentUserEmail->Text);
+			   cmd->ExecuteNonQuery();
+			   dbc->Close();
+			   client->setEmail(txtCurrentUserEmail->Text);
+			   btnCancelEditEmail->PerformClick();
+			   update_email->Abort();
+		   }
+	
+	private: System::Void btnSaveEditEmail_Click(System::Object^ sender, System::EventArgs^ e) {
+		try {
+			MailAddress^ test = gcnew MailAddress(txtCurrentUserEmail->Text);
+		}
+		catch (...)
+		{
+			MessageBox::Show(this, "Email is invalid", "Error",
+				MessageBoxButtons::OK, MessageBoxIcon::Error);
+			return;
+		}
+		if (txtCurrentUserEmail->Text == client->getEmail()) {
+			MessageBox::Show(this, "You can't change current email to current email, type new e-mail", "Error",
+				MessageBoxButtons::OK, MessageBoxIcon::Error);
+			return;
+		}
+		if (DBQuery::isExistingEmail(this, txtCurrentUserEmail->Text))
+		{
+			MessageBox::Show(this, "This e-mail is alredy busy, please type other e-mail", "Error",
+				MessageBoxButtons::OK, MessageBoxIcon::Error);
+			return;
+		}
+		update_email = gcnew Thread(gcnew ThreadStart(this, &FormClientMenu::update_email_Start));
+		update_email->Start();
+	}
+
+	private: System::Void btnCancelEditEmail_Click(System::Object^ sender, System::EventArgs^ e) {
+		txtCurrentUserEmail->Text = client->getEmail();
+		txtCurrentUserEmail->Enabled = false;
+		btnEditEmail->Visible = true;
+		btnSaveEditEmail->Visible = false;
+		btnCancelEditEmail->Visible = false;
+		lblEmailAddressPlaceholder->Focus();
+	}
+
+	private: System::Void btnDeleteAccount_Click(System::Object^ sender, System::EventArgs^ e) {
+		auto dr = MessageBox::Show(this, "Your account will be removed permanently without possibility of recovery." +
+			" Are you sure to do it?", "Warning", MessageBoxButtons::YesNo, MessageBoxIcon::Warning);
+
+		if (dr == Windows::Forms::DialogResult::Yes)
+		{
+			DBQuery::DeleteRow(client->getId(), "Accounts");
+			this->DialogResult = System::Windows::Forms::DialogResult::OK;
+			this->Close();
+		}
+	}
+
+	private: System::Void btnSavePersonal_Click(System::Object^ sender, System::EventArgs^ e) {
+		lblErrFN->Visible = false;
+		lblErrLN->Visible = false;
+		lblErrCity->Visible = false;
+		lblErrCountry->Visible = false;
+
+		if (String::IsNullOrWhiteSpace(txtFirstName->Text))
+			lblErrFN->Visible = true;
+		
+		if (String::IsNullOrWhiteSpace(txtLastName->Text))
+			lblErrLN->Visible = true;
+
+		if (!lblErrFN->Visible && !lblErrLN->Visible && txtFirstName->Text + " " + txtLastName->Text != client->getName()) {
+			DBQuery::UpdateRow(client->getId(), "Accounts", "Name", txtFirstName->Text + " " + txtLastName->Text);
+			client->setName(txtFirstName->Text + " " + txtLastName->Text);
+		}
+
+		if (String::IsNullOrWhiteSpace(txtCountry->Text))
+			lblErrCountry->Visible = true;
+		
+		if (!lblErrCountry->Visible && txtCountry->Text != client->getCountry()) {
+			DBQuery::UpdateRow(client->getId(), "Accounts", "Country", txtCountry->Text);
+			client->setCountry(txtCountry->Text);
+		}
+
+		if (String::IsNullOrWhiteSpace(txtCity->Text))
+			lblErrCity->Visible = true;
+		
+		if (!lblErrCity->Visible && txtCity->Text != client->getCity()) {
+			DBQuery::UpdateRow(client->getId(), "Accounts", "City", txtCity->Text);
+			client->setCity(txtCity->Text);
+		}
+	}
+
+	private: System::Void btnDiscardGeneralSettings_Click(System::Object^ sender, System::EventArgs^ e) {
+		auto name = client->getName()->Split(' ');
+		txtFirstName->Text = name[0];
+		txtLastName->Text = name[1];
+		txtCountry->Text = client->getCountry();
+		txtCity->Text = client->getCity();
+	}
+
+	private: System::Void btnDiscardPasswordSecurityChanges_Click(System::Object^ sender, System::EventArgs^ e) {
+		txtCurrentPassword->Text = String::Empty;
+		txtNewPassword->Text = String::Empty;
+		txtRetypePassword->Text = String::Empty;
+	}
+
+	private: System::Void btnSavePasswordSecurityChanges_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (DBQuery::md5hash(txtCurrentPassword->Text) == client->getPassword() && txtNewPassword->Text == txtRetypePassword->Text) {
+			DBQuery::UpdateRow(client->getId(), "Accounts", "Password", DBQuery::md5hash(txtNewPassword->Text));
+			txtCurrentPassword->Text = String::Empty;
+			txtNewPassword->Text = String::Empty;
+			txtRetypePassword->Text = String::Empty;
+			(gcnew FormPassChangedNotification(true))->ShowDialog();
+		}
+		(gcnew FormPassChangedNotification(false))->ShowDialog();
+	}
+	
+	private: System::Void toggleEmail2FA_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (toggleEmail2FA->Checked) {
+			auto dr = (gcnew Form2FA(client->getId(), client->getEmail(), false))->ShowDialog();
+			if (dr == Windows::Forms::DialogResult::OK) {
+				lblEmail2FAStatus->Text = "Off";
+				toggleEmail2FA->Checked = false;
+			}
+		}
+		else {
+			(gcnew Form2FA(client->getId(), client->getEmail(), true))->ShowDialog();
+			lblEmail2FAStatus->Text = "On";
+			toggleEmail2FA->Checked = true;
+		}
+	}
+};
 }
+

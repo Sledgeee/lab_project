@@ -4,26 +4,32 @@
 
 using namespace System;
 
-public ref class Account abstract : public Person
+ref class Person;
+
+public ref class Account : public Person
 {
 protected:
 	Int32 id;
 	String^ email;
 	String^ login;
-	String^ passwd;
+	String^ password;
+	String^ root;
+	bool TWO_FA;
 public:
 	Account();
-	Account(Int32 id, String^ login, String^ passwd, String^ email, String^ name, Int32 age,
-		String^ sex, String^ country, String^ city, float money);
+	Account(Int32 id, String^ login, String^ password, String^ email, String^ name, String^ country, String^ city, float money, String^ root, bool two_fa);
 	virtual ~Account();
 	Int32   getId();
 	String^ getEmail();
 	String^ getLogin();
-	String^ getPasswd();
+	String^ getPassword();
+	String^ getRoot();
+	bool	get2FA();
 	Void	setId(Int32 id);
 	Void	setEmail(String^ email);
 	Void	setLogin(String^ login);
-	Void	setPasswd(String^ passwd);
-	virtual Void CreateAccount() = 0;
+	Void	setPassword(String^ password);
+	Void	setRoot(String^ root);
+	Void	set2FA(bool turn2FA);
 };
 

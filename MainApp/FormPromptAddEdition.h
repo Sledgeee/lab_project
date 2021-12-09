@@ -61,7 +61,8 @@ namespace MainApp {
 
 	private: System::Windows::Forms::Label^ lblNumberOfPages;
 	private: System::Windows::Forms::Label^ lblPrice;
-	private: System::Windows::Forms::NumericUpDown^ nudPaperback;
+	private: System::Windows::Forms::NumericUpDown^ nudPrintLength;
+
 
 
 	private: System::Windows::Forms::Label^ label1;
@@ -123,7 +124,7 @@ namespace MainApp {
 			this->cbType = (gcnew System::Windows::Forms::ComboBox());
 			this->lblNumberOfPages = (gcnew System::Windows::Forms::Label());
 			this->lblPrice = (gcnew System::Windows::Forms::Label());
-			this->nudPaperback = (gcnew System::Windows::Forms::NumericUpDown());
+			this->nudPrintLength = (gcnew System::Windows::Forms::NumericUpDown());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->nudDiscount = (gcnew System::Windows::Forms::NumericUpDown());
 			this->lblDiscount = (gcnew System::Windows::Forms::Label());
@@ -144,7 +145,7 @@ namespace MainApp {
 			this->lblAuthor = (gcnew System::Windows::Forms::Label());
 			this->PanelControls->SuspendLayout();
 			this->panel1->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudPaperback))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudPrintLength))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudDiscount))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudAvailable))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->EditionImage))->BeginInit();
@@ -156,7 +157,7 @@ namespace MainApp {
 			this->rtbDescription->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->rtbDescription->Location = System::Drawing::Point(19, 575);
-			this->rtbDescription->MaxLength = 1000;
+			this->rtbDescription->MaxLength = 7999;
 			this->rtbDescription->Name = L"rtbDescription";
 			this->rtbDescription->Size = System::Drawing::Size(898, 123);
 			this->rtbDescription->TabIndex = 0;
@@ -191,7 +192,7 @@ namespace MainApp {
 			this->txtName->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->txtName->Location = System::Drawing::Point(18, 147);
-			this->txtName->MaxLength = 50;
+			this->txtName->MaxLength = 500;
 			this->txtName->Name = L"txtName";
 			this->txtName->Size = System::Drawing::Size(260, 32);
 			this->txtName->TabIndex = 3;
@@ -278,7 +279,7 @@ namespace MainApp {
 			this->cbType->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->cbType->FormattingEnabled = true;
-			this->cbType->Items->AddRange(gcnew cli::array< System::Object^  >(4) { L"Book", L"Newspaper", L"Magazine", L"Almonac" });
+			this->cbType->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Book", L"Newspaper", L"Magazine" });
 			this->cbType->Location = System::Drawing::Point(18, 314);
 			this->cbType->Name = L"cbType";
 			this->cbType->Size = System::Drawing::Size(260, 36);
@@ -309,18 +310,18 @@ namespace MainApp {
 			this->lblPrice->TabIndex = 11;
 			this->lblPrice->Text = L"Price:";
 			// 
-			// nudPaperback
+			// nudPrintLength
 			// 
-			this->nudPaperback->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->nudPaperback->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->nudPrintLength->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->nudPrintLength->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->nudPaperback->Location = System::Drawing::Point(18, 402);
-			this->nudPaperback->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 10000, 0, 0, 0 });
-			this->nudPaperback->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-			this->nudPaperback->Name = L"nudPaperback";
-			this->nudPaperback->Size = System::Drawing::Size(260, 32);
-			this->nudPaperback->TabIndex = 13;
-			this->nudPaperback->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->nudPrintLength->Location = System::Drawing::Point(18, 402);
+			this->nudPrintLength->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 10000, 0, 0, 0 });
+			this->nudPrintLength->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->nudPrintLength->Name = L"nudPrintLength";
+			this->nudPrintLength->Size = System::Drawing::Size(260, 32);
+			this->nudPrintLength->TabIndex = 13;
+			this->nudPrintLength->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			// 
 			// label1
 			// 
@@ -523,7 +524,7 @@ namespace MainApp {
 			this->txtAuthor->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->txtAuthor->Location = System::Drawing::Point(18, 228);
-			this->txtAuthor->MaxLength = 50;
+			this->txtAuthor->MaxLength = 100;
 			this->txtAuthor->Name = L"txtAuthor";
 			this->txtAuthor->Size = System::Drawing::Size(260, 32);
 			this->txtAuthor->TabIndex = 30;
@@ -567,7 +568,7 @@ namespace MainApp {
 			this->Controls->Add(this->nudDiscount);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->nudPrice);
-			this->Controls->Add(this->nudPaperback);
+			this->Controls->Add(this->nudPrintLength);
 			this->Controls->Add(this->lblPrice);
 			this->Controls->Add(this->lblNumberOfPages);
 			this->Controls->Add(this->cbType);
@@ -588,7 +589,7 @@ namespace MainApp {
 			this->Load += gcnew System::EventHandler(this, &FormPromptAddEdition::FormPromptAddEdition_Load);
 			this->PanelControls->ResumeLayout(false);
 			this->panel1->ResumeLayout(false);
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudPaperback))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudPrintLength))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudDiscount))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudAvailable))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->EditionImage))->EndInit();
@@ -648,7 +649,7 @@ namespace MainApp {
 		cmd->Parameters->AddWithValue("@Author", txtAuthor->Text);
 		cmd->Parameters->AddWithValue("@Type", cbType->SelectedItem->ToString());
 		cmd->Parameters->AddWithValue("@Genre", txtGenre->Text);
-		cmd->Parameters->AddWithValue("@Paperback", nudPaperback->Value);
+		cmd->Parameters->AddWithValue("@PrintLength", nudPrintLength->Value);
 		cmd->Parameters->AddWithValue("@Description", rtbDescription->Text);
 		cmd->Parameters->AddWithValue("@Price", nudPrice->Value);
 		cmd->Parameters->AddWithValue("@Discount", nudDiscount->Value);

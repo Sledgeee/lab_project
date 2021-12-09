@@ -2,6 +2,7 @@
 
 #include "FormClientMenu.h"
 #include "Mailer.h"
+#include "Account.h"
 #include "Admin.h"
 #include "Client.h"
 #include <stddef.h>
@@ -25,8 +26,8 @@ namespace MainApp {
 
 	public ref class FormLogUp : public System::Windows::Forms::Form
 	{
-		bool succes = false;
 	public:
+		bool succes = false;
 		FormLogUp(void)
 		{
 			InitializeComponent();
@@ -69,32 +70,42 @@ namespace MainApp {
 
 
 	private: System::Windows::Forms::Button^ btnFAQ;
-	private: System::Windows::Forms::Panel^ PanelStep2;
-	private: System::Windows::Forms::TextBox^ Country;
-
-
-
-
-	private: System::Windows::Forms::TextBox^ Age;
-
-	private: System::Windows::Forms::TextBox^ SName;
-
-	private: System::Windows::Forms::TextBox^ FName;
-
-	private: System::Windows::Forms::Label^ lblCountry;
-
-
-	private: System::Windows::Forms::Label^ lblAge;
-	private: System::Windows::Forms::Label^ lblSName;
 	private: System::Windows::Forms::Label^ lblFName;
-	private: System::Windows::Forms::TextBox^ City;
-
+	private: System::Windows::Forms::Label^ lblSName;
+	private: System::Windows::Forms::Label^ lblCountry;
+	private: System::Windows::Forms::TextBox^ FName;
+	private: System::Windows::Forms::TextBox^ SName;
+	private: System::Windows::Forms::TextBox^ Country;
 	private: System::Windows::Forms::Label^ lblCity;
+	private: System::Windows::Forms::TextBox^ City;
 	private: System::Windows::Forms::Button^ btnSignUp;
+	private: System::Windows::Forms::Panel^ PanelStep2;
 
-	private: System::Windows::Forms::ComboBox^ cbSex;
 
-	private: System::Windows::Forms::Label^ lblSex;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -133,20 +144,16 @@ namespace MainApp {
 			this->return_back = (gcnew System::Windows::Forms::Button());
 			this->cbAdminRoot = (gcnew System::Windows::Forms::CheckBox());
 			this->btnFAQ = (gcnew System::Windows::Forms::Button());
-			this->PanelStep2 = (gcnew System::Windows::Forms::Panel());
-			this->btnSignUp = (gcnew System::Windows::Forms::Button());
-			this->cbSex = (gcnew System::Windows::Forms::ComboBox());
-			this->lblSex = (gcnew System::Windows::Forms::Label());
-			this->City = (gcnew System::Windows::Forms::TextBox());
-			this->lblCity = (gcnew System::Windows::Forms::Label());
-			this->Country = (gcnew System::Windows::Forms::TextBox());
-			this->Age = (gcnew System::Windows::Forms::TextBox());
-			this->SName = (gcnew System::Windows::Forms::TextBox());
-			this->FName = (gcnew System::Windows::Forms::TextBox());
-			this->lblCountry = (gcnew System::Windows::Forms::Label());
-			this->lblAge = (gcnew System::Windows::Forms::Label());
-			this->lblSName = (gcnew System::Windows::Forms::Label());
 			this->lblFName = (gcnew System::Windows::Forms::Label());
+			this->lblSName = (gcnew System::Windows::Forms::Label());
+			this->lblCountry = (gcnew System::Windows::Forms::Label());
+			this->FName = (gcnew System::Windows::Forms::TextBox());
+			this->SName = (gcnew System::Windows::Forms::TextBox());
+			this->Country = (gcnew System::Windows::Forms::TextBox());
+			this->lblCity = (gcnew System::Windows::Forms::Label());
+			this->City = (gcnew System::Windows::Forms::TextBox());
+			this->btnSignUp = (gcnew System::Windows::Forms::Button());
+			this->PanelStep2 = (gcnew System::Windows::Forms::Panel());
 			this->panel1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->PanelStep2->SuspendLayout();
@@ -358,160 +365,17 @@ namespace MainApp {
 			this->btnFAQ->UseVisualStyleBackColor = true;
 			this->btnFAQ->Click += gcnew System::EventHandler(this, &FormLogUp::btnFAQ_Click);
 			// 
-			// PanelStep2
+			// lblFName
 			// 
-			this->PanelStep2->Controls->Add(this->btnSignUp);
-			this->PanelStep2->Controls->Add(this->cbSex);
-			this->PanelStep2->Controls->Add(this->lblSex);
-			this->PanelStep2->Controls->Add(this->City);
-			this->PanelStep2->Controls->Add(this->lblCity);
-			this->PanelStep2->Controls->Add(this->Country);
-			this->PanelStep2->Controls->Add(this->Age);
-			this->PanelStep2->Controls->Add(this->SName);
-			this->PanelStep2->Controls->Add(this->FName);
-			this->PanelStep2->Controls->Add(this->lblCountry);
-			this->PanelStep2->Controls->Add(this->lblAge);
-			this->PanelStep2->Controls->Add(this->lblSName);
-			this->PanelStep2->Controls->Add(this->lblFName);
-			this->PanelStep2->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->PanelStep2->Location = System::Drawing::Point(0, 77);
-			this->PanelStep2->Name = L"PanelStep2";
-			this->PanelStep2->Size = System::Drawing::Size(434, 523);
-			this->PanelStep2->TabIndex = 23;
-			this->PanelStep2->Visible = false;
-			// 
-			// btnSignUp
-			// 
-			this->btnSignUp->FlatAppearance->BorderSize = 2;
-			this->btnSignUp->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnSignUp->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->lblFName->AutoSize = true;
+			this->lblFName->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->btnSignUp->ForeColor = System::Drawing::Color::Gainsboro;
-			this->btnSignUp->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnSignUp.Image")));
-			this->btnSignUp->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->btnSignUp->Location = System::Drawing::Point(136, 445);
-			this->btnSignUp->Name = L"btnSignUp";
-			this->btnSignUp->Padding = System::Windows::Forms::Padding(5, 0, 0, 0);
-			this->btnSignUp->Size = System::Drawing::Size(157, 52);
-			this->btnSignUp->TabIndex = 29;
-			this->btnSignUp->Text = L" Sign up";
-			this->btnSignUp->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->btnSignUp->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageBeforeText;
-			this->btnSignUp->UseVisualStyleBackColor = true;
-			this->btnSignUp->Click += gcnew System::EventHandler(this, &FormLogUp::btnSignUp_Click);
-			// 
-			// cbSex
-			// 
-			this->cbSex->BackColor = System::Drawing::SystemColors::Control;
-			this->cbSex->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
-			this->cbSex->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbSex->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->cbSex->FormattingEnabled = true;
-			this->cbSex->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Male", L"Female", L"None" });
-			this->cbSex->Location = System::Drawing::Point(23, 380);
-			this->cbSex->Name = L"cbSex";
-			this->cbSex->Size = System::Drawing::Size(396, 33);
-			this->cbSex->TabIndex = 28;
-			this->cbSex->SelectedIndexChanged += gcnew System::EventHandler(this, &FormLogUp::cbSex_SelectedIndexChanged);
-			// 
-			// lblSex
-			// 
-			this->lblSex->AutoSize = true;
-			this->lblSex->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->lblSex->ForeColor = System::Drawing::Color::Gainsboro;
-			this->lblSex->Location = System::Drawing::Point(21, 352);
-			this->lblSex->Name = L"lblSex";
-			this->lblSex->Size = System::Drawing::Size(56, 25);
-			this->lblSex->TabIndex = 27;
-			this->lblSex->Text = L"Sex:";
-			// 
-			// City
-			// 
-			this->City->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->City->Location = System::Drawing::Point(22, 305);
-			this->City->Name = L"City";
-			this->City->Size = System::Drawing::Size(397, 30);
-			this->City->TabIndex = 26;
-			this->City->Enter += gcnew System::EventHandler(this, &FormLogUp::City_Enter);
-			// 
-			// lblCity
-			// 
-			this->lblCity->AutoSize = true;
-			this->lblCity->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->lblCity->ForeColor = System::Drawing::Color::Gainsboro;
-			this->lblCity->Location = System::Drawing::Point(20, 277);
-			this->lblCity->Name = L"lblCity";
-			this->lblCity->Size = System::Drawing::Size(67, 25);
-			this->lblCity->TabIndex = 25;
-			this->lblCity->Text = L"City:";
-			// 
-			// Country
-			// 
-			this->Country->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->Country->Location = System::Drawing::Point(22, 235);
-			this->Country->Name = L"Country";
-			this->Country->Size = System::Drawing::Size(397, 30);
-			this->Country->TabIndex = 24;
-			this->Country->Enter += gcnew System::EventHandler(this, &FormLogUp::Country_Enter);
-			// 
-			// Age
-			// 
-			this->Age->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->Age->Location = System::Drawing::Point(22, 168);
-			this->Age->Name = L"Age";
-			this->Age->Size = System::Drawing::Size(397, 30);
-			this->Age->TabIndex = 23;
-			this->Age->Enter += gcnew System::EventHandler(this, &FormLogUp::Age_Enter);
-			// 
-			// SName
-			// 
-			this->SName->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->SName->Location = System::Drawing::Point(22, 104);
-			this->SName->Name = L"SName";
-			this->SName->Size = System::Drawing::Size(397, 30);
-			this->SName->TabIndex = 22;
-			this->SName->Enter += gcnew System::EventHandler(this, &FormLogUp::SName_Enter);
-			// 
-			// FName
-			// 
-			this->FName->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->FName->Location = System::Drawing::Point(22, 36);
-			this->FName->Name = L"FName";
-			this->FName->Size = System::Drawing::Size(397, 30);
-			this->FName->TabIndex = 21;
-			this->FName->Enter += gcnew System::EventHandler(this, &FormLogUp::FName_Enter);
-			// 
-			// lblCountry
-			// 
-			this->lblCountry->AutoSize = true;
-			this->lblCountry->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->lblCountry->ForeColor = System::Drawing::Color::Gainsboro;
-			this->lblCountry->Location = System::Drawing::Point(20, 207);
-			this->lblCountry->Name = L"lblCountry";
-			this->lblCountry->Size = System::Drawing::Size(100, 25);
-			this->lblCountry->TabIndex = 20;
-			this->lblCountry->Text = L"Country:";
-			// 
-			// lblAge
-			// 
-			this->lblAge->AutoSize = true;
-			this->lblAge->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->lblAge->ForeColor = System::Drawing::Color::Gainsboro;
-			this->lblAge->Location = System::Drawing::Point(21, 140);
-			this->lblAge->Name = L"lblAge";
-			this->lblAge->Size = System::Drawing::Size(56, 25);
-			this->lblAge->TabIndex = 19;
-			this->lblAge->Text = L"Age:";
+			this->lblFName->ForeColor = System::Drawing::Color::Gainsboro;
+			this->lblFName->Location = System::Drawing::Point(20, 9);
+			this->lblFName->Name = L"lblFName";
+			this->lblFName->Size = System::Drawing::Size(133, 25);
+			this->lblFName->TabIndex = 17;
+			this->lblFName->Text = L"First name:";
 			// 
 			// lblSName
 			// 
@@ -525,17 +389,107 @@ namespace MainApp {
 			this->lblSName->TabIndex = 18;
 			this->lblSName->Text = L"Second name:";
 			// 
-			// lblFName
+			// lblCountry
 			// 
-			this->lblFName->AutoSize = true;
-			this->lblFName->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->lblCountry->AutoSize = true;
+			this->lblCountry->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->lblFName->ForeColor = System::Drawing::Color::Gainsboro;
-			this->lblFName->Location = System::Drawing::Point(20, 9);
-			this->lblFName->Name = L"lblFName";
-			this->lblFName->Size = System::Drawing::Size(133, 25);
-			this->lblFName->TabIndex = 17;
-			this->lblFName->Text = L"First name:";
+			this->lblCountry->ForeColor = System::Drawing::Color::Gainsboro;
+			this->lblCountry->Location = System::Drawing::Point(20, 151);
+			this->lblCountry->Name = L"lblCountry";
+			this->lblCountry->Size = System::Drawing::Size(100, 25);
+			this->lblCountry->TabIndex = 20;
+			this->lblCountry->Text = L"Country:";
+			// 
+			// FName
+			// 
+			this->FName->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->FName->Location = System::Drawing::Point(22, 36);
+			this->FName->Name = L"FName";
+			this->FName->Size = System::Drawing::Size(397, 30);
+			this->FName->TabIndex = 21;
+			this->FName->Enter += gcnew System::EventHandler(this, &FormLogUp::FName_Enter);
+			// 
+			// SName
+			// 
+			this->SName->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->SName->Location = System::Drawing::Point(22, 104);
+			this->SName->Name = L"SName";
+			this->SName->Size = System::Drawing::Size(397, 30);
+			this->SName->TabIndex = 22;
+			this->SName->Enter += gcnew System::EventHandler(this, &FormLogUp::SName_Enter);
+			// 
+			// Country
+			// 
+			this->Country->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->Country->Location = System::Drawing::Point(22, 179);
+			this->Country->Name = L"Country";
+			this->Country->Size = System::Drawing::Size(397, 30);
+			this->Country->TabIndex = 24;
+			this->Country->Enter += gcnew System::EventHandler(this, &FormLogUp::Country_Enter);
+			// 
+			// lblCity
+			// 
+			this->lblCity->AutoSize = true;
+			this->lblCity->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->lblCity->ForeColor = System::Drawing::Color::Gainsboro;
+			this->lblCity->Location = System::Drawing::Point(20, 221);
+			this->lblCity->Name = L"lblCity";
+			this->lblCity->Size = System::Drawing::Size(67, 25);
+			this->lblCity->TabIndex = 25;
+			this->lblCity->Text = L"City:";
+			// 
+			// City
+			// 
+			this->City->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->City->Location = System::Drawing::Point(22, 249);
+			this->City->Name = L"City";
+			this->City->Size = System::Drawing::Size(397, 30);
+			this->City->TabIndex = 26;
+			this->City->Enter += gcnew System::EventHandler(this, &FormLogUp::City_Enter);
+			// 
+			// btnSignUp
+			// 
+			this->btnSignUp->FlatAppearance->BorderSize = 2;
+			this->btnSignUp->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnSignUp->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->btnSignUp->ForeColor = System::Drawing::Color::Gainsboro;
+			this->btnSignUp->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnSignUp.Image")));
+			this->btnSignUp->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->btnSignUp->Location = System::Drawing::Point(128, 327);
+			this->btnSignUp->Name = L"btnSignUp";
+			this->btnSignUp->Padding = System::Windows::Forms::Padding(5, 0, 0, 0);
+			this->btnSignUp->Size = System::Drawing::Size(157, 52);
+			this->btnSignUp->TabIndex = 29;
+			this->btnSignUp->Text = L" Sign up";
+			this->btnSignUp->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->btnSignUp->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageBeforeText;
+			this->btnSignUp->UseVisualStyleBackColor = true;
+			this->btnSignUp->Click += gcnew System::EventHandler(this, &FormLogUp::btnSignUp_Click);
+			// 
+			// PanelStep2
+			// 
+			this->PanelStep2->Controls->Add(this->btnSignUp);
+			this->PanelStep2->Controls->Add(this->City);
+			this->PanelStep2->Controls->Add(this->lblCity);
+			this->PanelStep2->Controls->Add(this->Country);
+			this->PanelStep2->Controls->Add(this->SName);
+			this->PanelStep2->Controls->Add(this->FName);
+			this->PanelStep2->Controls->Add(this->lblCountry);
+			this->PanelStep2->Controls->Add(this->lblSName);
+			this->PanelStep2->Controls->Add(this->lblFName);
+			this->PanelStep2->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->PanelStep2->Location = System::Drawing::Point(0, 77);
+			this->PanelStep2->Name = L"PanelStep2";
+			this->PanelStep2->Size = System::Drawing::Size(434, 523);
+			this->PanelStep2->TabIndex = 23;
+			this->PanelStep2->Visible = false;
 			// 
 			// FormLogUp
 			// 
@@ -607,21 +561,15 @@ namespace MainApp {
 			SName->BackColor = Color::Red;
 			SName->ForeColor = Color::White;
 			break;
-		case 7:
-			Age->BackColor = Color::Red;
-			Age->ForeColor = Color::White;
 			break;
-		case 8:
+		case 7:
 			Country->BackColor = Color::Red;
 			Country->ForeColor = Color::White;
 			break;
-		case 9:
+		case 8:
 			City->BackColor = Color::Red;
 			City->ForeColor = Color::White;
 			break;
-		case 10:
-			cbSex->BackColor = Color::Red;
-			cbSex->ForeColor = Color::White;
 			break;
 		}
 	}
@@ -686,24 +634,14 @@ namespace MainApp {
 			setError(6);
 			flag = false;
 		}
-		if (String::IsNullOrWhiteSpace(Age->Text))
+		if (String::IsNullOrWhiteSpace(Country->Text))
 		{
 			setError(7);
 			flag = false;
 		}
-		if (String::IsNullOrWhiteSpace(Country->Text))
-		{
-			setError(8);
-			flag = false;
-		}
 		if (String::IsNullOrWhiteSpace(City->Text))
 		{
-			setError(9);
-			flag = false;
-		}
-		if (cbSex->SelectedIndex < 0)
-		{
-			setError(10);
+			setError(8);
 			flag = false;
 		}
 
@@ -736,35 +674,28 @@ namespace MainApp {
 	}
 	private: System::Void btnSignUp_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (!isValidPersonData()) return;
+		Account^ account = gcnew Account(
+			NULL,
+			Login->Text,
+			Passwd->Text,
+			Email->Text,
+			(FName->Text + " " + SName->Text),
+			Country->Text,
+			City->Text,
+			0.f,
+			"",
+			false
+		);
 		if (!cbAdminRoot->Checked)
 		{
-			Client^ client = gcnew Client(
-				NULL,
-				Login->Text,
-				Passwd->Text,
-				Email->Text,
-				(FName->Text + " " + SName->Text),
-				Convert::ToInt32(Age->Text),
-				cbSex->SelectedItem->ToString(),
-				Country->Text,
-				City->Text,
-				0.f
-			);
+			account->setRoot("Client");
+			Client^ client = gcnew Client(account);
 			client->CreateAccount();
 			Mailer::SendMail(gcnew MailAddress(Email->Text), Mailer::welcomeSubject, Mailer::welcomeMessage);
 		}
 		else {
-			Admin^ admin = gcnew Admin(
-				NULL,
-				Login->Text,
-				Passwd->Text,
-				Email->Text,
-				(FName->Text + " " + SName->Text),
-				Convert::ToInt32(Age->Text),
-				cbSex->SelectedItem->ToString(),
-				Country->Text,
-				City->Text
-			);
+			account->setRoot("Admin");
+			Admin^ admin = gcnew Admin(account);
 			admin->CreateAccount();
 			Mailer::SendMail(gcnew MailAddress(Email->Text), Mailer::welcomeSubject, Mailer::welcomeMessageAdmin);
 		}
@@ -826,14 +757,6 @@ namespace MainApp {
 			this->Size = System::Drawing::Size(436, 479);
 		}
 	}
-	private: System::Void cbSex_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
-		lblSex->Focus();
-		if (FName->BackColor == Color::Red)
-		{
-			FName->BackColor = Color::White;
-			FName->ForeColor = Color::Black;
-		}
-	}
 	private: System::Void FName_Enter(System::Object^ sender, System::EventArgs^ e) {
 		if (FName->BackColor == Color::Red)
 		{
@@ -846,13 +769,6 @@ namespace MainApp {
 		{
 			SName->BackColor = Color::White;
 			SName->ForeColor = Color::Black;
-		}
-	}
-	private: System::Void Age_Enter(System::Object^ sender, System::EventArgs^ e) {
-		if (Age->BackColor == Color::Red)
-		{
-			Age->BackColor = Color::White;
-			Age->ForeColor = Color::Black;
 		}
 	}
 	private: System::Void Country_Enter(System::Object^ sender, System::EventArgs^ e) {

@@ -116,19 +116,19 @@ namespace MainApp {
 			// 
 			// FormPrompt
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
-			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(34)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(74)));
 			this->ClientSize = System::Drawing::Size(307, 278);
+			this->ControlBox = false;
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->textBox1);
-			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
+			this->DoubleBuffered = true;
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->Name = L"FormPrompt";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
-			this->Text = L"FormPrompt";
 			this->Load += gcnew System::EventHandler(this, &FormPrompt::FormPrompt_Load);
 			this->ResumeLayout(false);
 			this->PerformLayout();
