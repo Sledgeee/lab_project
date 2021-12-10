@@ -4,7 +4,7 @@
 #include "Mailer.h"
 #include "Account.h"
 #include "Admin.h"
-#include "Client.h"
+#include "Customer.h"
 #include <stddef.h>
 #using <System.dll>
 
@@ -66,10 +66,10 @@ namespace MainApp {
 
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
 	private: System::Windows::Forms::Button^ return_back;
-	private: System::Windows::Forms::CheckBox^ cbAdminRoot;
 
 
-	private: System::Windows::Forms::Button^ btnFAQ;
+
+
 	private: System::Windows::Forms::Label^ lblFName;
 	private: System::Windows::Forms::Label^ lblSName;
 	private: System::Windows::Forms::Label^ lblCountry;
@@ -142,8 +142,6 @@ namespace MainApp {
 			this->Passwd_repeat = (gcnew System::Windows::Forms::TextBox());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->return_back = (gcnew System::Windows::Forms::Button());
-			this->cbAdminRoot = (gcnew System::Windows::Forms::CheckBox());
-			this->btnFAQ = (gcnew System::Windows::Forms::Button());
 			this->lblFName = (gcnew System::Windows::Forms::Label());
 			this->lblSName = (gcnew System::Windows::Forms::Label());
 			this->lblCountry = (gcnew System::Windows::Forms::Label());
@@ -165,7 +163,7 @@ namespace MainApp {
 			this->btnNextStep->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnNextStep->ForeColor = System::Drawing::Color::Gainsboro;
 			this->btnNextStep->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnNextStep.Image")));
-			this->btnNextStep->Location = System::Drawing::Point(148, 418);
+			this->btnNextStep->Location = System::Drawing::Point(148, 376);
 			this->btnNextStep->Name = L"btnNextStep";
 			this->btnNextStep->Size = System::Drawing::Size(137, 50);
 			this->btnNextStep->TabIndex = 0;
@@ -338,33 +336,6 @@ namespace MainApp {
 			this->return_back->UseVisualStyleBackColor = true;
 			this->return_back->Click += gcnew System::EventHandler(this, &FormLogUp::return_back_Click);
 			// 
-			// cbAdminRoot
-			// 
-			this->cbAdminRoot->AutoSize = true;
-			this->cbAdminRoot->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->cbAdminRoot->ForeColor = System::Drawing::Color::Gainsboro;
-			this->cbAdminRoot->Location = System::Drawing::Point(23, 369);
-			this->cbAdminRoot->Name = L"cbAdminRoot";
-			this->cbAdminRoot->Size = System::Drawing::Size(284, 29);
-			this->cbAdminRoot->TabIndex = 21;
-			this->cbAdminRoot->Text = L"Sign up with admin root";
-			this->cbAdminRoot->UseVisualStyleBackColor = true;
-			// 
-			// btnFAQ
-			// 
-			this->btnFAQ->FlatAppearance->BorderSize = 0;
-			this->btnFAQ->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnFAQ->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->btnFAQ->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnFAQ.Image")));
-			this->btnFAQ->Location = System::Drawing::Point(309, 364);
-			this->btnFAQ->Name = L"btnFAQ";
-			this->btnFAQ->Size = System::Drawing::Size(39, 39);
-			this->btnFAQ->TabIndex = 22;
-			this->btnFAQ->UseVisualStyleBackColor = true;
-			this->btnFAQ->Click += gcnew System::EventHandler(this, &FormLogUp::btnFAQ_Click);
-			// 
 			// lblFName
 			// 
 			this->lblFName->AutoSize = true;
@@ -462,7 +433,7 @@ namespace MainApp {
 			this->btnSignUp->ForeColor = System::Drawing::Color::Gainsboro;
 			this->btnSignUp->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnSignUp.Image")));
 			this->btnSignUp->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->btnSignUp->Location = System::Drawing::Point(128, 327);
+			this->btnSignUp->Location = System::Drawing::Point(128, 302);
 			this->btnSignUp->Name = L"btnSignUp";
 			this->btnSignUp->Padding = System::Windows::Forms::Padding(5, 0, 0, 0);
 			this->btnSignUp->Size = System::Drawing::Size(157, 52);
@@ -487,7 +458,7 @@ namespace MainApp {
 			this->PanelStep2->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->PanelStep2->Location = System::Drawing::Point(0, 77);
 			this->PanelStep2->Name = L"PanelStep2";
-			this->PanelStep2->Size = System::Drawing::Size(434, 523);
+			this->PanelStep2->Size = System::Drawing::Size(434, 373);
 			this->PanelStep2->TabIndex = 23;
 			this->PanelStep2->Visible = false;
 			// 
@@ -497,11 +468,9 @@ namespace MainApp {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(34)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(74)));
-			this->ClientSize = System::Drawing::Size(434, 600);
+			this->ClientSize = System::Drawing::Size(434, 450);
 			this->ControlBox = false;
 			this->Controls->Add(this->PanelStep2);
-			this->Controls->Add(this->btnFAQ);
-			this->Controls->Add(this->cbAdminRoot);
 			this->Controls->Add(this->return_back);
 			this->Controls->Add(this->pictureBox1);
 			this->Controls->Add(this->Passwd_repeat);
@@ -660,13 +629,10 @@ namespace MainApp {
 	}
 
 	private: System::Void FormLogIn_Load(System::Object^ sender, System::EventArgs^ e) {
-		this->Size = System::Drawing::Size(436, 479);
-		// 436; 602 - next step
 	}
 
 	private: System::Void btnNextStep_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (!isValidRegData()) return;
-		this->Size = System::Drawing::Size(436, 602);
 		PanelStep2->Visible = true;
 	}
 
@@ -674,7 +640,7 @@ namespace MainApp {
 	}
 	private: System::Void btnSignUp_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (!isValidPersonData()) return;
-		Account^ account = gcnew Account(
+		Customer^ customer = gcnew Customer(
 			NULL,
 			Login->Text,
 			Passwd->Text,
@@ -683,22 +649,10 @@ namespace MainApp {
 			Country->Text,
 			City->Text,
 			0.f,
-			"",
 			false
 		);
-		if (!cbAdminRoot->Checked)
-		{
-			account->setRoot("Client");
-			Client^ client = gcnew Client(account);
-			client->CreateAccount();
-			Mailer::SendMail(gcnew MailAddress(Email->Text), Mailer::welcomeSubject, Mailer::welcomeMessage);
-		}
-		else {
-			account->setRoot("Admin");
-			Admin^ admin = gcnew Admin(account);
-			admin->CreateAccount();
-			Mailer::SendMail(gcnew MailAddress(Email->Text), Mailer::welcomeSubject, Mailer::welcomeMessageAdmin);
-		}
+		customer->CreateAccount();
+		Mailer::SendMail(gcnew MailAddress(Email->Text), Mailer::welcomeSubject, Mailer::welcomeMessage);
 		succes = true;
 		this->Close();
 	}

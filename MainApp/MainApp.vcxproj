@@ -117,9 +117,11 @@
     <ClCompile Include="Admin.cpp" />
     <ClCompile Include="Book.cpp" />
     <ClCompile Include="FCMControlsRealizations.cpp" />
+    <ClCompile Include="FormOrders.cpp" />
+    <ClCompile Include="FormPrompt2FA.cpp" />
     <ClCompile Include="FrontEndActionsFCM.cpp" />
     <ClCompile Include="Cart.cpp" />
-    <ClCompile Include="Client.cpp" />
+    <ClCompile Include="Customer.cpp" />
     <ClCompile Include="BackEndActions.cpp" />
     <ClCompile Include="DBQuery.cpp" />
     <ClCompile Include="Edition.cpp" />
@@ -152,7 +154,7 @@
     <ClInclude Include="Admin.h" />
     <ClInclude Include="Book.h" />
     <ClInclude Include="Cart.h" />
-    <ClInclude Include="Client.h" />
+    <ClInclude Include="Customer.h" />
     <ClInclude Include="DBQuery.h" />
     <ClInclude Include="Edition.h" />
     <ClInclude Include="Form2FA.h">
@@ -179,10 +181,16 @@
     <ClInclude Include="FormMyOrders.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="FormOrders.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="FormPassChangedNotification.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="FormPrompt.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="FormPrompt2FA.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="FormPromptAddEdition.h">
@@ -209,6 +217,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -236,11 +245,17 @@
     <EmbeddedResource Include="FormMyOrders.resx">
       <DependentUpon>FormMyOrders.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormOrders.resx">
+      <DependentUpon>FormOrders.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormPassChangedNotification.resx">
       <DependentUpon>FormPassChangedNotification.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrompt.resx">
       <DependentUpon>FormPrompt.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPrompt2FA.resx">
+      <DependentUpon>FormPrompt2FA.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPromptAddEdition.resx">
       <DependentUpon>FormPromptAddEdition.h</DependentUpon>

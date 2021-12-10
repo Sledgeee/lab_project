@@ -4,7 +4,7 @@
 #using <System.Xml.dll>
 #using <mscorlib.dll>
 #include "Admin.h"
-#include "Client.h"
+#include "Customer.h"
 #include "Account.h"
 #include "Edition.h"
 #include "Book.h"

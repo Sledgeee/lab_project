@@ -117,42 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btnAddEdition.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DAAACwwBP0AiyAAAAYpJREFUWEe1lwFxwzAMRQOhDFYIhTAIZbBBGIOOwcZgYzAIg1AIg1AI2fuOnEuz
-        JJIz+93p0jbSl2NLjtvtoe/7A/aKfWM3TOj6hT2ZWxtI8GLJtvjBjhZSD0T11FE0yJOF1gHBI3aVepBm
-        M/Fs4hHaDEIgfEkpfDRrBwury6Af4mIhdUHY64jMzULqgrD2gigPFlYPRE9YdBbq1YHEsNTnXM9SD3A1
-        f21mZ33ejcQwPXlqMRONkPeR/RsVgZ9JYmDsc67RtsyUFyZB0+QZDSKtL9eSTSotSRgC3oe4Rf5sNnzf
-        KtBx0CFw9l5Eb+Z6B78v1UbZ9oyzl3x1Krk3X46xcEPg7CXffBq7PyVe+Th7yd2n4f60DuKnJZwjfR3a
-        TPDTOaIouVrJo9nbLZJ8seL/DcJaL4+yzSMKwpG3Wln/RpEo5iUv698oEsXmvbpEmz8cCH8M+pu0qXiB
-        uDf1bSo+Y0nW0NK0OU5nSLB2qGxT8XNI8pjS3dOm4tcgmQ6V+aymGan7p3KVrvsFTFvNCmQS/D4AAAAA
-        SUVORK5CYII=
-</value>
-  </data>
-  <metadata name="EditionId.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="EditionType.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="EditionGenre.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="EditionDescription.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="EditionPrintLength.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="EditionPrice.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="EditionDiscount.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="EditionAvailable.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
 </root>

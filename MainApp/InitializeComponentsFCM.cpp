@@ -478,9 +478,9 @@ namespace MainApp {
 		this->PanelCartDesk->Controls->Add(this->flowCart);
 		this->PanelCartDesk->Controls->Add(this->pictureBigCheck);
 		this->PanelCartDesk->Controls->Add(this->pictureBigCart);
-		this->PanelCartDesk->Controls->Add(this->lblOrderCreated);
 		this->PanelCartDesk->Controls->Add(this->lblNeverFixIt);
 		this->PanelCartDesk->Controls->Add(this->lblCartIsEmpty);
+		this->PanelCartDesk->Controls->Add(this->lblOrderCreated);
 		this->PanelCartDesk->Location = System::Drawing::Point(0, 0);
 		this->PanelCartDesk->Name = L"PanelCartDesk";
 		this->PanelCartDesk->Size = System::Drawing::Size(1378, 812);
@@ -600,9 +600,9 @@ namespace MainApp {
 			static_cast<System::Byte>(204)));
 		this->lblOrderCreated->Location = System::Drawing::Point(209, 504);
 		this->lblOrderCreated->Name = L"lblOrderCreated";
-		this->lblOrderCreated->Size = System::Drawing::Size(1007, 63);
+		this->lblOrderCreated->Size = System::Drawing::Size(1007, 126);
 		this->lblOrderCreated->TabIndex = 16;
-		this->lblOrderCreated->Text = L"Order has been successfuly created!";
+		this->lblOrderCreated->Text = L"Order has been successfuly created.\r\nYou have 12 hours to pay!";
 		this->lblOrderCreated->Visible = false;
 		// 
 		// lblNeverFixIt

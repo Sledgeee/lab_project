@@ -3,8 +3,9 @@
 #include "FormClientMenu.h"
 #include "FormAdminMenu.h"
 #include "FormResetAccount.h"
-#include "Client.h"
+#include "Customer.h"
 #include "Admin.h"
+#include "FormPrompt2FA.h"
 
 namespace MainApp {
 	using namespace System;
@@ -332,11 +333,16 @@ namespace MainApp {
 	private: System::Void btnSignIn_Click(System::Object^ sender, System::EventArgs^ e) {
 		Account^ acc = getData();
 		if (acc == nullptr) return;
+		if (acc->get2FA()) {
+			auto dr = (gcnew FormPrompt2FA(acc->getEmail()))->ShowDialog();
+			if (dr == System::Windows::Forms::DialogResult::Abort)
+				return;
+		}
 		this->Hide();
 		System::Windows::Forms::DialogResult workResult;
-		if (acc->getRoot() == "Client") {
-			Client^ client = gcnew Client(acc);
-			workResult = (gcnew FormClientMenu(client))->ShowDialog();
+		if (acc->getRoot() == "Customer") {
+			Customer^ customer = gcnew Customer(acc);
+			workResult = (gcnew FormClientMenu(customer))->ShowDialog();
 		}
 		else
 			workResult = (gcnew FormAdminMenu(login_field->Text))->ShowDialog();

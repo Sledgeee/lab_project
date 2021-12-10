@@ -46,10 +46,19 @@ namespace MainApp {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ EditionType;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ EditionGenre;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ EditionDescription;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ EditionPaperback;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ EditionPrintLength;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ EditionPrice;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ EditionDiscount;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ EditionAvailable;
+
+
+
+
+
+
+
+
+
 
 
 
@@ -89,7 +98,7 @@ namespace MainApp {
 			this->EditionType = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->EditionGenre = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->EditionDescription = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->EditionPaperback = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->EditionPrintLength = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->EditionPrice = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->EditionDiscount = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->EditionAvailable = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
@@ -138,7 +147,7 @@ namespace MainApp {
 			this->tableEditions->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->tableEditions->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(9) {
 				this->EditionId,
-					this->EditionName, this->EditionType, this->EditionGenre, this->EditionDescription, this->EditionPaperback, this->EditionPrice,
+					this->EditionName, this->EditionType, this->EditionGenre, this->EditionDescription, this->EditionPrintLength, this->EditionPrice,
 					this->EditionDiscount, this->EditionAvailable
 			});
 			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
@@ -206,6 +215,7 @@ namespace MainApp {
 			this->EditionId->FillWeight = 355.33F;
 			this->EditionId->HeaderText = L"Id";
 			this->EditionId->Name = L"EditionId";
+			this->EditionId->ReadOnly = true;
 			this->EditionId->Width = 70;
 			// 
 			// EditionName
@@ -222,6 +232,7 @@ namespace MainApp {
 			this->EditionType->FillWeight = 17.7665F;
 			this->EditionType->HeaderText = L"Type";
 			this->EditionType->Name = L"EditionType";
+			this->EditionType->ReadOnly = true;
 			this->EditionType->Width = 150;
 			// 
 			// EditionGenre
@@ -237,13 +248,13 @@ namespace MainApp {
 			this->EditionDescription->HeaderText = L"Description";
 			this->EditionDescription->Name = L"EditionDescription";
 			// 
-			// EditionPaperback
+			// EditionPrintLength
 			// 
-			this->EditionPaperback->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::None;
-			this->EditionPaperback->FillWeight = 255.8376F;
-			this->EditionPaperback->HeaderText = L"Paperback";
-			this->EditionPaperback->Name = L"EditionPaperback";
-			this->EditionPaperback->Width = 110;
+			this->EditionPrintLength->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::None;
+			this->EditionPrintLength->FillWeight = 255.8376F;
+			this->EditionPrintLength->HeaderText = L"Print Length";
+			this->EditionPrintLength->Name = L"EditionPrintLength";
+			this->EditionPrintLength->Width = 110;
 			// 
 			// EditionPrice
 			// 
@@ -295,7 +306,7 @@ namespace MainApp {
 		tableEditions->Rows->Clear();
 		SqlConnection^ dbc = gcnew SqlConnection(DBQuery::connect_str);
 		dbc->Open();
-		SqlCommand^ cmd = gcnew SqlCommand("Select Id, Name, Type, Genre, Description, Paperback, Price, Discount, Available From Editions", dbc);
+		SqlCommand^ cmd = gcnew SqlCommand("Select Id, Name, Type, Genre, Description, PrintLength, Price, Discount, Available From Editions", dbc);
 		SqlDataReader^ sdr = cmd->ExecuteReader();
 		if (sdr->HasRows)
 		{
@@ -308,7 +319,7 @@ namespace MainApp {
 				row->Cells[1]->Value = sdr["Type"]->ToString();
 				row->Cells[3]->Value = sdr["Genre"]->ToString();
 				row->Cells[4]->Value = sdr["Description"]->ToString();
-				row->Cells[5]->Value = sdr["Paperback"]->ToString();
+				row->Cells[5]->Value = sdr["PrintLength"]->ToString();
 				row->Cells[6]->Value = sdr["Price"]->ToString();
 				row->Cells[7]->Value = sdr["Discount"]->ToString();
 				row->Cells[8]->Value = sdr["Available"]->ToString();

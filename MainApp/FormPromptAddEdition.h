@@ -643,8 +643,8 @@ namespace MainApp {
 		SqlConnection^ dbc = gcnew SqlConnection(DBQuery::connect_str);
 		dbc->Open();
 		SqlCommand^ cmd = gcnew SqlCommand(
-			"Insert Into Editions (Name, Author, Type, Genre, Paperback, Description, Price, Discount, Publisher, Language, Available, LinkToImg) " +
-			"Values (@Name, @Author, @Type, @Genre, @Paperback, @Description, @Price, @Discount, @Publisher, @Language, @Available, @LinkToImg)", dbc);
+			"Insert Into Editions (Name, Author, Type, Genre, PrintLength, Description, Price, Discount, Publisher, Language, Available, LinkToImg) " +
+			"Values (@Name, @Author, @Type, @Genre, @PrintLength, @Description, @Price, @Discount, @Publisher, @Language, @Available, @LinkToImg)", dbc);
 		cmd->Parameters->AddWithValue("@Name", txtName->Text);
 		cmd->Parameters->AddWithValue("@Author", txtAuthor->Text);
 		cmd->Parameters->AddWithValue("@Type", cbType->SelectedItem->ToString());
@@ -671,9 +671,9 @@ namespace MainApp {
 			txtGenre->BackColor = Color::White;
 	}
 	private: System::Void cbType_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
-		lblType->Focus();
 		if (cbType->BackColor == Color::Red)
-			cbType->BackColor == Color::White;
+			cbType->BackColor = Color::White;
+		lblType->Focus();
 	}
 	private: System::Void txtAuthor_Enter(System::Object^ sender, System::EventArgs^ e) {
 		if (txtAuthor->BackColor == Color::Red)

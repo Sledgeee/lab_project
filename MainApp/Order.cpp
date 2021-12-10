@@ -5,9 +5,9 @@ Order::Order()
 	this->editions = gcnew Dictionary<Edition^, Int32>();
 }
 
-Order::Order(Client^ client, Cart^ cart, bool paystatus) : Order()
+Order::Order(Customer^ customer, Cart^ cart, bool paystatus) : Order()
 {
-	this->client = client;
+	this->customer = customer;
 	this->cart = cart;
 	this->payStatus = paystatus;
 }
@@ -35,12 +35,12 @@ Void Order::CreateOrder() {
 		"(CustomerID, CustomerName, CustomerEmail, EditionsID, EditionsCount, TotalSum, DateCreateOrder, PayStatus, ProcessStatus) " +
 		"Values (@CID, @CN, @CE, @EID, @EC, @TS, @DCO, @PS, @PRS)");
 	SqlCommand^ cmd = gcnew SqlCommand(sql, con);
-	cmd->Parameters->AddWithValue("@CID", client->getId());
-	cmd->Parameters->AddWithValue("@CN", client->getName());
-	cmd->Parameters->AddWithValue("@CE", client->getEmail());
+	cmd->Parameters->AddWithValue("@CID", customer->getId());
+	cmd->Parameters->AddWithValue("@CN", customer->getName());
+	cmd->Parameters->AddWithValue("@CE", customer->getEmail());
 	cmd->Parameters->AddWithValue("@EID", EditionsID);
 	cmd->Parameters->AddWithValue("@EC", EditionsCount);
-	cmd->Parameters->AddWithValue("@TS", cart->TotalSum);
+	cmd->Parameters->AddWithValue("@TS", Math::Round(cart->TotalSum, 2));
 	cmd->Parameters->AddWithValue("@DCO", DateTime::Now);
 	cmd->Parameters->AddWithValue("@PS", false);
 	cmd->Parameters->AddWithValue("@PRS", Status::WAITING_FOR_PAYMENT);
@@ -58,9 +58,9 @@ Cart^ Order::getCart()
 	return this->cart;
 }
 
-Client^ Order::getClient()
+Customer^ Order::getCustomer()
 {
-	return this->client;
+	return this->customer;
 }
 
 DateTime^ Order::getDate()
@@ -83,9 +83,9 @@ Void Order::setCart(Cart^ cart)
 	this->cart = cart;
 }
 
-Void Order::setClient(Client^ client)
+Void Order::setCustomer(Customer^ customer)
 {
-	this->client = client;
+	this->customer = customer;
 }
 
 Void Order::setDate(DateTime^ date)

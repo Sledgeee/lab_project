@@ -1,12 +1,12 @@
-#include "Client.h"
+#include "Customer.h"
 
-Client::Client() {}
+Customer::Customer() {}
 
-Client::Client(Int32 id, String^ login, String^ password, String^ email, String^ name, String^ country, String^ city, float money, bool two_fa)
-	: Account(id, login, password, email, name, country, city, money, "Client", two_fa) {
+Customer::Customer(Int32 id, String^ login, String^ password, String^ email, String^ name, String^ country, String^ city, float money, bool two_fa)
+	: Account(id, login, password, email, name, country, city, money, "Customer", two_fa) {
 }
 
-Client::Client(Account^ account)
+Customer::Customer(Account^ account)
 {
 	this->id = account->getId();
 	this->login = account->getLogin();
@@ -20,11 +20,11 @@ Client::Client(Account^ account)
 	this->money = account->getMoney();
 }
 
-Void Client::CreateAccount()
+Void Customer::CreateAccount()
 {
 	DBQuery::InsertData(this);
 }
 
 
-Client::~Client() {}
+Customer::~Customer() {}
 

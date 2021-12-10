@@ -75,7 +75,7 @@
     <ClCompile Include="Admin.cpp">
       <Filter>Resource Files\BackEnd</Filter>
     </ClCompile>
-    <ClCompile Include="Client.cpp">
+    <ClCompile Include="Customer.cpp">
       <Filter>Resource Files\BackEnd</Filter>
     </ClCompile>
     <ClCompile Include="Person.cpp">
@@ -129,6 +129,12 @@
     <ClCompile Include="FCMControlsRealizations.cpp">
       <Filter>Resource Files\BackEnd</Filter>
     </ClCompile>
+    <ClCompile Include="FormOrders.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FormPrompt2FA.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FormAdminMenu.h">
@@ -176,7 +182,7 @@
     <ClInclude Include="Admin.h">
       <Filter>MyClasses\BackEnd</Filter>
     </ClInclude>
-    <ClInclude Include="Client.h">
+    <ClInclude Include="Customer.h">
       <Filter>MyClasses\BackEnd</Filter>
     </ClInclude>
     <ClInclude Include="Person.h">
@@ -217,6 +223,12 @@
     </ClInclude>
     <ClInclude Include="Newspaper.h">
       <Filter>MyClasses\BackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="FormOrders.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="FormPrompt2FA.h">
+      <Filter>Forms</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

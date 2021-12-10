@@ -1,7 +1,7 @@
 #pragma once
 
 #include "RGBColors.h"
-#include "Client.h"
+#include "Customer.h"
 #include "Cart.h"
 #include "Shop.h"
 #include "Book.h"
@@ -41,10 +41,10 @@ namespace MainApp {
 	public ref class FormClientMenu : public System::Windows::Forms::Form
 	{
 	public:
-		FormClientMenu(Client^ client)
+		FormClientMenu(Customer^ customer)
 		{
 			InitializeComponent();
-			this->client = client;
+			this->customer = customer;
 			this->shop = gcnew Shop();
 			this->cart = gcnew Cart();
 			leftBorderBtn = gcnew Panel();
@@ -55,7 +55,7 @@ namespace MainApp {
 		}
 		Shop^ shop;
 		Cart^ cart;
-		Client^ client;
+		Customer^ customer;
 		List<Panel^>^ searchedPanelsShop;
 		List<Panel^>^ spawnedPanelsShopProducts;
 		Thread^ load_editions, ^ load_personal_data;

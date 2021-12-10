@@ -85,15 +85,15 @@ namespace MainApp {
 
 	Void FormClientMenu::LoadPersonalData()
 	{
-		lblCurrentUserID->Text = client->getId().ToString();
-		txtCurrentUserLogin->Text = client->getLogin()->ToString();
-		txtCurrentUserEmail->Text = client->getEmail()->ToString();
-		auto user_name = (client->getName())->Split(' ');
+		lblCurrentUserID->Text = customer->getId().ToString();
+		txtCurrentUserLogin->Text = customer->getLogin()->ToString();
+		txtCurrentUserEmail->Text = customer->getEmail()->ToString();
+		auto user_name = (customer->getName())->Split(' ');
 		txtFirstName->Text = user_name[0];
 		txtLastName->Text = user_name[1];
-		txtCountry->Text = client->getCountry();
-		txtCity->Text = client->getCity();
-		bool TWO_FACTOR = client->get2FA();
+		txtCountry->Text = customer->getCountry();
+		txtCity->Text = customer->getCity();
+		bool TWO_FACTOR = customer->get2FA();
 		if (TWO_FACTOR) {
 			toggleEmail2FA->Checked = true;
 			lblEmail2FAStatus->Text = "On";
@@ -134,11 +134,11 @@ namespace MainApp {
 		dbc->Open();
 		SqlCommand^ cmd = gcnew SqlCommand(
 			"Update Accounts Set Email=@Email Where Id=@Id", dbc);
-		cmd->Parameters->AddWithValue("@Id", client->getId());
+		cmd->Parameters->AddWithValue("@Id", customer->getId());
 		cmd->Parameters->AddWithValue("@Email", txtCurrentUserEmail->Text);
 		cmd->ExecuteNonQuery();
 		dbc->Close();
-		client->setEmail(txtCurrentUserEmail->Text);
+		customer->setEmail(txtCurrentUserEmail->Text);
 		btnCancelEditEmail->PerformClick();
 		update_email->Abort();
 	}

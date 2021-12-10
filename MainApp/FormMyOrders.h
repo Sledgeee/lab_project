@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Order.h"
-#include "Client.h"
+#include "Customer.h"
 #include "DBQuery.h"
 #include "Order_history.h"
 
@@ -20,15 +20,15 @@ namespace MainApp {
 	public ref class FormMyOrders : public System::Windows::Forms::Form
 	{
 	public:
-		FormMyOrders(Client^ client)
+		FormMyOrders(Customer^ customer)
 		{
 			InitializeComponent();
 			//
 			//TODO: Add the constructor code here
 			//
-			this->client = client;
+			this->customer = customer;
 		}
-		Client^ client;
+		Customer^ customer;
 	protected:
 		/// <summary>
 		/// Clean up any resources being used.
@@ -92,7 +92,7 @@ namespace MainApp {
 		{
 			SqlConnection^ con = gcnew SqlConnection(DBQuery::connect_str);
 			con->Open();
-			SqlCommand^ cmd = gcnew SqlCommand("SELECT * FROM Orders WHERE CustomerID='" + client->getId() + "'", con);
+			SqlCommand^ cmd = gcnew SqlCommand("SELECT * FROM Orders WHERE CustomerID='" + customer->getId() + "'", con);
 			SqlDataReader^ reader = cmd->ExecuteReader();
 			if (reader->HasRows)
 			{

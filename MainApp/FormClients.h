@@ -44,13 +44,25 @@ namespace MainApp {
 	private: System::Windows::Forms::DataGridView^ dataGridView1;
 	private: System::Windows::Forms::Label^ lblError404;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Id;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Fullname;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ CName;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Email;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Age;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Sex;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Country;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ City;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Money;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -88,15 +100,13 @@ namespace MainApp {
 			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle4 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle5 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
+			this->lblError404 = (gcnew System::Windows::Forms::Label());
 			this->Id = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Fullname = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->CName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Email = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Age = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Sex = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Country = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->City = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Money = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->lblError404 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -124,9 +134,9 @@ namespace MainApp {
 			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
 			this->dataGridView1->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(8) {
-				this->Id, this->Fullname,
-					this->Email, this->Age, this->Sex, this->Country, this->City, this->Money
+			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(6) {
+				this->Id, this->CName,
+					this->Email, this->Country, this->City, this->Money
 			});
 			dataGridViewCellStyle3->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
 			dataGridViewCellStyle3->BackColor = System::Drawing::Color::White;
@@ -168,6 +178,21 @@ namespace MainApp {
 			this->dataGridView1->TabIndex = 0;
 			this->dataGridView1->UserDeletingRow += gcnew System::Windows::Forms::DataGridViewRowCancelEventHandler(this, &FormClients::dataGridView1_UserDeletingRow);
 			// 
+			// lblError404
+			// 
+			this->lblError404->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->lblError404->AutoSize = true;
+			this->lblError404->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->lblError404->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 48, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->lblError404->ForeColor = System::Drawing::Color::Gainsboro;
+			this->lblError404->Location = System::Drawing::Point(12, 39);
+			this->lblError404->Name = L"lblError404";
+			this->lblError404->Size = System::Drawing::Size(683, 85);
+			this->lblError404->TabIndex = 2;
+			this->lblError404->Text = L"DATABASE IS EMPTY";
+			this->lblError404->Visible = false;
+			// 
 			// Id
 			// 
 			this->Id->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::None;
@@ -178,16 +203,16 @@ namespace MainApp {
 			this->Id->ReadOnly = true;
 			this->Id->Resizable = System::Windows::Forms::DataGridViewTriState::False;
 			// 
-			// Fullname
+			// CName
 			// 
-			this->Fullname->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::None;
-			this->Fullname->FillWeight = 28.81814F;
-			this->Fullname->HeaderText = L"Fullname";
-			this->Fullname->MinimumWidth = 275;
-			this->Fullname->Name = L"Fullname";
-			this->Fullname->ReadOnly = true;
-			this->Fullname->Resizable = System::Windows::Forms::DataGridViewTriState::False;
-			this->Fullname->Width = 275;
+			this->CName->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::None;
+			this->CName->FillWeight = 28.81814F;
+			this->CName->HeaderText = L"Name";
+			this->CName->MinimumWidth = 275;
+			this->CName->Name = L"CName";
+			this->CName->ReadOnly = true;
+			this->CName->Resizable = System::Windows::Forms::DataGridViewTriState::False;
+			this->CName->Width = 275;
 			// 
 			// Email
 			// 
@@ -199,24 +224,6 @@ namespace MainApp {
 			this->Email->ReadOnly = true;
 			this->Email->Resizable = System::Windows::Forms::DataGridViewTriState::False;
 			this->Email->Width = 275;
-			// 
-			// Age
-			// 
-			this->Age->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::None;
-			this->Age->HeaderText = L"Age";
-			this->Age->MinimumWidth = 100;
-			this->Age->Name = L"Age";
-			this->Age->ReadOnly = true;
-			this->Age->Resizable = System::Windows::Forms::DataGridViewTriState::False;
-			// 
-			// Sex
-			// 
-			this->Sex->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::None;
-			this->Sex->HeaderText = L"Sex";
-			this->Sex->MinimumWidth = 100;
-			this->Sex->Name = L"Sex";
-			this->Sex->ReadOnly = true;
-			this->Sex->Resizable = System::Windows::Forms::DataGridViewTriState::False;
 			// 
 			// Country
 			// 
@@ -248,21 +255,6 @@ namespace MainApp {
 			this->Money->ReadOnly = true;
 			this->Money->Resizable = System::Windows::Forms::DataGridViewTriState::False;
 			// 
-			// lblError404
-			// 
-			this->lblError404->Anchor = System::Windows::Forms::AnchorStyles::None;
-			this->lblError404->AutoSize = true;
-			this->lblError404->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->lblError404->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 48, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->lblError404->ForeColor = System::Drawing::Color::Gainsboro;
-			this->lblError404->Location = System::Drawing::Point(12, 39);
-			this->lblError404->Name = L"lblError404";
-			this->lblError404->Size = System::Drawing::Size(683, 85);
-			this->lblError404->TabIndex = 2;
-			this->lblError404->Text = L"DATABASE IS EMPTY";
-			this->lblError404->Visible = false;
-			// 
 			// FormClients
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -287,7 +279,7 @@ namespace MainApp {
 		dataGridView1->Rows->Clear();
 		SqlConnection^ dbc = gcnew SqlConnection(DBQuery::connect_str);
 		dbc->Open();
-		SqlCommand^ cmd = gcnew SqlCommand("Select Id, Fullname, Email, Age, Sex, Country, City, Money From Clients", dbc);
+		SqlCommand^ cmd = gcnew SqlCommand("Select Id, Name, Email,Country, City, Money From Accounts", dbc);
 		SqlDataReader^ sdr = cmd->ExecuteReader();
 		if (sdr->HasRows)
 		{
@@ -296,13 +288,11 @@ namespace MainApp {
 				DataGridViewRow^ newRow = gcnew DataGridViewRow();
 				newRow->CreateCells(dataGridView1);
 				newRow->Cells[0]->Value = sdr["Id"]->ToString();
-				newRow->Cells[1]->Value = sdr["Fullname"]->ToString();
+				newRow->Cells[1]->Value = sdr["Name"]->ToString();
 				newRow->Cells[2]->Value = sdr["Email"]->ToString();
-				newRow->Cells[3]->Value = sdr["Age"]->ToString();
-				newRow->Cells[4]->Value = sdr["Sex"]->ToString();
-				newRow->Cells[5]->Value = sdr["Country"]->ToString();
-				newRow->Cells[6]->Value = sdr["City"]->ToString();
-				newRow->Cells[7]->Value = sdr["Money"]->ToString();
+				newRow->Cells[3]->Value = sdr["Country"]->ToString();
+				newRow->Cells[4]->Value = sdr["City"]->ToString();
+				newRow->Cells[5]->Value = sdr["Money"]->ToString();
 				newRow->MinimumHeight = 30;
 				dataGridView1->Rows->Add(newRow);
 			}

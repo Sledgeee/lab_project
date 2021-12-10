@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Client.h"
+#include "Customer.h"
 #include "Edition.h"
 #include "DBQuery.h"
 #include "Cart.h"
@@ -15,7 +15,7 @@ using namespace System::Threading;
 using namespace System::Threading::Tasks;
 using namespace System::Collections::Generic;
 
-ref class Client;
+ref class Customer;
 ref class Edition;
 ref class Cart;
 
@@ -30,29 +30,25 @@ public ref class Order
 {
 protected:
 	Int32 id;
-	Client^ client;
+	Customer^ customer;
 	Cart^ cart;
 	DateTime^ date;
 	bool payStatus;
 public:
-
-
 	Dictionary<Edition^, Int32>^ editions;
-
 	Order();
-	Order(Client^ client, Cart^ cart, bool paystatus);
+	Order(Customer^ customer, Cart^ cart, bool paystatus);
 	~Order();
 
 	Void CreateOrder();
-
 	Int32 getId();
 	Cart^ getCart();
-	Client^ getClient();
+	Customer^ getCustomer();
 	DateTime^ getDate();
 	bool getPayStatus();
 	Void setId(Int32 id);
 	Void setCart(Cart^ cart);
-	Void setClient(Client^ client);
+	Void setCustomer(Customer^ customer);
 	Void setDate(DateTime^ date);
 	Void setPayStatus(bool payStatus);
 };

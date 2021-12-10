@@ -85,7 +85,7 @@ namespace MainApp {
 		flowShop->Visible = false;
 		PanelSearchControls->Visible = false;
 		minipanelCart->Visible = false;
-		OpenChildForm(gcnew FormMyOrders(client));
+		OpenChildForm(gcnew FormMyOrders(customer));
 	}
 
 	Void FormClientMenu::btnCart_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -224,7 +224,7 @@ namespace MainApp {
 	}
 
 	Void FormClientMenu::btnCheckout_Click(System::Object^ sender, System::EventArgs^ e) {
-		Order^ order = gcnew Order(client, cart, false);
+		Order^ order = gcnew Order(customer, cart, false);
 		order->CreateOrder();
 		for each (auto prod in cart->CartProducts)
 		{
@@ -399,16 +399,16 @@ namespace MainApp {
 		dbc->Open();
 		SqlCommand^ cmd = gcnew SqlCommand(
 			"Update Accounts Set Login=@Login Where Id=@Id", dbc);
-		cmd->Parameters->AddWithValue("@Id", client->getId());
+		cmd->Parameters->AddWithValue("@Id", customer->getId());
 		cmd->Parameters->AddWithValue("@Login", txtCurrentUserLogin->Text);
 		cmd->ExecuteNonQuery();
 		dbc->Close();
-		client->setLogin(txtCurrentUserLogin->Text);
+		customer->setLogin(txtCurrentUserLogin->Text);
 		btnCancelEditLogin->PerformClick();
 	}
 
 	Void FormClientMenu::btnCancelEditLogin_Click(System::Object^ sender, System::EventArgs^ e) {
-		txtCurrentUserLogin->Text = client->getLogin();
+		txtCurrentUserLogin->Text = customer->getLogin();
 		txtCurrentUserLogin->Enabled = false;
 		btnEditLogin->Visible = true;
 		btnSaveEditLogin->Visible = false;
@@ -434,7 +434,7 @@ namespace MainApp {
 				MessageBoxButtons::OK, MessageBoxIcon::Error);
 			return;
 		}
-		if (txtCurrentUserEmail->Text == client->getEmail()) {
+		if (txtCurrentUserEmail->Text == customer->getEmail()) {
 			MessageBox::Show(this, "You can't change current email to current email, type new e-mail", "Error",
 				MessageBoxButtons::OK, MessageBoxIcon::Error);
 			return;
@@ -450,7 +450,7 @@ namespace MainApp {
 	}
 
 	Void FormClientMenu::btnCancelEditEmail_Click(System::Object^ sender, System::EventArgs^ e) {
-		txtCurrentUserEmail->Text = client->getEmail();
+		txtCurrentUserEmail->Text = customer->getEmail();
 		txtCurrentUserEmail->Enabled = false;
 		btnEditEmail->Visible = true;
 		btnSaveEditEmail->Visible = false;
@@ -464,7 +464,7 @@ namespace MainApp {
 
 		if (dr == Windows::Forms::DialogResult::Yes)
 		{
-			DBQuery::DeleteRow(client->getId(), "Accounts");
+			DBQuery::DeleteRow(customer->getId(), "Accounts");
 			this->DialogResult = System::Windows::Forms::DialogResult::OK;
 			this->Close();
 		}
@@ -482,34 +482,34 @@ namespace MainApp {
 		if (String::IsNullOrWhiteSpace(txtLastName->Text))
 			lblErrLN->Visible = true;
 
-		if (!lblErrFN->Visible && !lblErrLN->Visible && txtFirstName->Text + " " + txtLastName->Text != client->getName()) {
-			DBQuery::UpdateRow(client->getId(), "Accounts", "Name", txtFirstName->Text + " " + txtLastName->Text);
-			client->setName(txtFirstName->Text + " " + txtLastName->Text);
+		if (!lblErrFN->Visible && !lblErrLN->Visible && txtFirstName->Text + " " + txtLastName->Text != customer->getName()) {
+			DBQuery::UpdateRow(customer->getId(), "Accounts", "Name", txtFirstName->Text + " " + txtLastName->Text);
+			customer->setName(txtFirstName->Text + " " + txtLastName->Text);
 		}
 
 		if (String::IsNullOrWhiteSpace(txtCountry->Text))
 			lblErrCountry->Visible = true;
 
-		if (!lblErrCountry->Visible && txtCountry->Text != client->getCountry()) {
-			DBQuery::UpdateRow(client->getId(), "Accounts", "Country", txtCountry->Text);
-			client->setCountry(txtCountry->Text);
+		if (!lblErrCountry->Visible && txtCountry->Text != customer->getCountry()) {
+			DBQuery::UpdateRow(customer->getId(), "Accounts", "Country", txtCountry->Text);
+			customer->setCountry(txtCountry->Text);
 		}
 
 		if (String::IsNullOrWhiteSpace(txtCity->Text))
 			lblErrCity->Visible = true;
 
-		if (!lblErrCity->Visible && txtCity->Text != client->getCity()) {
-			DBQuery::UpdateRow(client->getId(), "Accounts", "City", txtCity->Text);
-			client->setCity(txtCity->Text);
+		if (!lblErrCity->Visible && txtCity->Text != customer->getCity()) {
+			DBQuery::UpdateRow(customer->getId(), "Accounts", "City", txtCity->Text);
+			customer->setCity(txtCity->Text);
 		}
 	}
 
 	Void FormClientMenu::btnDiscardGeneralSettings_Click(System::Object^ sender, System::EventArgs^ e) {
-		auto name = client->getName()->Split(' ');
+		auto name = customer->getName()->Split(' ');
 		txtFirstName->Text = name[0];
 		txtLastName->Text = name[1];
-		txtCountry->Text = client->getCountry();
-		txtCity->Text = client->getCity();
+		txtCountry->Text = customer->getCountry();
+		txtCity->Text = customer->getCity();
 	}
 
 	Void FormClientMenu::btnDiscardPasswordSecurityChanges_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -519,8 +519,8 @@ namespace MainApp {
 	}
 
 	Void FormClientMenu::btnSavePasswordSecurityChanges_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (DBQuery::md5hash(txtCurrentPassword->Text) == client->getPassword() && txtNewPassword->Text == txtRetypePassword->Text) {
-			DBQuery::UpdateRow(client->getId(), "Accounts", "Password", DBQuery::md5hash(txtNewPassword->Text));
+		if (DBQuery::md5hash(txtCurrentPassword->Text) == customer->getPassword() && txtNewPassword->Text == txtRetypePassword->Text) {
+			DBQuery::UpdateRow(customer->getId(), "Accounts", "Password", DBQuery::md5hash(txtNewPassword->Text));
 			txtCurrentPassword->Text = String::Empty;
 			txtNewPassword->Text = String::Empty;
 			txtRetypePassword->Text = String::Empty;
@@ -531,14 +531,14 @@ namespace MainApp {
 
 	Void FormClientMenu::toggleEmail2FA_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (toggleEmail2FA->Checked) {
-			auto dr = (gcnew Form2FA(client->getId(), client->getEmail(), false))->ShowDialog();
+			auto dr = (gcnew Form2FA(customer->getId(), customer->getEmail(), false))->ShowDialog();
 			if (dr == Windows::Forms::DialogResult::OK) {
 				lblEmail2FAStatus->Text = "Off";
 				toggleEmail2FA->Checked = false;
 			}
 		}
 		else {
-			(gcnew Form2FA(client->getId(), client->getEmail(), true))->ShowDialog();
+			(gcnew Form2FA(customer->getId(), customer->getEmail(), true))->ShowDialog();
 			lblEmail2FAStatus->Text = "On";
 			toggleEmail2FA->Checked = true;
 		}
