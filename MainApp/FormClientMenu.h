@@ -94,9 +94,7 @@ namespace MainApp {
 	private: System::Windows::Forms::Panel^ panelCountry;
 	private: System::Windows::Forms::Label^ lblCountryPlaceholder;
 	private: System::Windows::Forms::Label^ label14;
-
 	private: System::Windows::Forms::Form^ currentChildForm;
-
 	private: System::Windows::Forms::Panel^ panelLastName;
 	private: System::Windows::Forms::Label^ lblLastNamePlaceholder;
 	private: System::Windows::Forms::TextBox^ txtLastName;
