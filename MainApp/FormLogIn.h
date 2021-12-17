@@ -125,8 +125,8 @@ namespace MainApp {
 			// 
 			// panel1
 			// 
-			this->panel1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(26)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
-				static_cast<System::Int32>(static_cast<System::Byte>(62)));
+			this->panel1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(36)), static_cast<System::Int32>(static_cast<System::Byte>(36)),
+				static_cast<System::Int32>(static_cast<System::Byte>(36)));
 			this->panel1->Controls->Add(this->btnExit);
 			this->panel1->Controls->Add(this->btnMinimize);
 			this->panel1->Cursor = System::Windows::Forms::Cursors::Arrow;
@@ -249,8 +249,8 @@ namespace MainApp {
 			this->label1->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->label1->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 14.25F, System::Drawing::FontStyle::Underline, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label1->ForeColor = System::Drawing::Color::MediumVioletRed;
-			this->label1->Location = System::Drawing::Point(121, 375);
+			this->label1->ForeColor = System::Drawing::Color::WhiteSmoke;
+			this->label1->Location = System::Drawing::Point(123, 375);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(188, 25);
 			this->label1->TabIndex = 20;
@@ -261,8 +261,8 @@ namespace MainApp {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 21);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(34)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
-				static_cast<System::Int32>(static_cast<System::Byte>(74)));
+			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(55)), static_cast<System::Int32>(static_cast<System::Byte>(55)),
+				static_cast<System::Int32>(static_cast<System::Byte>(55)));
 			this->ClientSize = System::Drawing::Size(434, 411);
 			this->ControlBox = false;
 			this->Controls->Add(this->label1);
@@ -277,7 +277,7 @@ namespace MainApp {
 			this->DoubleBuffered = true;
 			this->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
 			this->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->Name = L"FormLogIn";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;

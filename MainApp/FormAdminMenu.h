@@ -123,8 +123,8 @@ namespace MainApp {
 			// 
 			// PanelMenu
 			// 
-			this->PanelMenu->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(31)), static_cast<System::Int32>(static_cast<System::Byte>(30)),
-				static_cast<System::Int32>(static_cast<System::Byte>(68)));
+			this->PanelMenu->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(44)), static_cast<System::Int32>(static_cast<System::Byte>(44)),
+				static_cast<System::Int32>(static_cast<System::Byte>(44)));
 			this->PanelMenu->Controls->Add(this->button3);
 			this->PanelMenu->Controls->Add(this->Logout);
 			this->PanelMenu->Controls->Add(this->Editions);
@@ -244,18 +244,19 @@ namespace MainApp {
 			// imgHome
 			// 
 			this->imgHome->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->imgHome->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->imgHome->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"imgHome.Image")));
-			this->imgHome->Location = System::Drawing::Point(14, 12);
+			this->imgHome->Location = System::Drawing::Point(0, 0);
 			this->imgHome->Name = L"imgHome";
-			this->imgHome->Size = System::Drawing::Size(191, 115);
+			this->imgHome->Size = System::Drawing::Size(220, 140);
 			this->imgHome->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 			this->imgHome->TabIndex = 0;
 			this->imgHome->TabStop = false;
 			// 
 			// PanelTitleBar
 			// 
-			this->PanelTitleBar->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(29)), static_cast<System::Int32>(static_cast<System::Byte>(27)),
-				static_cast<System::Int32>(static_cast<System::Byte>(62)));
+			this->PanelTitleBar->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(42)), static_cast<System::Int32>(static_cast<System::Byte>(42)),
+				static_cast<System::Int32>(static_cast<System::Byte>(42)));
 			this->PanelTitleBar->Controls->Add(this->label1);
 			this->PanelTitleBar->Controls->Add(this->btnExit);
 			this->PanelTitleBar->Controls->Add(this->btnMinimize);
@@ -311,8 +312,8 @@ namespace MainApp {
 			// 
 			// PanelDesktop
 			// 
-			this->PanelDesktop->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(34)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
-				static_cast<System::Int32>(static_cast<System::Byte>(74)));
+			this->PanelDesktop->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(55)), static_cast<System::Int32>(static_cast<System::Byte>(55)),
+				static_cast<System::Int32>(static_cast<System::Byte>(55)));
 			this->PanelDesktop->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->PanelDesktop->ForeColor = System::Drawing::Color::Transparent;
 			this->PanelDesktop->Location = System::Drawing::Point(220, 86);
@@ -322,8 +323,8 @@ namespace MainApp {
 			// 
 			// PanelControls
 			// 
-			this->PanelControls->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(26)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
-				static_cast<System::Int32>(static_cast<System::Byte>(62)));
+			this->PanelControls->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(36)), static_cast<System::Int32>(static_cast<System::Byte>(36)),
+				static_cast<System::Int32>(static_cast<System::Byte>(36)));
 			this->PanelControls->Controls->Add(this->button1);
 			this->PanelControls->Controls->Add(this->button2);
 			this->PanelControls->Dock = System::Windows::Forms::DockStyle::Top;
@@ -401,7 +402,7 @@ namespace MainApp {
 		{
 			DisableButton();
 			this->currentBtn = static_cast<Button^>(senderBtn);
-			this->currentBtn->BackColor = Color::FromArgb(37, 36, 81);
+			this->currentBtn->BackColor = Color::FromArgb(60,60,60);
 			this->currentBtn->ForeColor = customColor;
 			this->currentBtn->TextAlign = ContentAlignment::MiddleCenter;
 			this->currentBtn->ImageAlign = ContentAlignment::MiddleRight;
@@ -417,7 +418,7 @@ namespace MainApp {
 	{
 		if (currentBtn != nullptr)
 		{
-			this->currentBtn->BackColor = Color::FromArgb(31, 30, 68);
+			this->currentBtn->BackColor = Color::FromArgb(44,44,44);
 			this->currentBtn->ForeColor = Color::Gainsboro;
 			this->currentBtn->TextAlign = ContentAlignment::MiddleLeft;
 			this->currentBtn->ImageAlign = ContentAlignment::MiddleLeft;
@@ -442,11 +443,11 @@ namespace MainApp {
 	}
 
 	private: System::Void Clients_Click(System::Object^ sender, System::EventArgs^ e) {
-		ActivateButton(sender, RGBColors::color1);
+		ActivateButton(sender, Color::WhiteSmoke);
 		OpenChildForm(gcnew FormClients);
 	}
 	private: System::Void Editions_Click(System::Object^ sender, System::EventArgs^ e) {
-		ActivateButton(sender, RGBColors::color2);
+		ActivateButton(sender, Color::WhiteSmoke);
 		OpenChildForm(gcnew FormEditions);
 	}
 
@@ -485,7 +486,7 @@ namespace MainApp {
 		Application::Exit();
 	}
 	private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
-		ActivateButton(sender, RGBColors::color3);
+		ActivateButton(sender, Color::WhiteSmoke);
 		label1->Visible = true;
 		OpenChildForm(gcnew FormOrders(label1));
 	}

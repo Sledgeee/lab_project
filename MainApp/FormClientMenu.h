@@ -14,6 +14,7 @@
 #include "Form2FA.h"
 #include "FormPassChangedNotification.h"
 #include "FormMyOrders.h"
+#include "FormMyWallet.h"
 
 namespace MainApp {
 
@@ -180,6 +181,15 @@ namespace MainApp {
 	private: System::Windows::Forms::Label^ lblOrderCreated;
 	private: System::Windows::Forms::PictureBox^ pictureBigCheck;
 	private: System::Windows::Forms::Button^ btnMyOrders;
+	private: System::Windows::Forms::Label^ lblUserName;
+
+
+
+	private: System::Windows::Forms::Label^ lblUserNameTitle;
+	private: System::Windows::Forms::Button^ btnMyWallet;
+
+
+
 
 
 	private: System::Windows::Forms::Label^ lblCounterProducts;
@@ -207,8 +217,8 @@ namespace MainApp {
 		void InitializeComponent(void);
 
 #pragma endregion
-		Color onBackColor = Color::MediumSlateBlue;
-		Color onToggleColor = Color::WhiteSmoke;
+		Color onBackColor = Color::WhiteSmoke;
+		Color onToggleColor = Color::LimeGreen;
 		Color offBackColor = Color::Gray;
 		Color offToggleColor = Color::Gainsboro;
 		bool solidStyle = true;
@@ -277,5 +287,7 @@ namespace MainApp {
 	private: System::Void btnDiscardPasswordSecurityChanges_Click(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void btnSavePasswordSecurityChanges_Click(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void toggleEmail2FA_Click(System::Object^ sender, System::EventArgs^ e);
-	};
+	private: System::Void btnMyWallet_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void btnMyWallet_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e);
+};
 }

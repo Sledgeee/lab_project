@@ -175,8 +175,8 @@ namespace MainApp {
 			// 
 			// panel1
 			// 
-			this->panel1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(26)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
-				static_cast<System::Int32>(static_cast<System::Byte>(62)));
+			this->panel1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(36)), static_cast<System::Int32>(static_cast<System::Byte>(36)),
+				static_cast<System::Int32>(static_cast<System::Byte>(36)));
 			this->panel1->Controls->Add(this->btnExit);
 			this->panel1->Controls->Add(this->btnMinimize);
 			this->panel1->Cursor = System::Windows::Forms::Cursors::Arrow;
@@ -309,6 +309,8 @@ namespace MainApp {
 			// 
 			// pictureBox1
 			// 
+			this->pictureBox1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(55)), static_cast<System::Int32>(static_cast<System::Byte>(55)),
+				static_cast<System::Int32>(static_cast<System::Byte>(55)));
 			this->pictureBox1->Dock = System::Windows::Forms::DockStyle::Top;
 			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
 			this->pictureBox1->Location = System::Drawing::Point(0, 26);
@@ -320,6 +322,8 @@ namespace MainApp {
 			// 
 			// return_back
 			// 
+			this->return_back->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(55)), static_cast<System::Int32>(static_cast<System::Byte>(55)),
+				static_cast<System::Int32>(static_cast<System::Byte>(55)));
 			this->return_back->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->return_back->FlatAppearance->BorderSize = 0;
 			this->return_back->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
@@ -333,7 +337,7 @@ namespace MainApp {
 			this->return_back->TabIndex = 20;
 			this->return_back->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			this->return_back->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageBeforeText;
-			this->return_back->UseVisualStyleBackColor = true;
+			this->return_back->UseVisualStyleBackColor = false;
 			this->return_back->Click += gcnew System::EventHandler(this, &FormLogUp::return_back_Click);
 			// 
 			// lblFName
@@ -446,6 +450,8 @@ namespace MainApp {
 			// 
 			// PanelStep2
 			// 
+			this->PanelStep2->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(55)), static_cast<System::Int32>(static_cast<System::Byte>(55)),
+				static_cast<System::Int32>(static_cast<System::Byte>(55)));
 			this->PanelStep2->Controls->Add(this->btnSignUp);
 			this->PanelStep2->Controls->Add(this->City);
 			this->PanelStep2->Controls->Add(this->lblCity);
@@ -466,8 +472,8 @@ namespace MainApp {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 21);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(34)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
-				static_cast<System::Int32>(static_cast<System::Byte>(74)));
+			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(55)), static_cast<System::Int32>(static_cast<System::Byte>(55)),
+				static_cast<System::Int32>(static_cast<System::Byte>(55)));
 			this->ClientSize = System::Drawing::Size(434, 450);
 			this->ControlBox = false;
 			this->Controls->Add(this->PanelStep2);
@@ -486,7 +492,7 @@ namespace MainApp {
 			this->DoubleBuffered = true;
 			this->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
 			this->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->Name = L"FormLogUp";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;

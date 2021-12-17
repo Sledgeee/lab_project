@@ -135,6 +135,9 @@
     <ClCompile Include="FormPrompt2FA.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FormMyWallet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FormAdminMenu.h">
@@ -228,6 +231,9 @@
       <Filter>Forms</Filter>
     </ClInclude>
     <ClInclude Include="FormPrompt2FA.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="FormMyWallet.h">
       <Filter>Forms</Filter>
     </ClInclude>
   </ItemGroup>

@@ -117,6 +117,7 @@
     <ClCompile Include="Admin.cpp" />
     <ClCompile Include="Book.cpp" />
     <ClCompile Include="FCMControlsRealizations.cpp" />
+    <ClCompile Include="FormMyWallet.cpp" />
     <ClCompile Include="FormOrders.cpp" />
     <ClCompile Include="FormPrompt2FA.cpp" />
     <ClCompile Include="FrontEndActionsFCM.cpp" />
@@ -179,6 +180,9 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="FormMyOrders.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="FormMyWallet.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="FormOrders.h">
@@ -244,6 +248,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormMyOrders.resx">
       <DependentUpon>FormMyOrders.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMyWallet.resx">
+      <DependentUpon>FormMyWallet.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormOrders.resx">
       <DependentUpon>FormOrders.h</DependentUpon>

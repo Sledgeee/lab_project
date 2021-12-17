@@ -33,7 +33,7 @@ Void DBQuery::InsertData(Account^ account)
 	cmd->Parameters->AddWithValue("@Country", account->getCountry());
 	cmd->Parameters->AddWithValue("@City", account->getCity());
 	cmd->Parameters->AddWithValue("@Money", account->getMoney());
-	cmd->Parameters->AddWithValue("@Root", "Client");
+	cmd->Parameters->AddWithValue("@Root", "Customer");
 	cmd->Parameters->AddWithValue("@TwoFactor", false);
 	cmd->Parameters->AddWithValue("@DateAccountCreate", DateTime::Now);
 	cmd->ExecuteNonQuery();

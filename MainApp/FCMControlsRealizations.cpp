@@ -9,6 +9,7 @@ namespace MainApp {
 		load_editions->Start();
 		load_personal_data->Start();
 		lblCounterProducts->Text = "0";
+		lblUserNameTitle->Text += customer->getName();
 	}
 
 	Void FormClientMenu::PanelCart_VisibleChanged(System::Object^ sender, System::EventArgs^ e) {
@@ -45,11 +46,10 @@ namespace MainApp {
 		{
 			currentChildForm->Close();
 		}
-		ActivateButton(sender, RGBColors::color1);
+		ActivateButton(sender, Color::WhiteSmoke);
 		PanelCart->Visible = false;
 		flowShop->Visible = false;
 		PanelSearchControls->Visible = false;
-		minipanelCart->Visible = false;
 		PanelProfile->Visible = true;
 	}
 
@@ -58,12 +58,11 @@ namespace MainApp {
 		{
 			currentChildForm->Close();
 		}
-		ActivateButton(sender, RGBColors::color2);
+		ActivateButton(sender, Color::WhiteSmoke);
 		PanelCart->Visible = false;
 		PanelProfile->Visible = false;
 		flowShop->Visible = true;
 		PanelSearchControls->Visible = true;
-		minipanelCart->Visible = true;
 	}
 
 	Void FormClientMenu::OpenChildForm(Form^ childForm)
@@ -79,12 +78,15 @@ namespace MainApp {
 	}
 
 	Void FormClientMenu::btnMyOrders_Click(System::Object^ sender, System::EventArgs^ e) {
-		ActivateButton(sender, RGBColors::color3);
+		if (currentChildForm != nullptr)
+		{
+			currentChildForm->Close();
+		}
+		ActivateButton(sender, Color::WhiteSmoke);
 		PanelCart->Visible = false;
 		PanelProfile->Visible = false;
 		flowShop->Visible = false;
 		PanelSearchControls->Visible = false;
-		minipanelCart->Visible = false;
 		OpenChildForm(gcnew FormMyOrders(customer));
 	}
 
@@ -95,6 +97,19 @@ namespace MainApp {
 		}
 		DisableButton();
 		OpenCart();
+	}
+
+	Void FormClientMenu::btnMyWallet_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (currentChildForm != nullptr)
+		{
+			currentChildForm->Close();
+		}
+		ActivateButton(sender, Color::WhiteSmoke);
+		PanelCart->Visible = false;
+		PanelProfile->Visible = false;
+		flowShop->Visible = false;
+		PanelSearchControls->Visible = false;
+		OpenChildForm(gcnew FormMyWallet(customer));
 	}
 
 	Void FormClientMenu::btnLogOut_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -163,7 +178,6 @@ namespace MainApp {
 		String^ id = btn->Name->Substring(2);
 		flowCart->Controls["p" + id]->Controls["ec" + id]->Text =
 			(Int32::Parse(flowCart->Controls["p" + id]->Controls["ec" + id]->Text) + 1).ToString();
-		lblCounterProducts->Text = (Int32::Parse(lblCounterProducts->Text) + 1).ToString();
 	}
 
 	Void FormClientMenu::minus_Click(System::Object^ sender, System::EventArgs^ e)
@@ -174,7 +188,6 @@ namespace MainApp {
 			return;
 		flowCart->Controls["p" + id]->Controls["ec" + id]->Text =
 			(Int32::Parse(flowCart->Controls["p" + id]->Controls["ec" + id]->Text) - 1).ToString();
-		lblCounterProducts->Text = (Int32::Parse(lblCounterProducts->Text) - 1).ToString();
 	}
 
 	Void FormClientMenu::edition_counter_TextChanged(System::Object^ sender, System::EventArgs^ e) {
@@ -352,7 +365,7 @@ namespace MainApp {
 	}
 
 	Void FormClientMenu::panelEdition_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
-		ControlPaint::DrawBorder(e->Graphics, ((Panel^)sender)->ClientRectangle, Color::Gainsboro, ButtonBorderStyle::Solid);
+		ControlPaint::DrawBorder(e->Graphics, ((Panel^)sender)->ClientRectangle, Color::FromArgb(42,42,42), ButtonBorderStyle::Solid);
 	}
 
 	Void FormClientMenu::btnProfile_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
@@ -367,6 +380,13 @@ namespace MainApp {
 		btn->Text = String::Empty;
 		TextFormatFlags flags = TextFormatFlags::HorizontalCenter | TextFormatFlags::VerticalCenter;
 		TextRenderer::DrawText(e->Graphics, (String^)" Shop ", btn->Font, e->ClipRectangle, btn->ForeColor, flags);
+	}
+
+	Void FormClientMenu::btnMyWallet_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+		Button^ btn = (Button^)sender;
+		btn->Text = String::Empty;
+		TextFormatFlags flags = TextFormatFlags::HorizontalCenter | TextFormatFlags::VerticalCenter;
+		TextRenderer::DrawText(e->Graphics, (String^)" My wallet ", btn->Font, e->ClipRectangle, btn->ForeColor, flags);
 	}
 
 	Void FormClientMenu::btnMyOrders_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {

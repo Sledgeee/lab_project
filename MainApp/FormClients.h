@@ -100,13 +100,13 @@ namespace MainApp {
 			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle4 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle5 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
-			this->lblError404 = (gcnew System::Windows::Forms::Label());
 			this->Id = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->CName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Email = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Country = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->City = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Money = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->lblError404 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -121,8 +121,9 @@ namespace MainApp {
 			dataGridViewCellStyle1->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
 			this->dataGridView1->AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
 			this->dataGridView1->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
-			this->dataGridView1->BackgroundColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(34)),
-				static_cast<System::Int32>(static_cast<System::Byte>(33)), static_cast<System::Int32>(static_cast<System::Byte>(74)));
+			this->dataGridView1->BackgroundColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(55)),
+				static_cast<System::Int32>(static_cast<System::Byte>(55)), static_cast<System::Int32>(static_cast<System::Byte>(55)));
+			this->dataGridView1->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->dataGridView1->ColumnHeadersBorderStyle = System::Windows::Forms::DataGridViewHeaderBorderStyle::Single;
 			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
 			dataGridViewCellStyle2->BackColor = System::Drawing::Color::White;
@@ -177,21 +178,6 @@ namespace MainApp {
 			this->dataGridView1->Size = System::Drawing::Size(1347, 824);
 			this->dataGridView1->TabIndex = 0;
 			this->dataGridView1->UserDeletingRow += gcnew System::Windows::Forms::DataGridViewRowCancelEventHandler(this, &FormClients::dataGridView1_UserDeletingRow);
-			// 
-			// lblError404
-			// 
-			this->lblError404->Anchor = System::Windows::Forms::AnchorStyles::None;
-			this->lblError404->AutoSize = true;
-			this->lblError404->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->lblError404->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 48, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->lblError404->ForeColor = System::Drawing::Color::Gainsboro;
-			this->lblError404->Location = System::Drawing::Point(12, 39);
-			this->lblError404->Name = L"lblError404";
-			this->lblError404->Size = System::Drawing::Size(683, 85);
-			this->lblError404->TabIndex = 2;
-			this->lblError404->Text = L"DATABASE IS EMPTY";
-			this->lblError404->Visible = false;
 			// 
 			// Id
 			// 
@@ -254,6 +240,23 @@ namespace MainApp {
 			this->Money->Name = L"Money";
 			this->Money->ReadOnly = true;
 			this->Money->Resizable = System::Windows::Forms::DataGridViewTriState::False;
+			// 
+			// lblError404
+			// 
+			this->lblError404->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->lblError404->AutoSize = true;
+			this->lblError404->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(55)), static_cast<System::Int32>(static_cast<System::Byte>(55)),
+				static_cast<System::Int32>(static_cast<System::Byte>(55)));
+			this->lblError404->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->lblError404->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 48, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->lblError404->ForeColor = System::Drawing::Color::Gainsboro;
+			this->lblError404->Location = System::Drawing::Point(12, 39);
+			this->lblError404->Name = L"lblError404";
+			this->lblError404->Size = System::Drawing::Size(683, 85);
+			this->lblError404->TabIndex = 2;
+			this->lblError404->Text = L"DATABASE IS EMPTY";
+			this->lblError404->Visible = false;
 			// 
 			// FormClients
 			// 

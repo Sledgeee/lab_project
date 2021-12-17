@@ -63,8 +63,8 @@ namespace MainApp {
 			// 
 			this->flowOrders->AutoScroll = true;
 			this->flowOrders->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
-			this->flowOrders->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(34)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
-				static_cast<System::Int32>(static_cast<System::Byte>(74)));
+			this->flowOrders->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(55)), static_cast<System::Int32>(static_cast<System::Byte>(55)),
+				static_cast<System::Int32>(static_cast<System::Byte>(55)));
 			this->flowOrders->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->flowOrders->FlowDirection = System::Windows::Forms::FlowDirection::TopDown;
 			this->flowOrders->Location = System::Drawing::Point(0, 0);
@@ -138,12 +138,12 @@ namespace MainApp {
 				panel->AutoSize = true;
 				panel->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 				panel->Location = System::Drawing::Point(3, 3);
-				panel->MaximumSize = System::Drawing::Size(1345, 500);
-				panel->MinimumSize = System::Drawing::Size(1345, 2);
+				panel->MaximumSize = System::Drawing::Size(1375, 500);
+				panel->MinimumSize = System::Drawing::Size(1375, 2);
 				panel->Name = L"panel" + data.order->getId();
-				panel->Size = System::Drawing::Size(1345, 79);
+				panel->Size = System::Drawing::Size(1375, 79);
 
-				if (data.order->getPayStatus() == false && data.process_status != 3) {
+				if (data.order->getPayStatus() == false && data.process_status == 1) {
 					Button^ btn_pay = gcnew Button;
 					btn_pay->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(160)),
 						static_cast<System::Int32>(static_cast<System::Byte>(80)));
@@ -151,7 +151,7 @@ namespace MainApp {
 					btn_pay->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 						static_cast<System::Byte>(204)));
 					btn_pay->ForeColor = System::Drawing::Color::WhiteSmoke;
-					btn_pay->Location = System::Drawing::Point(1239, 18);
+					btn_pay->Location = System::Drawing::Point(1269, 18);
 					btn_pay->Name = L"btn_pay" + data.order->getId();
 					btn_pay->Size = System::Drawing::Size(87, 41);
 					btn_pay->Text = L"Pay";
@@ -165,7 +165,7 @@ namespace MainApp {
 				flow->FlowDirection = System::Windows::Forms::FlowDirection::RightToLeft;
 				flow->Location = System::Drawing::Point(699, 3);
 				flow->Name = L"flow" + data.order->getId();
-				flow->Size = System::Drawing::Size(518, 71);
+				flow->Size = System::Drawing::Size(548, 71);
 				flow->WrapContents = false;
 
 				for each (auto link in data.image_links)
@@ -227,11 +227,11 @@ namespace MainApp {
 
 				PictureBox^ picture_status = gcnew PictureBox;
 				if (data.process_status == 1)
-					picture_status->ImageLocation = "C:\\users\\infab\\desktop\\icons\\status_gray.png";
+					picture_status->ImageLocation = "icons\\status_gray.png";
 				else if (data.process_status == 2)
-					picture_status->ImageLocation = "C:\\users\\infab\\desktop\\icons\\status_green.png";
+					picture_status->ImageLocation = "icons\\status_green.png";
 				else
-					picture_status->ImageLocation = "C:\\users\\infab\\desktop\\icons\\status_red.png";
+					picture_status->ImageLocation = "icons\\status_red.png";
 				picture_status->Location = System::Drawing::Point(15, 14);
 				picture_status->Name = L"picture_status" + data.order->getId();
 				picture_status->Size = System::Drawing::Size(22, 53);
@@ -251,17 +251,34 @@ namespace MainApp {
 	{
 		auto btn = (Button^)sender;
 		String^ id = btn->Name->Substring(7);
-		SqlConnection^ con = gcnew SqlConnection(DBQuery::connect_str);
-		con->Open();
-		SqlCommand^ cmd = gcnew SqlCommand("UPDATE Orders SET PayStatus=@PayStatus, ProcessStatus=@ProcessStatus WHERE Id=@Id", con);
-		cmd->Parameters->AddWithValue("@PayStatus", true);
-		cmd->Parameters->AddWithValue("@ProcessStatus", Status::PAID);
-		cmd->Parameters->AddWithValue("@Id", Int32::Parse(id));
-		cmd->ExecuteNonQuery();
-		con->Close();
-		flowOrders->Controls["panel" + id]->Controls->RemoveByKey("btn_pay" + id);
-		((PictureBox^)flowOrders->Controls["panel" + id]->Controls["picture_status" + id])->ImageLocation = "C:\\users\\infab\\desktop\\icons\\status_green.png";
-		flowOrders->Controls["panel" + id]->Controls["text_status" + id]->Text = "Paid";
+		String^ str_price = flowOrders->Controls["panel" + id]->Controls["value_order_price" + id]->Text->Remove(
+			flowOrders->Controls["panel" + id]->Controls["value_order_price" + id]->Text->Length - 1);
+		float price = (float)Math::Round(Convert::ToDouble(str_price), 2);
+		if (customer->getMoney() >= price)
+		{
+			SqlConnection^ con = gcnew SqlConnection(DBQuery::connect_str);
+			con->Open();
+			SqlCommand^ cmd = gcnew SqlCommand("UPDATE Orders SET PayStatus=@PayStatus, ProcessStatus=@ProcessStatus WHERE Id=@Id", con);
+			cmd->Parameters->AddWithValue("@PayStatus", true);
+			cmd->Parameters->AddWithValue("@ProcessStatus", Status::PAID);
+			cmd->Parameters->AddWithValue("@Id", Int32::Parse(id));
+			cmd->ExecuteNonQuery();
+			con->Close();
+			flowOrders->Controls["panel" + id]->Controls->RemoveByKey("btn_pay" + id);
+			((PictureBox^)flowOrders->Controls["panel" + id]->Controls["picture_status" + id])->ImageLocation = "icons\\status_green.png";
+			flowOrders->Controls["panel" + id]->Controls["text_status" + id]->Text = "Paid";
+			SqlConnection^ con2 = gcnew SqlConnection(DBQuery::connect_str);
+			con2->Open();
+			SqlCommand^ cmd2 = gcnew SqlCommand("UPDATE Accounts SET Money=@Money WHERE Id='" + customer->getId() + "'", con2);
+			cmd2->Parameters->AddWithValue("@Money", (float)Math::Round(customer->getMoney() - price, 2));
+			cmd2->ExecuteNonQuery();
+			con2->Close();
+			customer->setMoney((float)Math::Round(customer->getMoney() - price, 2));
+		}
+		else {
+			MessageBox::Show(this, "You don't have enough money to pay it order, please top up your balance!", "Not enough money",
+				MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		}
 	}
 	private: System::Void FormMyOrders_Load(System::Object^ sender, System::EventArgs^ e) {
 		SpawnOrders();

@@ -27,7 +27,7 @@ namespace MainApp {
 			this->currentBtn->ImageAlign = ContentAlignment::MiddleRight;
 			this->currentBtn->TextImageRelation = TextImageRelation::TextBeforeImage;
 			this->currentBtn->Enabled = false;
-			this->currentBtn->BackColor = Color::FromArgb(37, 36, 81);
+			this->currentBtn->BackColor = Color::FromArgb(60,60,60);
 			this->currentBtn->ForeColor = customColor;
 			this->leftBorderBtn->BackColor = customColor;
 			this->leftBorderBtn->Location = System::Drawing::Point(0, currentBtn->Location.Y);
@@ -44,7 +44,7 @@ namespace MainApp {
 			this->currentBtn->ImageAlign = ContentAlignment::MiddleLeft;
 			this->currentBtn->TextImageRelation = TextImageRelation::ImageBeforeText;
 			this->currentBtn->Enabled = true;
-			this->currentBtn->BackColor = Color::FromArgb(31, 30, 68);
+			this->currentBtn->BackColor = Color::FromArgb(44, 44, 44);
 			this->currentBtn->ForeColor = Color::Gainsboro;
 			this->leftBorderBtn->Visible = false;
 		}
