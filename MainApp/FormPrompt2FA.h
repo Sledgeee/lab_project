@@ -113,10 +113,11 @@ namespace MainApp {
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(55)), static_cast<System::Int32>(static_cast<System::Byte>(55)),
 				static_cast<System::Int32>(static_cast<System::Byte>(55)));
 			this->ClientSize = System::Drawing::Size(450, 300);
+			this->ControlBox = false;
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->label1);
-			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->Name = L"FormPrompt2FA";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Load += gcnew System::EventHandler(this, &FormPrompt2FA::FormPrompt2FA_Load);
@@ -159,10 +160,11 @@ namespace MainApp {
 			   for (int i = 1; i <= 6; i++)
 				   security_code += rand->Next(0, 9);
 
-			   Mailer::SendMail(gcnew MailAddress(email), "Two-Factor Authentication",
+			   Mailer::SendSecurityCode(gcnew MailAddress(email), security_code);
+			  /* Mailer::SendMail(gcnew MailAddress(email), "Two-Factor Authentication",
 				   "<h2>Security code</h2><br></br>" +
 				   "<h2>" + security_code + "</h2><br></br>" +
-				   "© Oleg Voloshyn, 2021. All rights reserved.");
+				   "© Oleg Voloshyn, 2021. All rights reserved.");*/
 		   }
 		   Void Load_txts()
 		   {

@@ -13,7 +13,7 @@ using namespace Tasks;
 public ref class Mailer abstract
 {
 	static initonly String^ log_file = "logs.txt";
-	static initonly String^ pathToLogo = "C:\\Users\\infab\\Desktop\\icons\\mail_logo.jpg";
+	static initonly String^ pathToLogo = "icons\\logo.png";
 public:
 	static initonly String^ welcomeSubject = "Welcome to the OV STORE!";
 	static initonly String^ welcomeMessage =
@@ -23,5 +23,6 @@ public:
 	static initonly String^ recoverySubject = "Account recovery";
 	static Void writeErr(String^ source);
 	static Void SendMail(MailAddress^ to, String^ subject, String^ message);
+	static Void SendSecurityCode(MailAddress^ to, String^ code);
 };
 
