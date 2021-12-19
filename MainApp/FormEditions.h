@@ -319,8 +319,8 @@ namespace MainApp {
 				DataGridViewRow^ row = gcnew DataGridViewRow();
 				row->CreateCells(tableEditions);
 				row->Cells[0]->Value = sdr["Id"]->ToString();
-				row->Cells[2]->Value = sdr["Name"]->ToString();
-				row->Cells[1]->Value = sdr["Type"]->ToString();
+				row->Cells[1]->Value = sdr["Name"]->ToString();
+				row->Cells[2]->Value = sdr["Type"]->ToString();
 				row->Cells[3]->Value = sdr["Genre"]->ToString();
 				row->Cells[4]->Value = sdr["Description"]->ToString();
 				row->Cells[5]->Value = sdr["PrintLength"]->ToString();
