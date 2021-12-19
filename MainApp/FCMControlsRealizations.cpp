@@ -238,7 +238,12 @@ namespace MainApp {
 
 	Void FormClientMenu::btnCheckout_Click(System::Object^ sender, System::EventArgs^ e) {
 		Order^ order = gcnew Order(customer, cart, false);
-		order->CreateOrder();
+		if (!order->CreateOrder())
+		{
+			MessageBox::Show(this, "Order was not created, stock haven't given count of once or more of chosen editions", "Error",
+				MessageBoxButtons::OK, MessageBoxIcon::Error);
+			return;
+		}
 		for each (auto prod in cart->CartProducts)
 		{
 			auto _btn = (Button^)flowShop->Controls["shopPanel" + prod.Key->getId()]->Controls["atc" + prod.Key->getId()];

@@ -87,7 +87,45 @@ namespace MainApp {
 
 		}
 #pragma endregion
-		Order_history^ order_history = gcnew Order_history();
+		Order_history^ order_history;
+
+		int binarySearch(Order_history::Data item, int low, int high)
+		{
+			if (high <= low)
+				return (item.order->getId() > order_history->orders[low].order->getId()) ? (low + 1) : low;
+
+			int mid = (low + high) / 2;
+
+			if (item.order->getId() == order_history->orders[mid].order->getId())
+				return mid + 1;
+
+			if (item.order->getId() > order_history->orders[mid].order->getId())
+				return binarySearch(item, mid + 1, high);
+
+			return binarySearch(item, low, mid - 1);
+		}
+
+		void insertionSort(int n)
+		{
+			int i, loc, j;
+			Order_history::Data selected;
+
+			for (i = 1; i < n; ++i)
+			{
+				j = i - 1;
+				selected = order_history->orders[i];
+
+				loc = binarySearch(selected, 0, j);
+
+				while (j >= loc)
+				{
+					order_history->orders[j + 1] = order_history->orders[j];
+					j--;
+				}
+				order_history->orders[j + 1] = selected;
+			}
+		}
+
 		Void SpawnOrders()
 		{
 			SqlConnection^ con = gcnew SqlConnection(DBQuery::connect_str);
@@ -130,7 +168,48 @@ namespace MainApp {
 				}
 				con->Close();
 			}
+			SqlConnection^ con2 = gcnew SqlConnection(DBQuery::connect_str);
+			con2->Open();
+			SqlCommand^ cmd2 = gcnew SqlCommand("SELECT * FROM OrdersBlackList WHERE CustomerID='" + customer->getId() + "'", con2);
+			SqlDataReader^ reader2 = cmd2->ExecuteReader();
+			if (reader2->HasRows)
+			{
+				while (reader2->Read())
+				{
+					auto editions_id = reader2["EditionsID"]->ToString()->Split(' ');
+					auto editions_coount = reader2["EditionsCount"]->ToString()->Split(' ');
+
+					List<String^>^ links = gcnew List<String^>();
+					for (int i = 0; i < editions_id->Length; i++)
+					{
+						SqlConnection^ tmp_con = gcnew SqlConnection(DBQuery::connect_str);
+						tmp_con->Open();
+						SqlCommand^ tmp_cmd = gcnew SqlCommand("SELECT LinkToImg FROM Editions WHERE Id='" + editions_id[i] + "'", tmp_con);
+						SqlDataReader^ tmp_r = tmp_cmd->ExecuteReader();
+						if (tmp_r->HasRows)
+						{
+							tmp_r->Read();
+							links->Add(tmp_r["LinkToImg"]->ToString());
+						}
+						tmp_con->Close();
+					}
+					Order^ order = gcnew Order;
+					order->setId(Convert::ToInt32(reader2["OrderID"]));
+					order->setDate(Convert::ToDateTime(reader2["DateCreateOrder"]));
+					Order_history::Data data
+					{
+						order,
+						(float)Convert::ToDouble(reader2["TotalSum"]),
+						links,
+						Convert::ToInt32(reader2["ProcessStatus"])
+					};
+					order_history->orders->Add(data);
+				}
+				con2->Close();
+			}
 			if (order_history->orders == nullptr || order_history == nullptr) return;
+
+			insertionSort(order_history->orders->Count);
 
 			for each (auto data in order_history->orders) {
 
@@ -281,6 +360,7 @@ namespace MainApp {
 		}
 	}
 	private: System::Void FormMyOrders_Load(System::Object^ sender, System::EventArgs^ e) {
+		order_history = gcnew Order_history();
 		SpawnOrders();
 	}
 	};

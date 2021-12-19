@@ -40,7 +40,7 @@ public:
 	Order(Customer^ customer, Cart^ cart, bool paystatus);
 	~Order();
 
-	Void CreateOrder();
+	bool CreateOrder();
 	Int32 getId();
 	Cart^ getCart();
 	Customer^ getCustomer();

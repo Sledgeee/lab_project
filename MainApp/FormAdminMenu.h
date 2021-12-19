@@ -54,7 +54,9 @@ namespace MainApp {
 	private: System::Windows::Forms::Panel^ PanelLogo;
 	private: System::Windows::Forms::PictureBox^ imgHome;
 	private: System::Windows::Forms::Button^ Editions;
-	private: System::Windows::Forms::Button^ Clients;
+	private: System::Windows::Forms::Button^ Users;
+
+
 	private: System::Windows::Forms::Panel^ PanelTitleBar;
 	private: System::Windows::Forms::Button^ currentBtn;
 	private: System::Windows::Forms::Button^ Logout;
@@ -103,7 +105,7 @@ namespace MainApp {
 			this->imageList1 = (gcnew System::Windows::Forms::ImageList(this->components));
 			this->Logout = (gcnew System::Windows::Forms::Button());
 			this->Editions = (gcnew System::Windows::Forms::Button());
-			this->Clients = (gcnew System::Windows::Forms::Button());
+			this->Users = (gcnew System::Windows::Forms::Button());
 			this->PanelLogo = (gcnew System::Windows::Forms::Panel());
 			this->imgHome = (gcnew System::Windows::Forms::PictureBox());
 			this->PanelTitleBar = (gcnew System::Windows::Forms::Panel());
@@ -128,7 +130,7 @@ namespace MainApp {
 			this->PanelMenu->Controls->Add(this->button3);
 			this->PanelMenu->Controls->Add(this->Logout);
 			this->PanelMenu->Controls->Add(this->Editions);
-			this->PanelMenu->Controls->Add(this->Clients);
+			this->PanelMenu->Controls->Add(this->Users);
 			this->PanelMenu->Controls->Add(this->PanelLogo);
 			this->PanelMenu->Dock = System::Windows::Forms::DockStyle::Left;
 			this->PanelMenu->Location = System::Drawing::Point(0, 31);
@@ -210,27 +212,27 @@ namespace MainApp {
 			this->Editions->UseVisualStyleBackColor = true;
 			this->Editions->Click += gcnew System::EventHandler(this, &FormAdminMenu::Editions_Click);
 			// 
-			// Clients
+			// Users
 			// 
-			this->Clients->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->Clients->Dock = System::Windows::Forms::DockStyle::Top;
-			this->Clients->FlatAppearance->BorderSize = 0;
-			this->Clients->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->Clients->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->Users->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->Users->Dock = System::Windows::Forms::DockStyle::Top;
+			this->Users->FlatAppearance->BorderSize = 0;
+			this->Users->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->Users->Font = (gcnew System::Drawing::Font(L"Cascadia Mono", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->Clients->ForeColor = System::Drawing::Color::Gainsboro;
-			this->Clients->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Clients.Image")));
-			this->Clients->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->Clients->Location = System::Drawing::Point(0, 140);
-			this->Clients->Name = L"Clients";
-			this->Clients->Padding = System::Windows::Forms::Padding(10, 0, 0, 0);
-			this->Clients->Size = System::Drawing::Size(220, 60);
-			this->Clients->TabIndex = 2;
-			this->Clients->Text = L" Clients";
-			this->Clients->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->Clients->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageBeforeText;
-			this->Clients->UseVisualStyleBackColor = true;
-			this->Clients->Click += gcnew System::EventHandler(this, &FormAdminMenu::Clients_Click);
+			this->Users->ForeColor = System::Drawing::Color::Gainsboro;
+			this->Users->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Users.Image")));
+			this->Users->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->Users->Location = System::Drawing::Point(0, 140);
+			this->Users->Name = L"Users";
+			this->Users->Padding = System::Windows::Forms::Padding(10, 0, 0, 0);
+			this->Users->Size = System::Drawing::Size(220, 60);
+			this->Users->TabIndex = 2;
+			this->Users->Text = L" Users";
+			this->Users->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->Users->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageBeforeText;
+			this->Users->UseVisualStyleBackColor = true;
+			this->Users->Click += gcnew System::EventHandler(this, &FormAdminMenu::Users_Click);
 			// 
 			// PanelLogo
 			// 
@@ -442,7 +444,7 @@ namespace MainApp {
 		childForm->Show();
 	}
 
-	private: System::Void Clients_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void Users_Click(System::Object^ sender, System::EventArgs^ e) {
 		ActivateButton(sender, Color::WhiteSmoke);
 		OpenChildForm(gcnew FormClients);
 	}

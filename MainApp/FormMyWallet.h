@@ -572,8 +572,8 @@ namespace MainApp {
 		SqlConnection^ con = gcnew SqlConnection(DBQuery::connect_str);
 		con->Open();
 		SqlCommand^ cmd = gcnew SqlCommand("UPDATE Accounts SET Money=@Money WHERE Id='" + customer->getId() + "'", con);
-		float money = (float)Math::Round(customer->getMoney() + ((float)Convert::ToDouble(textBox1->Text) - (float)Convert::ToDouble(textBox1->Text) / 100 * 3), 2);
-		cmd->Parameters->AddWithValue("@Money", money);
+		float money = customer->getMoney() + ((float)Convert::ToDouble(textBox1->Text) - (float)Convert::ToDouble(textBox1->Text) / 100 * 3);
+		cmd->Parameters->AddWithValue("@Money", Math::Round(money, 2));
 		cmd->ExecuteNonQuery();
 		con->Close();
 		customer->setMoney(money);

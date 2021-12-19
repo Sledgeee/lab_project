@@ -414,16 +414,17 @@ namespace MainApp {
 			SqlConnection^ dbc = gcnew SqlConnection(DBQuery::connect_str);
 			dbc->Open();
 			SqlCommand^ cmd = gcnew SqlCommand("Insert Into OrdersBlackList" +
-				" (OrderID, CustomerID, CustomerName, CustomerEmail, EditionsID, EditionsCount, TotalSum, DateCreateOrder)" +
-				" Values (@OrderID, @CustomerID, @CustomerName, @CustomerEmail, @EditionsID, @EditionsCount, @TotalSum, @DateCreateOrder)", dbc);
+				" (OrderID, CustomerID, CustomerName, CustomerEmail, EditionsID, EditionsCount, TotalSum, DateCreateOrder, ProcessStatus)" +
+				" Values (@OrderID, @CustomerID, @CustomerName, @CustomerEmail, @EditionsID, @EditionsCount, @TotalSum, @DateCreateOrder, @ProcessStatus)", dbc);
 			cmd->Parameters->AddWithValue("@OrderID", Convert::ToInt32(row->Cells["Id"]->Value));
 			cmd->Parameters->AddWithValue("@CustomerID", Convert::ToInt32(row->Cells["CustomerID"]->Value));
 			cmd->Parameters->AddWithValue("@CustomerName", row->Cells["CustomerName"]->Value->ToString());
 			cmd->Parameters->AddWithValue("@CustomerEmail", row->Cells["CustomerEmail"]->Value->ToString());
 			cmd->Parameters->AddWithValue("@EditionsID", row->Cells["EditionsID"]->Value->ToString());
 			cmd->Parameters->AddWithValue("@EditionsCount", row->Cells["EditionsCount"]->Value->ToString());
-			cmd->Parameters->AddWithValue("@TotalSum", (float)Math::Round(Convert::ToDouble(row->Cells["TotalSum"]->Value), 2));
+			cmd->Parameters->AddWithValue("@TotalSum", Math::Round((float)Convert::ToDouble(row->Cells["TotalSum"]->Value), 2));
 			cmd->Parameters->AddWithValue("@DateCreateOrder", Convert::ToDateTime(row->Cells["DateCreateOrder"]->Value));
+			cmd->Parameters->AddWithValue("@ProcessStatus", 3);
 			cmd->ExecuteNonQuery();
 			dbc->Close();
 			DBQuery::DeleteRow(Convert::ToInt32(row->Cells["Id"]->Value), "Orders");

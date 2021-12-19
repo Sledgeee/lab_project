@@ -15,7 +15,7 @@ Order::Order(Customer^ customer, Cart^ cart, bool paystatus) : Order()
 Order::~Order() {}
 
 
-Void Order::CreateOrder() {
+bool Order::CreateOrder() {
 	String^ EditionsID = "";
 	String^ EditionsCount = "";
 	int i = 0;
@@ -29,7 +29,42 @@ Void Order::CreateOrder() {
 		EditionsID += (" " + ID.Key->getId().ToString());
 		EditionsCount += (" " + ID.Value.ToString());
 	}
-	SqlConnection^ con = gcnew SqlConnection(DBQuery::connect_str);
+	auto verifying_count = EditionsCount->Split(' ');
+	auto verifying_id = EditionsID->Split(' ');
+	for (int i = 0; i < verifying_id->Length; i++)
+	{
+		SqlConnection^ con = gcnew SqlConnection(DBQuery::connect_str);
+		con->Open();
+		SqlCommand^ cmd = gcnew SqlCommand("SELECT Available FROM Editions WHERE Id='" +
+			int::Parse(verifying_id[i]) + "'", con);
+		SqlDataReader^ r = cmd->ExecuteReader();
+		if (r->HasRows)
+		{
+			r->Read();
+			if (Convert::ToInt32(r["Available"]) < int::Parse(verifying_count[i]))
+			{
+				con->Close();
+				return false;
+			}
+		}
+		else {
+			con->Close();
+			return false;
+		}
+	}
+	for (int i = 0; i < verifying_id->Length; i++)
+	{
+		SqlConnection^ con = gcnew SqlConnection(DBQuery::connect_str);
+		con->Open();
+		SqlCommand^ cmd = gcnew SqlCommand("SELECT Available FROM Editions WHERE Id='" +
+			int::Parse(verifying_id[i]) + "'", con);
+		SqlDataReader^ r = cmd->ExecuteReader();
+		r->Read();
+		DBQuery::UpdateRow(int::Parse(verifying_id[i]), "Editions", "Available",
+			((Convert::ToInt32(r["Available"]) - int::Parse(verifying_count[i])).ToString()));
+		con->Close();
+	}
+	SqlConnection ^ con = gcnew SqlConnection(DBQuery::connect_str);
 	con->Open();
 	String^ sql = String::Format("INSERT INTO Orders " +
 		"(CustomerID, CustomerName, CustomerEmail, EditionsID, EditionsCount, TotalSum, DateCreateOrder, PayStatus, ProcessStatus) " +
@@ -46,6 +81,7 @@ Void Order::CreateOrder() {
 	cmd->Parameters->AddWithValue("@PRS", Status::WAITING_FOR_PAYMENT);
 	cmd->ExecuteNonQuery();
 	con->Close();
+	return true;
 }
 
 Int32 Order::getId()
